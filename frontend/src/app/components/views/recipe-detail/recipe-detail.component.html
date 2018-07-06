@@ -1,0 +1,52 @@
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/recipes">Rezepte</a></li>
+          <li *ngIf="currentRecipe != null" class="is-active">
+            <a routerLink="/recipes/{{ currentRecipe.id }}" aria-current="page">{{ currentRecipe.name }}</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div *ngIf="currentRecipe != null" class="container">
+          <h1 class="title">
+            {{ currentRecipe.name }}
+          </h1>
+          <h2 class="subtitle">
+            {{ currentRecipe.author.firstName }} {{ currentRecipe.author.lastName }}
+          </h2>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section *ngIf="currentRecipe != null" class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+        <h4 class="title is-4">Zutaten</h4>
+        <div class="box">
+          <table class="table is-fullwidth is-hoverable">
+            <tbody>
+              <tr *ngFor="let ingredient of currentRecipe.ingredients">
+                <td class="align-right">{{ ingredient.amount }} {{ ingredient.unit }} </td>
+                <td>{{ ingredient.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="column is-two-thirds">
+        <h4 class="title is-4">Beschreibung</h4>
+        <div *ngFor="let descriptionBlock of splittedDescription" class="box">
+          <p>
+            {{ descriptionBlock }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<section class="hero is-small is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/recipes">Rezepte</a></li>
+          <li class="is-active">
+            <a aria-current="page">Rezept erstellen</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="container">
+          <h1 class="title">
+            Neues Rezept erstellen
+          </h1>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <app-edit-recipe-form 
+    [recipe]="emptyRecipe"
+    [submitButtonText]="submitButtonText"
+    (editedRecipe)="onRecipeCreated($event)">
+  </app-edit-recipe-form>
+</section>

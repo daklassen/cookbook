@@ -1,0 +1,51 @@
+<nav class="navbar is-dark">
+  <div class="container">
+
+     <!-- logo -->
+    <div class="navbar-brand">
+      <a class="navbar-item" routerLink="/home">
+        <img src="assets/img/logo.png">
+      </a>
+    </div>
+
+    <!-- menu -->
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" *ngIf="currentUser != null" routerLink="/recipes">Rezepte</a>
+      </div>
+
+      <div class="navbar-end">
+
+        <!-- user is logged in -->
+        <div *ngIf="currentUser != null; else loginButton" class="navbar-item has-dropdown" hoverClass="is-active">
+          <a class="navbar-link">
+            {{ currentUser | titlecase }}
+          </a>
+  
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item">
+              Profil
+            </a>
+            <a class="navbar-item">
+              Einstellungen
+            </a>
+            <hr class="navbar-divider">
+            <a (click)="onLogoutClicked()" class="navbar-item">
+              Abmelden
+            </a>
+          </div>
+        </div>
+
+        <!-- user is not logged in -->
+        <ng-template #loginButton>
+          <div class="navbar-item">
+              <p class="control">
+                <button (click)="onLoginClicked()" class="button is-right is-light">Anmelden</button>
+              </p>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</nav>
