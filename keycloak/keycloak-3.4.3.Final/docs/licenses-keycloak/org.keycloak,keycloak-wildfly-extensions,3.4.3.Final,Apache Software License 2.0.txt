@@ -1,0 +1,1 @@
+org.keycloak,keycloak-authz-policy-common,3.4.3.Final,Apache Software License 2.0.txt
