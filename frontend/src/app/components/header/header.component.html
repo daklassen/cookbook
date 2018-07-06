@@ -11,7 +11,7 @@
     <!-- menu -->
     <div class="navbar-menu">
       <div class="navbar-start">
-        <a class="navbar-item" *ngIf="currentUser != null" routerLink="/recipes">Rezepte</a>
+        <a class="navbar-item" *ngIf="currentUser != null" routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a>
       </div>
 
       <div class="navbar-end">
@@ -24,14 +24,14 @@
   
           <div class="navbar-dropdown is-right">
             <a class="navbar-item">
-              Profil
+              {{ 'USER.PROFILE' | translate }}
             </a>
             <a class="navbar-item">
-              Einstellungen
+              {{ 'USER.SETTINGS' | translate }}
             </a>
             <hr class="navbar-divider">
             <a (click)="onLogoutClicked()" class="navbar-item">
-              Abmelden
+              {{ 'USER.LOGOUT' | translate }}
             </a>
           </div>
         </div>
@@ -40,7 +40,7 @@
         <ng-template #loginButton>
           <div class="navbar-item">
               <p class="control">
-                <button (click)="onLoginClicked()" class="button is-right is-light">Anmelden</button>
+                <button (click)="onLoginClicked()" class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
               </p>
           </div>
         </ng-template>

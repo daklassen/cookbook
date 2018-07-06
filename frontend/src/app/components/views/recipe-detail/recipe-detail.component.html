@@ -3,8 +3,8 @@
     <div class="container">
       <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
-          <li><a routerLink="/home">Home</a></li>
-          <li><a routerLink="/recipes">Rezepte</a></li>
+          <li><a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a></li>
+          <li><a routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a></li>
           <li *ngIf="currentRecipe != null" class="is-active">
             <a routerLink="/recipes/{{ currentRecipe.id }}" aria-current="page">{{ currentRecipe.name }}</a>
           </li>
@@ -27,7 +27,7 @@
   <div class="container">
     <div class="columns">
       <div class="column">
-        <h4 class="title is-4">Zutaten</h4>
+        <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INGREDIENTS' | translate }}</h4>
         <div class="box">
           <table class="table is-fullwidth is-hoverable">
             <tbody>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="column is-two-thirds">
-        <h4 class="title is-4">Beschreibung</h4>
+        <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INSTRUCTIONS' | translate }}</h4>
         <div *ngFor="let descriptionBlock of splittedDescription" class="box">
           <p>
             {{ descriptionBlock }}

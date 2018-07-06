@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { RecipeService } from "../../../services/business/recipe.service";
 import { Recipe } from "../../../models/Recipe";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: 'app-recipe-create',
@@ -12,10 +13,13 @@ export class RecipeCreateComponent implements OnInit {
   emptyRecipe: Recipe;
   submitButtonText: string;
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(
+    private recipeService: RecipeService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    this.submitButtonText = 'Erstellen';
+    this.translate.get('GENERAL.CREATE').subscribe(res => this.submitButtonText = res);
     this.emptyRecipe = this.recipeService.createEmptyRecipe();
   }
   

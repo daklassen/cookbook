@@ -1,0 +1,36 @@
+{
+    "NAVIG": {
+        "HOME": "Home",
+        "RECIPES": "Recipes",
+        "CREATE_RECIPE": "Create Recipe"
+    },
+    "USER": {
+        "PROFILE": "Profile",
+        "SETTINGS": "Settings",
+        "LOGOUT": "Logout",
+        "LOGIN": "Login"
+    },
+    "CREATE_RECIPE_PAGE": {
+        "TITLE": "Create New Recipe"
+    },
+    "RECIPE_DETAILS_PAGE": {
+        "INGREDIENTS": "Ingredients",
+        "INSTRUCTIONS": "Instructions"
+    },
+    "EDIT_RECIPE": {
+        "NAME": "Recipe Name",
+        "CATEGORY": "Category",
+        "PORTIONS": "Portions",
+        "INGREDIENTS": "Ingredients",
+        "INSTRUCTIONS": "Instructions",
+        "AMOUNT": "Amount",
+        "UNIT": "Unit",
+        "DESCRIPTION": "Description"
+    },
+    "GENERAL": {
+        "DELETE": "Delete",
+        "ADD": "Add",
+        "ABORT": "Abort",
+        "CREATE": "Create"
+    }
+}
