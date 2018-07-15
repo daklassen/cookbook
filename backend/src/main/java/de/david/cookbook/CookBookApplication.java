@@ -34,7 +34,7 @@ public class CookBookApplication implements CommandLineRunner {
 		categoryRepository.save(vorspeise);
 		categoryRepository.save(nachspeise);
 
-		User david = new User("David", "Klassen", "daviddd.kl@gmail.com", "4e34b20f-ec21-45b1-98fe-f7b79980e320");
+		User david = new User("David", "Klassen", "david@online.de", "4e34b20f-ec21-45b1-98fe-f7b79980e320");
 		userRepository.save(david);
 
 		Ingredient teig = new Ingredient(200, "g", "Blätterteig");

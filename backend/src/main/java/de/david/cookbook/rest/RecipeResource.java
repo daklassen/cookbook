@@ -13,12 +13,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
-public class RestService {
+public class RecipeResource {
 
     private RecipeService recipeService;
 
     @Autowired
-    public RestService(RecipeService recipeService) {
+    public RecipeResource(RecipeService recipeService) {
         this.recipeService = recipeService;
     }
 
