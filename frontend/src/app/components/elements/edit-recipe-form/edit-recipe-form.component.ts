@@ -89,7 +89,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     this.recipeForm.get('name').patchValue(currentRecipe.name);
     this.recipeForm.get('servings').patchValue(currentRecipe.servings);
     // TODO: fix patching category
-    this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
+    // this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
     currentRecipe.ingredients.map((ingredient) => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
