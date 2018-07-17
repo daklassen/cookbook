@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../../../services/business/recipe.service';
 import { Recipe } from '../../../models/Recipe';
-import 'rxjs/add/operator/takeWhile';
 
 const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
 

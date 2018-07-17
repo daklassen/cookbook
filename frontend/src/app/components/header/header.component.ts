@@ -10,15 +10,15 @@ const HOME_URL: string = 'http://localhost:4200'; // TODO
 })
 export class HeaderComponent implements OnInit {
 
-  currentUser;
+  public currentUser;
 
   constructor(private keycloakService: KeycloakService) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loadCurrentUser();
   }
 
-  loadCurrentUser(): void {
+  public loadCurrentUser(): void {
     this.keycloakService.isLoggedIn()
       .then(userIsLoggedIn => {
         if (userIsLoggedIn) {
@@ -30,11 +30,11 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  onLoginClicked(): void {
+  public onLoginClicked(): void {
     this.keycloakService.login();
   }
 
-  onLogoutClicked(): void {
+  public onLogoutClicked(): void {
     this.keycloakService.logout(HOME_URL);
   }
 }

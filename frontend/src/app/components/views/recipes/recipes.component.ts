@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../../../services/business/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
@@ -8,22 +8,28 @@ import { Router } from '@angular/router';
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss']
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent implements OnInit, OnDestroy {
 
-  RECIPES_PER_ROW: number = 4;
-  chunkedRecipes: any;
+  public RECIPES_PER_ROW: number = 4;
+  public chunkedRecipes: any;
+  public viewAlive: boolean = true;
 
   constructor(
     private recipeService: RecipeService,
     private router: Router,
   ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.loadUsersRecipes();
   }
 
-  loadUsersRecipes(): void {
+  public ngOnDestroy(): void {
+    this.viewAlive = false;
+  }
+
+  public loadUsersRecipes(): void {
     this.recipeService.getUsersRecipes()
+      .takeWhile(() => this.viewAlive)
       .subscribe(
         result => {
           this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
@@ -31,8 +37,7 @@ export class RecipesComponent implements OnInit {
       );
   }
 
-  onCreateRecipe(): void {
+  public onCreateRecipe(): void {
     this.router.navigateByUrl('/recipe-create');
   }
-
 }

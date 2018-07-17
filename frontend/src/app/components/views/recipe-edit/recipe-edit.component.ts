@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../../../services/business/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Recipe } from '../../../models/Recipe';
@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './recipe-edit.component.html',
   styleUrls: ['./recipe-edit.component.scss']
 })
-export class RecipeEditComponent implements OnInit {
+export class RecipeEditComponent implements OnInit, OnDestroy {
 
   public recipe: Recipe;
   public submitButtonText: string;
@@ -24,17 +24,25 @@ export class RecipeEditComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.translate.get('GENERAL.UPDATE').subscribe(res => this.submitButtonText = res);
+    this.translate.get('GENERAL.UPDATE')
+      .takeWhile(() => this.viewAlive)
+      .subscribe(res => this.submitButtonText = res);
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id); 
     this.routerLink = '/recipe-details/' + id;
   }
+
+  public ngOnDestroy(): void {
+    this.viewAlive = false;
+  }
   
   public onRecipeUpdate(formValue: any): void {
-    this.recipeService.updateRecipe(formValue, this.recipe.id).subscribe(
-      test => console.log(test),
-      error => console.log(error)
-    );
+    this.recipeService.updateRecipe(formValue, this.recipe.id)
+      .takeWhile(() => this.viewAlive)
+      .subscribe(
+        test => console.log(test),
+        error => console.log(error)
+      );
   }
 
   public onAbortClicked(recipe: Recipe): void {
