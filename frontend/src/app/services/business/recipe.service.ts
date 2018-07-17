@@ -30,6 +30,10 @@ export class RecipeService {
     return this.http.post<Recipe>(BASE_URL + "/recipes", formValue);
   }
 
+  updateRecipe(formValue: any, recipeId: number): Observable<Recipe> {
+    return this.http.put<Recipe>(BASE_URL + "/recipes/" + recipeId, formValue);
+  }
+
   parseUserInputIntoIngredient(input: string): Ingredient {
     let splittetInput = input.split(" - ");
     return { 

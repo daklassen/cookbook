@@ -2,7 +2,8 @@
     "NAVIG": {
         "HOME": "Startseite",
         "RECIPES": "Rezepte",
-        "CREATE_RECIPE": "Rezept erstellen"
+        "CREATE_RECIPE": "Rezept erstellen",
+        "EDIT_RECIPE": "Bearbeiten"
     },
     "USER": {
         "PROFILE": "Profil",
@@ -13,9 +14,13 @@
     "CREATE_RECIPE_PAGE": {
         "TITLE": "Neues Rezept erstellen"
     },
+    "EDIT_RECIPE_PAGE": {
+        "TITLE": "Rezept bearbeiten"
+    },
     "RECIPE_DETAILS_PAGE": {
         "INGREDIENTS": "Zutaten",
-        "INSTRUCTIONS": "Anweisungen"
+        "INSTRUCTIONS": "Anweisungen",
+        "EDIT": "Rezept bearbeiten"
     },
     "EDIT_RECIPE": {
         "NAME": "Rezeptname",
@@ -31,6 +36,7 @@
         "DELETE": "Löschen",
         "ADD": "Hinzufügen",
         "ABORT": "Abbrechen",
-        "CREATE": "Erstellen"
+        "CREATE": "Erstellen",
+        "UPDATE": "Speichern"
     }
 }

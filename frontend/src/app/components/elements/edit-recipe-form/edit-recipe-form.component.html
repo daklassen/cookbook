@@ -9,6 +9,7 @@
               <label class="label is-medium">{{ 'EDIT_RECIPE.NAME' | translate }}</label>
               <div class="control">
                 <input 
+                  maxlength="30"
                   class="input is-medium" 
                   type="text" 
                   placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}"
@@ -21,7 +22,7 @@
               <label class="label is-medium">{{ 'EDIT_RECIPE.CATEGORY' | translate }}</label>
               <div class="select is-medium is-fullwidth">
                 <select formControlName="category">
-                  <option 
+                  <option
                     *ngFor="let category of categories" 
                     [ngValue]="category.id">{{ category.name }}</option>
                 </select>
@@ -52,8 +53,9 @@
 
           <div class="field has-addons" *ngFor="let formControl of ingredientFormArray.controls; let i=index">
             <div class="control is-expanded">
-              <input 
+              <input
                 class="input is-medium" 
+                maxlength="40"
                 type="text" 
                 [value]="ingredientToString(formControl.value)"
                 [formControl]="formControl"
@@ -92,7 +94,8 @@
             <div class="control">
               <textarea 
                 class="textarea is-medium" 
-                type="text" 
+                type="text"
+                maxlength="1000"
                 placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
                 formControlName="description"></textarea>
             </div>

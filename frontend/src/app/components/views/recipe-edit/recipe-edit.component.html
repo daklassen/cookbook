@@ -5,26 +5,27 @@
         <ul>
           <li><a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a></li>
           <li><a routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a></li>
+          <li><a [routerLink]="routerLink">{{ recipe?.name }}</a></li>
           <li class="is-active">
-            <a aria-current="page">{{ 'NAVIG.CREATE_RECIPE' | translate }}</a>
+            <a aria-current="page">{{ 'NAVIG.EDIT_RECIPE' | translate }}</a>
           </li>
         </ul>
       </nav>
 
       <div class="container">
           <h1 class="title">
-            {{ 'CREATE_RECIPE_PAGE.TITLE' | translate }}
+            {{ 'EDIT_RECIPE_PAGE.TITLE' | translate }}
           </h1>
         </div>
     </div>
   </div>
 </section>
 
-<section class="section">
+<section class="section" *ngIf="recipe">
   <app-edit-recipe-form 
-    [recipe]="emptyRecipe"
+    [recipe]="recipe"
     [submitButtonText]="submitButtonText"
-    (editedRecipe)="onRecipeCreated($event)"
+    (editedRecipe)="onRecipeUpdate($event)"
     (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
 </section>

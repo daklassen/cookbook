@@ -16,6 +16,7 @@ export class EditRecipeFormComponent implements OnInit {
   @Input() recipe: Recipe;
   @Input() submitButtonText: string;
   @Output() editedRecipe: EventEmitter<Recipe> = new EventEmitter();
+  @Output() aborted: EventEmitter<Recipe> = new EventEmitter();
 
   recipeForm: FormGroup;
   items: FormArray;
@@ -30,9 +31,8 @@ export class EditRecipeFormComponent implements OnInit {
 
   ngOnInit() {
     this.currentIngredient = '';
+    this.initForm();    
     this.loadAllCategories();
-    this.initForm();
-    this.fillForm();
   }
 
   ingredientToString(ingredient: Ingredient): string {
@@ -44,7 +44,7 @@ export class EditRecipeFormComponent implements OnInit {
   }
 
   onAbortClicked() {
-    this.router.navigateByUrl('/recipes');
+    this.aborted.emit(this.recipe);
   }
 
   addIngredient(): void {
@@ -63,6 +63,7 @@ export class EditRecipeFormComponent implements OnInit {
       .subscribe(
         categories => {
           this.categories = categories;
+          this.fillForm();
         }
       );
   }
@@ -78,9 +79,13 @@ export class EditRecipeFormComponent implements OnInit {
   }
 
   private fillForm(): void {
-    let currentRecipe = this.recipe;
+    let currentRecipe: Recipe = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
-    // TODO: patch the rest
+    this.recipeForm.get('servings').patchValue(currentRecipe.servings);
+    console.log(currentRecipe.category);
+    this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
+    currentRecipe.ingredients.map((ingredient) => this.addItem(ingredient));
+    this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
 
   private addItem(ingredient: Ingredient): void {
