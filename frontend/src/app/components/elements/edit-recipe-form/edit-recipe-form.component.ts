@@ -32,7 +32,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.currentIngredient = '';
-    this.initForm();    
+    this.initForm();
     this.loadAllCategories();
   }
 

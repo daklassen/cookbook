@@ -31,7 +31,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public loadRecipe(id: number):void {
+  public loadRecipe(id: number): void {
     this.recipeService.getRecipeById(id)
       .takeWhile(() => this.viewAlive)
       .subscribe(

@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
           this.currentUser = null;
         }
       }
-    );
+      );
   }
 
   public onLoginClicked(): void {

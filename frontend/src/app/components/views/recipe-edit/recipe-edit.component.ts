@@ -28,14 +28,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.viewAlive)
       .subscribe(res => this.submitButtonText = res);
     const id = +this.route.snapshot.paramMap.get('id');
-    this.loadRecipe(id); 
+    this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;
   }
 
   public ngOnDestroy(): void {
     this.viewAlive = false;
   }
-  
+
   public onRecipeUpdate(formValue: any): void {
     this.recipeService.updateRecipe(formValue, this.recipe.id)
       .takeWhile(() => this.viewAlive)
@@ -56,5 +56,5 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
         recipe => this.recipe = recipe,
         error => console.error(error)
       );
-    }
   }
+}

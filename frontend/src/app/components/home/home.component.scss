@@ -1,0 +1,9 @@
+.section.is-hero .section-media {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    align-items: center;
+    max-width: 600px;
+}

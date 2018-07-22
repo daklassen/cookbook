@@ -29,7 +29,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.viewAlive = false;
   }
-  
+
   public onRecipeCreated(formValue: any): void {
     this.recipeService.createRecipe(formValue)
       .takeWhile(() => this.viewAlive)
