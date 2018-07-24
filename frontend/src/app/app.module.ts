@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AuthGuardService } from './services/security/auth-guard.service';
 import { RecipeService } from './services/business/recipe.service';
 import { HoverClassDirective } from './directives/hover-class.directive';
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularSvgIconModule,
     AppRoutingModule,
     KeycloakAngularModule,
     FormsModule,
