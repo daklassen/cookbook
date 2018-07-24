@@ -11,13 +11,15 @@
     <!-- menu -->
     <div class="navbar-menu">
       <div class="navbar-start is-centered">
-        <a class="navbar-item is-active is-top-border" 
-          *ngIf="currentUser != null"
-          routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
-        </a>
         <a class="navbar-item is-top-border" 
           *ngIf="currentUser != null"
-          routerLink="/recipes">Test
+          routerLinkActive="is-active"
+          routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+        </a>
+        <a class="navbar-item is-top-border"
+          *ngIf="currentUser != null"
+          routerLinkActive="is-active"
+          routerLink="/recipe-details/3">Test
         </a>
       </div>
 
