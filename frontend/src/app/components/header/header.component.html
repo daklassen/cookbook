@@ -1,23 +1,33 @@
-<nav class="navbar is-dark">
+<nav class="navbar">
   <div class="container">
 
      <!-- logo -->
     <div class="navbar-brand">
       <a class="navbar-item" routerLink="/home">
-        <img src="assets/img/logo.png">
+        <img src="assets/img/logo-dark.png">
       </a>
     </div>
 
     <!-- menu -->
     <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" *ngIf="currentUser != null" routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a>
+      <div class="navbar-start is-centered">
+        <a class="navbar-item is-active is-top-border" 
+          *ngIf="currentUser != null"
+          routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+        </a>
+        <a class="navbar-item is-top-border" 
+          *ngIf="currentUser != null"
+          routerLink="/recipes">Test
+        </a>
       </div>
 
       <div class="navbar-end">
 
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null; else loginButton" class="navbar-item has-dropdown" hoverClass="is-active">
+        <div *ngIf="currentUser != null; else loginButton"
+          class="navbar-item has-dropdown"
+          hoverClass="is-active">
+
           <a class="navbar-link">
             {{ currentUser | titlecase }}
           </a>

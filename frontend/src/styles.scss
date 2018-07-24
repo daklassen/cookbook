@@ -1,18 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
-$brown: #757763;
+$brown: #4f5047;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
 
 $family-sans-serif: "Nunito", serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: #0083d0;
+$primary: #3672D7;
 $link: #2e5682;
 
 $control-border-width: 2px;
 $input-background-color: $beige-lighter;
 $input-border-color: transparent;
 $input-shadow: none;
+$navbar-background-color: #F5F8FD;
 
 @import "../node_modules/bulma/bulma";
