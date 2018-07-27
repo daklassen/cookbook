@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipeService } from '../../../services/business/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
@@ -8,31 +8,31 @@ import { Router } from '@angular/router';
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss']
 })
-export class RecipesComponent implements OnInit {
+export class RecipesComponent implements OnInit, OnDestroy {
+  public RECIPES_PER_ROW: number = 4;
+  public chunkedRecipes: any;
+  public viewAlive: boolean = true;
 
-  RECIPES_PER_ROW: number = 4;
-  chunkedRecipes: any;
+  constructor(private recipeService: RecipeService, private router: Router) {}
 
-  constructor(
-    private recipeService: RecipeService,
-    private router: Router,
-  ) { }
-
-  ngOnInit() {
+  public ngOnInit(): void {
     this.loadUsersRecipes();
   }
 
-  loadUsersRecipes(): void {
-    this.recipeService.getUsersRecipes()
-      .subscribe(
-        result => {
-          this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
-        }
-      );
+  public ngOnDestroy(): void {
+    this.viewAlive = false;
   }
 
-  onCreateRecipe(): void {
+  public loadUsersRecipes(): void {
+    this.recipeService
+      .getUsersRecipes()
+      .takeWhile(() => this.viewAlive)
+      .subscribe(result => {
+        this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
+      });
+  }
+
+  public onCreateRecipe(): void {
     this.router.navigateByUrl('/recipe-create');
   }
-
 }

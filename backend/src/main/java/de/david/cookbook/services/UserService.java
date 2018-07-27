@@ -19,7 +19,7 @@ public class UserService {
     }
 
     public User getOrCreateUserFromAccessToken(AccessToken accessToken) {
-        List<User> userList = userRepository.findByEmail(accessToken.getEmail());
+        List<User> userList = userRepository.findByKeycloakUserId(accessToken.getSubject());
 
         if (userList.isEmpty()) {
             return createUserFromAccessToken(accessToken);
@@ -33,7 +33,7 @@ public class UserService {
         newUser.setEmail(accessToken.getEmail());
         newUser.setFirstName(accessToken.getGivenName());
         newUser.setLastName(accessToken.getFamilyName());
-        newUser.setKeycloakUserId(accessToken.getId());
+        newUser.setKeycloakUserId(accessToken.getSubject());
 
         userRepository.save(newUser);
         return newUser;

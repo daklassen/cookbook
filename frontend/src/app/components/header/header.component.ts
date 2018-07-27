@@ -9,32 +9,29 @@ const HOME_URL: string = 'http://localhost:4200'; // TODO
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public currentUser;
 
-  currentUser;
+  constructor(private keycloakService: KeycloakService) {}
 
-  constructor(private keycloakService: KeycloakService) { }
-
-  ngOnInit() {
+  public ngOnInit() {
     this.loadCurrentUser();
   }
 
-  loadCurrentUser(): void {
-    this.keycloakService.isLoggedIn()
-      .then(userIsLoggedIn => {
-        if (userIsLoggedIn) {
-          this.currentUser = this.keycloakService.getUsername();
-        } else {
-          this.currentUser = null;
-        }
+  public loadCurrentUser(): void {
+    this.keycloakService.isLoggedIn().then(userIsLoggedIn => {
+      if (userIsLoggedIn) {
+        this.currentUser = this.keycloakService.getUsername();
+      } else {
+        this.currentUser = null;
       }
-    );
+    });
   }
 
-  onLoginClicked(): void {
+  public onLoginClicked(): void {
     this.keycloakService.login();
   }
 
-  onLogoutClicked(): void {
+  public onLogoutClicked(): void {
     this.keycloakService.logout(HOME_URL);
   }
 }

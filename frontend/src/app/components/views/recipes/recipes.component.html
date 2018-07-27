@@ -1,18 +1,22 @@
-<section class="hero is-small is-primary">
+<section class="hero is-small is-primary has-bg-img">
   <div class="hero-body">
     <div class="container">
       <div class="columns">
         <div class="column is-6">
           <nav class="breadcrumb" aria-label="breadcrumbs">
             <ul>
-              <li><a routerLink="/home">Home</a></li>
-              <li class="is-active"><a routerLink="/recipes" aria-current="page">Rezepte</a></li>
+              <li>
+                <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
+              </li>
+              <li class="is-active">
+                <a routerLink="/recipes" aria-current="page">{{ 'NAVIG.RECIPES' | translate }}</a>
+              </li>
             </ul>
           </nav>
         </div>
         <div class="column is-6">
           <div class="buttons has-addons is-right">
-            <span class="button is-white" (click)="onCreateRecipe()">Rezept erstellen</span>
+            <span class="button is-white" (click)="onCreateRecipe()">{{ 'NAVIG.CREATE_RECIPE' | translate }}</span>
           </div>
         </div>
       </div>
@@ -24,13 +28,13 @@
   <div class="container">
     <div *ngFor="let chunkedRecipe of chunkedRecipes" class="tile is-ancestor">
       <div *ngFor="let recipe of chunkedRecipe" class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
-        <div class="tile is-child box">
-          <p class="title is-4">
+        <div class="tile is-child box is-paddingless">
+          <figure class="image is-4by3">
+            <img class="border-top" src="assets/img/food/example-3.png">
+          </figure>
+          <p class="title is-4 has-text-centered custom-title">
             <a routerLink="/recipe-details/{{recipe.id}}">{{ recipe.name }}</a>
           </p>
-          <div class="tags">
-            <span class="tag is-primary">{{ recipe.category?.name }}</span>
-          </div>
         </div>
       </div>
     </div>

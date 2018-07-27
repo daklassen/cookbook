@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ingredient } from '../../../models/Ingredient';
@@ -11,76 +11,85 @@ import { Category } from '../../../models/Category';
   templateUrl: './edit-recipe-form.component.html',
   styleUrls: ['./edit-recipe-form.component.scss']
 })
-export class EditRecipeFormComponent implements OnInit {
-
+export class EditRecipeFormComponent implements OnInit, OnDestroy {
   @Input() recipe: Recipe;
   @Input() submitButtonText: string;
   @Output() editedRecipe: EventEmitter<Recipe> = new EventEmitter();
+  @Output() aborted: EventEmitter<Recipe> = new EventEmitter();
 
-  recipeForm: FormGroup;
-  items: FormArray;
-  currentIngredient: string;
-  categories: Array<Category>;
+  public recipeForm: FormGroup;
+  public items: FormArray;
+  public currentIngredient: string;
+  public categories: Array<Category>;
+  public viewAlive: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private recipeService: RecipeService
-  ) { }
+  ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.currentIngredient = '';
-    this.loadAllCategories();
     this.initForm();
-    this.fillForm();
+    this.loadAllCategories();
   }
 
-  ingredientToString(ingredient: Ingredient): string {
+  public ngOnDestroy(): void {
+    this.viewAlive = false;
+  }
+
+  public ingredientToString(ingredient: Ingredient): string {
     return this.recipeService.formatIngredientToString(ingredient);
   }
 
-  onSubmit(formValue) {
+  public onSubmit(formValue) {
     this.editedRecipe.emit(formValue);
   }
 
-  onAbortClicked() {
-    this.router.navigateByUrl('/recipes');
+  public onAbortClicked() {
+    this.aborted.emit(this.recipe);
   }
 
-  addIngredient(): void {
+  public addIngredient(): void {
     const ingredient = this.recipeService.parseUserInputIntoIngredient(this.currentIngredient);
     this.addItem(ingredient);
     this.currentIngredient = '';
   }
 
-  deleteIngredient(index: number): void {
+  public deleteIngredient(index: number): void {
     this.items = this.recipeForm.get('ingredients') as FormArray;
     this.items.removeAt(index);
   }
 
   private loadAllCategories(): void {
-    this.recipeService.getAllCategories()
-      .subscribe(
-        categories => {
-          this.categories = categories;
-        }
-      );
+    this.recipeService
+      .getAllCategories()
+      .takeWhile(() => this.viewAlive)
+      .subscribe(categories => {
+        this.categories = categories;
+        this.fillForm();
+      });
   }
 
   private initForm(): void {
     this.recipeForm = this.fb.group({
-      'name': [null, Validators.required],
-      'servings': [null, Validators.required],
-      'category': [null, Validators.required],
-      'ingredients': this.fb.array([], Validators.required),
-      'description': [null, Validators.required],
+      name: [null, Validators.required],
+      servings: [null, Validators.required],
+      category: [null, Validators.required],
+      ingredients: this.fb.array([], Validators.required),
+      description: [null, Validators.required]
     });
   }
 
   private fillForm(): void {
-    let currentRecipe = this.recipe;
+    let currentRecipe: Recipe = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
-    // TODO: patch the rest
+    this.recipeForm.get('servings').patchValue(currentRecipe.servings);
+    // TODO: fix patching category
+    // this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
+    currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
+    this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
 
   private addItem(ingredient: Ingredient): void {
@@ -95,5 +104,4 @@ export class EditRecipeFormComponent implements OnInit {
   get ingredientFormArray() {
     return this.recipeForm.get('ingredients') as FormArray;
   }
-
 }

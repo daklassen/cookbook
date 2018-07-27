@@ -1,0 +1,31 @@
+.navbar {
+  min-height: 4.25rem;
+}
+
+.navbar-item {
+  padding: 0 25px;
+  border-style: solid;
+  border-width: 0;
+  border-top-width: 3px;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.navbar-item.is-active.is-top-border,
+.navbar-item.is-active.is-top-border:hover {
+  border-color: #3672d7;
+  background-color: #f1f1f1;
+  color: #3672d7;
+}
+
+.navbar-item.is-top-border:hover {
+  color: #3672d7;
+}
+
+.navbar-start.is-centered {
+  position: absolute;
+  left: 50%;
+  margin-left: -110px;
+  height: 100%;
+  display: flex;
+}

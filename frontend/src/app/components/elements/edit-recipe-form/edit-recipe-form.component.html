@@ -3,118 +3,96 @@
   <div class="container">
     <div class="columns is-multiline">
 
-        <!-- Name, Portions & Category -->
-        <div class="column is-6">
-            <div class="field">
-              <label class="label is-medium">Name</label>
-              <div class="control">
-                <input 
-                  class="input is-medium" 
-                  type="text" 
-                  placeholder="Name des Rezeptes"
-                  formControlName="name">
-              </div>
-            </div>
+      <!-- Name, Portions & Category -->
+      <div class="column is-6">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.NAME' | translate }}</label>
+          <div class="control">
+            <input maxlength="30" class="input is-medium" type="text" placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}" formControlName="name">
           </div>
-          <div class="column is-4">
-            <div class="field">
-              <label class="label is-medium">Kategorie</label>
-              <div class="select is-medium is-fullwidth">
-                <select formControlName="category">
-                  <option 
-                    *ngFor="let category of categories" 
-                    [ngValue]="category.id">{{ category.name }}</option>
-                </select>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.CATEGORY' | translate }}</label>
+          <div class="select is-medium is-fullwidth">
+            <select formControlName="category">
+              <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+            </select>
           </div>
-          <div class="column is-2">
-            <div class="field">
-              <label class="label is-medium">Portionen</label>
-              <div class="select is-medium is-fullwidth">
-                <select formControlName="servings">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                  <option>6</option>
-                  <option>7</option>
-                  <option>8</option>
-                </select>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.PORTIONS' | translate }}</label>
+          <div class="select is-medium is-fullwidth">
+            <select formControlName="servings">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+            </select>
           </div>
+        </div>
+      </div>
 
-        <!-- Ingredients -->
-        <div class="column is-12">
-          <label class="label is-medium">Zutaten</label>
+      <!-- Ingredients -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.INGREDIENTS' | translate }}</label>
 
-          <div class="field has-addons" *ngFor="let formControl of ingredientFormArray.controls; let i=index">
-            <div class="control is-expanded">
-              <input 
-                class="input is-medium" 
-                type="text" 
-                [value]="ingredientToString(formControl.value)"
-                [formControl]="formControl"
-                readonly>
-            </div>
-            <div class="control">
-              <a class="button is-error is-medium" (click)="deleteIngredient(i)">
-                Löschen
-              </a>
-            </div>
+        <div class="field has-addons" *ngFor="let formControl of ingredientFormArray.controls; let i=index">
+          <div class="control is-expanded">
+            <input class="input is-medium" maxlength="40" type="text" [value]="ingredientToString(formControl.value)" [formControl]="formControl"
+              readonly>
           </div>
-
-          <div class="field has-addons">
-            <div class="control is-expanded">
-              <input 
-                class="input is-medium" 
-                type="text" 
-                placeholder="Menge - Einheit - Bezeichnung"
-                (keydown.enter)="addIngredient()"
-                [value]="currentIngredient"
-                (input)="currentIngredient = $event.target.value">
-            </div>
-            <div class="control">
-              <a class="button is-primary is-medium" (click)="addIngredient()">
-                Hinzufügen
-              </a>
-            </div>
-
+          <div class="control">
+            <a class="button is-error is-medium" (click)="deleteIngredient(i)">
+              {{ 'GENERAL.DELETE' | translate }}
+            </a>
           </div>
         </div>
 
-        <!-- Instructions -->
-        <div class="column is-12">
-          <label class="label is-medium">Anweisungen</label>
-          <div class="field">
-            <div class="control">
-              <textarea 
-                class="textarea is-medium" 
-                type="text" 
-                placeholder="Beschreibung"
-                formControlName="description"></textarea>
-            </div>
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-medium" type="text" placeholder="{{ 'EDIT_RECIPE.AMOUNT' | translate }} - {{ 'EDIT_RECIPE.UNIT' | translate }} - {{ 'EDIT_RECIPE.DESCRIPTION' | translate }}"
+              (keydown.enter)="addIngredient()" [value]="currentIngredient" (input)="currentIngredient = $event.target.value">
           </div>
-        </div>
+          <div class="control">
+            <a class="button is-primary is-medium" (click)="addIngredient()">
+              {{ 'GENERAL.ADD' | translate }}
+            </a>
+          </div>
 
-        <div class="column is-12">
-          <div class="field is-grouped is-grouped-centered">
-            <p class="control">
-              <a class="button is-light is-medium" (click)="onAbortClicked()">
-                Abbrechen
-              </a>
-            </p>
-            <p class="control">
-              <input 
-                type="submit"
-                class="button is-primary is-medium" 
-                [value]="submitButtonText" 
-                [disabled]="!recipeForm.valid" />
-            </p>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}</label>
+        <div class="field">
+          <div class="control">
+            <textarea class="textarea is-medium" type="text" maxlength="1000" placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
+              formControlName="description"></textarea>
           </div>
         </div>
+      </div>
+
+      <div class="column is-12">
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <a class="button is-light is-medium" (click)="onAbortClicked()">
+              {{ 'GENERAL.ABORT' | translate }}
+            </a>
+          </p>
+          <p class="control">
+            <input type="submit" class="button is-primary is-medium" [value]="submitButtonText" [disabled]="!recipeForm.valid" />
+          </p>
+        </div>
+      </div>
 
     </div>
   </div>
