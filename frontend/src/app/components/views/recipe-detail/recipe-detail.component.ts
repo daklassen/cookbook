@@ -11,16 +11,15 @@ const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-
   public currentRecipe: Recipe;
-  public splittedDescription: Array<string>
+  public splittedDescription: Array<string>;
   public viewAlive: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
     private router: Router
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
@@ -32,14 +31,13 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   public loadRecipe(id: number): void {
-    this.recipeService.getRecipeById(id)
+    this.recipeService
+      .getRecipeById(id)
       .takeWhile(() => this.viewAlive)
-      .subscribe(
-        recipe => {
-          this.currentRecipe = recipe;
-          this.splitDescription();
-        }
-      );
+      .subscribe(recipe => {
+        this.currentRecipe = recipe;
+        this.splitDescription();
+      });
   }
 
   public splitDescription(): void {

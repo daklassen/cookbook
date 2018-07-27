@@ -15,7 +15,7 @@ import { RecipeService } from './services/business/recipe.service';
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { RecipesComponent } from './components/views/recipes/recipes.component';
 import { RecipeDetailComponent } from './components/views/recipe-detail/recipe-detail.component';
-import { RecipeCreateComponent } from './components/views/recipe-create/recipe-create.component'
+import { RecipeCreateComponent } from './components/views/recipe-create/recipe-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditRecipeFormComponent } from './components/elements/edit-recipe-form/edit-recipe-form.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -50,11 +50,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
       }
-  }),
+    })
   ],
   providers: [
     {
@@ -66,4 +66,4 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

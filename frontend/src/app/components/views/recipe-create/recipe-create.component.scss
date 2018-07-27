@@ -1,7 +1,10 @@
 .button {
-    margin-bottom: 0.5rem;
-    padding: 1.4rem 2rem;
-    font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding: 1.4rem 2rem;
+  font-weight: 600;
 }
 
-.has-bg-img { background: url('/assets/img/background/background-2.png') center center; background-size:cover; }
+.has-bg-img {
+  background: url('/assets/img/background/background-2.png') center center;
+  background-size: cover;
+}

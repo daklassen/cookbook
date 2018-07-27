@@ -1,42 +1,42 @@
 {
-    "NAVIG": {
-        "HOME": "Startseite",
-        "RECIPES": "Rezepte",
-        "CREATE_RECIPE": "Rezept erstellen",
-        "EDIT_RECIPE": "Bearbeiten"
-    },
-    "USER": {
-        "PROFILE": "Profil",
-        "SETTINGS": "Einstellungen",
-        "LOGOUT": "Abmelden",
-        "LOGIN": "Anmelden"
-    },
-    "CREATE_RECIPE_PAGE": {
-        "TITLE": "Neues Rezept erstellen"
-    },
-    "EDIT_RECIPE_PAGE": {
-        "TITLE": "Rezept bearbeiten"
-    },
-    "RECIPE_DETAILS_PAGE": {
-        "INGREDIENTS": "Zutaten",
-        "INSTRUCTIONS": "Anweisungen",
-        "EDIT": "Rezept bearbeiten"
-    },
-    "EDIT_RECIPE": {
-        "NAME": "Rezeptname",
-        "CATEGORY": "Kategorie",
-        "PORTIONS": "Portionen",
-        "INGREDIENTS": "Zutaten",
-        "INSTRUCTIONS": "Anweisungen",
-        "AMOUNT": "Menge",
-        "UNIT": "Einheit",
-        "DESCRIPTION": "Beschreibung"
-    },
-    "GENERAL": {
-        "DELETE": "Löschen",
-        "ADD": "Hinzufügen",
-        "ABORT": "Abbrechen",
-        "CREATE": "Erstellen",
-        "UPDATE": "Speichern"
-    }
+  "NAVIG": {
+    "HOME": "Startseite",
+    "RECIPES": "Rezepte",
+    "CREATE_RECIPE": "Rezept erstellen",
+    "EDIT_RECIPE": "Bearbeiten"
+  },
+  "USER": {
+    "PROFILE": "Profil",
+    "SETTINGS": "Einstellungen",
+    "LOGOUT": "Abmelden",
+    "LOGIN": "Anmelden"
+  },
+  "CREATE_RECIPE_PAGE": {
+    "TITLE": "Neues Rezept erstellen"
+  },
+  "EDIT_RECIPE_PAGE": {
+    "TITLE": "Rezept bearbeiten"
+  },
+  "RECIPE_DETAILS_PAGE": {
+    "INGREDIENTS": "Zutaten",
+    "INSTRUCTIONS": "Anweisungen",
+    "EDIT": "Rezept bearbeiten"
+  },
+  "EDIT_RECIPE": {
+    "NAME": "Rezeptname",
+    "CATEGORY": "Kategorie",
+    "PORTIONS": "Portionen",
+    "INGREDIENTS": "Zutaten",
+    "INSTRUCTIONS": "Anweisungen",
+    "AMOUNT": "Menge",
+    "UNIT": "Einheit",
+    "DESCRIPTION": "Beschreibung"
+  },
+  "GENERAL": {
+    "DELETE": "Löschen",
+    "ADD": "Hinzufügen",
+    "ABORT": "Abbrechen",
+    "CREATE": "Erstellen",
+    "UPDATE": "Speichern"
+  }
 }

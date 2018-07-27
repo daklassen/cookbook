@@ -7,20 +7,21 @@ import { RecipeCreateComponent } from './components/views/recipe-create/recipe-c
 import { RecipeEditComponent } from './components/views/recipe-edit/recipe-edit.component';
 
 const asd: Routes = [
-    { path: '',
-      redirectTo: '/home',
-      pathMatch: 'full'
-    },
-    { path: 'home', component: HomeComponent },
-    { path: 'recipes', component: RecipesComponent },
-    { path: 'recipe-details/:id', component: RecipeDetailComponent },
-    { path: 'recipe-create', component: RecipeCreateComponent },
-    { path: 'recipe-edit/:id', component: RecipeEditComponent },
-    { path: '**', component: HomeComponent }
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  { path: 'home', component: HomeComponent },
+  { path: 'recipes', component: RecipesComponent },
+  { path: 'recipe-details/:id', component: RecipeDetailComponent },
+  { path: 'recipe-create', component: RecipeCreateComponent },
+  { path: 'recipe-edit/:id', component: RecipeEditComponent },
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(asd)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

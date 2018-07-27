@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { RecipeService } from "../../../services/business/recipe.service";
-import { chunk } from "lodash";
-import { Router } from "@angular/router";
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RecipeService } from '../../../services/business/recipe.service';
+import { chunk } from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-recipes",
-  templateUrl: "./recipes.component.html",
-  styleUrls: ["./recipes.component.scss"]
+  selector: 'app-recipes',
+  templateUrl: './recipes.component.html',
+  styleUrls: ['./recipes.component.scss']
 })
 export class RecipesComponent implements OnInit, OnDestroy {
   public RECIPES_PER_ROW: number = 4;
@@ -33,6 +33,6 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   public onCreateRecipe(): void {
-    this.router.navigateByUrl("/recipe-create");
+    this.router.navigateByUrl('/recipe-create');
   }
 }

@@ -12,7 +12,6 @@ import { Category } from '../../../models/Category';
   styleUrls: ['./edit-recipe-form.component.scss']
 })
 export class EditRecipeFormComponent implements OnInit, OnDestroy {
-
   @Input() recipe: Recipe;
   @Input() submitButtonText: string;
   @Output() editedRecipe: EventEmitter<Recipe> = new EventEmitter();
@@ -28,7 +27,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private recipeService: RecipeService
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
     this.currentIngredient = '';
@@ -64,23 +63,22 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   private loadAllCategories(): void {
-    this.recipeService.getAllCategories()
+    this.recipeService
+      .getAllCategories()
       .takeWhile(() => this.viewAlive)
-      .subscribe(
-        categories => {
-          this.categories = categories;
-          this.fillForm();
-        }
-      );
+      .subscribe(categories => {
+        this.categories = categories;
+        this.fillForm();
+      });
   }
 
   private initForm(): void {
     this.recipeForm = this.fb.group({
-      'name': [null, Validators.required],
-      'servings': [null, Validators.required],
-      'category': [null, Validators.required],
-      'ingredients': this.fb.array([], Validators.required),
-      'description': [null, Validators.required],
+      name: [null, Validators.required],
+      servings: [null, Validators.required],
+      category: [null, Validators.required],
+      ingredients: this.fb.array([], Validators.required),
+      description: [null, Validators.required]
     });
   }
 
@@ -90,7 +88,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     this.recipeForm.get('servings').patchValue(currentRecipe.servings);
     // TODO: fix patching category
     // this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
-    currentRecipe.ingredients.map((ingredient) => this.addItem(ingredient));
+    currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
 
@@ -106,5 +104,4 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   get ingredientFormArray() {
     return this.recipeForm.get('ingredients') as FormArray;
   }
-
 }

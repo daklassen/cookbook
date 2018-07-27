@@ -1,7 +1,7 @@
 <nav class="navbar">
   <div class="container">
 
-     <!-- logo -->
+    <!-- logo -->
     <div class="navbar-brand">
       <a class="navbar-item" routerLink="/home">
         <svg-icon src="assets/img/logo.svg" [svgStyle]="{ 'width.rem':2.5 }"></svg-icon>
@@ -11,29 +11,21 @@
     <!-- menu -->
     <div class="navbar-menu">
       <div class="navbar-start is-centered">
-        <a class="navbar-item is-top-border" 
-          *ngIf="currentUser != null"
-          routerLinkActive="is-active"
-          routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+        <a class="navbar-item is-top-border" *ngIf="currentUser != null" routerLinkActive="is-active" routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
         </a>
-        <a class="navbar-item is-top-border"
-          *ngIf="currentUser != null"
-          routerLinkActive="is-active"
-          routerLink="/recipe-details/3">Test
+        <a class="navbar-item is-top-border" *ngIf="currentUser != null" routerLinkActive="is-active" routerLink="/recipe-details/3">Test
         </a>
       </div>
 
       <div class="navbar-end">
 
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null; else loginButton"
-          class="navbar-item has-dropdown"
-          hoverClass="is-active">
+        <div *ngIf="currentUser != null; else loginButton" class="navbar-item has-dropdown" hoverClass="is-active">
 
           <a class="navbar-link">
             {{ currentUser | titlecase }}
           </a>
-  
+
           <div class="navbar-dropdown is-right">
             <a class="navbar-item">
               {{ 'USER.PROFILE' | translate }}
@@ -51,9 +43,9 @@
         <!-- user is not logged in -->
         <ng-template #loginButton>
           <div class="navbar-item">
-              <p class="control">
-                <button (click)="onLoginClicked()" class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
-              </p>
+            <p class="control">
+              <button (click)="onLoginClicked()" class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
+            </p>
           </div>
         </ng-template>
 

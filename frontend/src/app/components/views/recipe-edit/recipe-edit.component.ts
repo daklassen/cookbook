@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./recipe-edit.component.scss']
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
-
   public recipe: Recipe;
   public submitButtonText: string;
   public viewAlive: boolean = true;
@@ -21,12 +20,13 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {}
 
   public ngOnInit(): void {
-    this.translate.get('GENERAL.UPDATE')
+    this.translate
+      .get('GENERAL.UPDATE')
       .takeWhile(() => this.viewAlive)
-      .subscribe(res => this.submitButtonText = res);
+      .subscribe(res => (this.submitButtonText = res));
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;
@@ -37,12 +37,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   public onRecipeUpdate(formValue: any): void {
-    this.recipeService.updateRecipe(formValue, this.recipe.id)
+    this.recipeService
+      .updateRecipe(formValue, this.recipe.id)
       .takeWhile(() => this.viewAlive)
-      .subscribe(
-        test => console.log(test),
-        error => console.log(error)
-      );
+      .subscribe(test => console.log(test), error => console.log(error));
   }
 
   public onAbortClicked(recipe: Recipe): void {
@@ -50,11 +48,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private loadRecipe(id: number): void {
-    this.recipeService.getRecipeById(id)
+    this.recipeService
+      .getRecipeById(id)
       .takeWhile(() => this.viewAlive)
-      .subscribe(
-        recipe => this.recipe = recipe,
-        error => console.error(error)
-      );
+      .subscribe(recipe => (this.recipe = recipe), error => console.error(error));
   }
 }
