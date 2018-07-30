@@ -1,28 +1,4 @@
-<section class="hero is-small is-primary has-bg-img">
-  <div class="hero-body">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-          <li>
-            <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a>
-          </li>
-          <li class="is-active">
-            <a aria-current="page">{{ 'NAVIG.CREATE_RECIPE' | translate }}</a>
-          </li>
-        </ul>
-      </nav>
-
-      <div class="container">
-        <h1 class="title">
-          {{ 'CREATE_RECIPE_PAGE.TITLE' | translate }}
-        </h1>
-      </div>
-    </div>
-  </div>
-</section>
+<app-breadcrumb [breadcrumps]="breadcrumbs" [titleKey]="'CREATE_RECIPE_PAGE.TITLE'"></app-breadcrumb>
 
 <section class="section">
   <app-edit-recipe-form [recipe]="emptyRecipe" [submitButtonText]="submitButtonText" (editedRecipe)="onRecipeCreated($event)"

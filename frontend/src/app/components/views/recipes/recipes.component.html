@@ -1,28 +1,5 @@
-<section class="hero is-small is-primary has-bg-img">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-6">
-          <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li>
-                <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
-              </li>
-              <li class="is-active">
-                <a routerLink="/recipes" aria-current="page">{{ 'NAVIG.RECIPES' | translate }}</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div class="column is-6">
-          <div class="buttons has-addons is-right">
-            <span class="button is-white" (click)="onCreateRecipe()">{{ 'NAVIG.CREATE_RECIPE' | translate }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-breadcrumb [breadcrumps]="breadcrumbs" [buttonLabelKey]="'NAVIG.CREATE_RECIPE'" (onButtonClicked)="onCreateRecipe()">
+</app-breadcrumb>
 
 <section class="section">
   <div class="container">

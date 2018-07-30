@@ -3,6 +3,7 @@ import { RecipeService } from '../../../services/business/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Recipe } from '../../../models/Recipe';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Breadcrumb } from '../../../models/view/Breadcrumb';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -14,6 +15,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   public submitButtonText: string;
   public viewAlive: boolean = true;
   public routerLink: string;
+  public breadcrumbs: Breadcrumb[];
 
   constructor(
     private recipeService: RecipeService,
@@ -51,6 +53,28 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.recipeService
       .getRecipeById(id)
       .takeWhile(() => this.viewAlive)
-      .subscribe(recipe => (this.recipe = recipe), error => console.error(error));
+      .subscribe(
+        recipe => {
+          this.recipe = recipe;
+          this.generateBreadcrumbs();
+        },
+        error => console.error(error)
+      );
+  }
+
+  private generateBreadcrumbs(): void {
+    const home: Breadcrumb = { labelKey: 'NAVIG.HOME', routerlink: '/home' };
+    const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
+    const currentRecipe: Breadcrumb = {
+      label: this.recipe.name,
+      routerlink: '/recipe-details/' + this.recipe.id
+    };
+    const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
+
+    this.breadcrumbs = [];
+    this.breadcrumbs.push(home);
+    this.breadcrumbs.push(recipes);
+    this.breadcrumbs.push(currentRecipe);
+    this.breadcrumbs.push(editRecipe);
   }
 }

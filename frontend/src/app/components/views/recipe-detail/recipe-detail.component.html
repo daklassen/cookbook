@@ -1,45 +1,6 @@
-<section class="hero is-small is-primary has-bg-img">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-6">
-          <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li>
-                <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
-              </li>
-              <li>
-                <a routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a>
-              </li>
-              <li *ngIf="currentRecipe != null" class="is-active">
-                <a routerLink="/recipes/{{ currentRecipe.id }}" aria-current="page">{{ currentRecipe.name }}</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div class="column is-6">
-          <div class="buttons has-addons is-right">
-            <span class="button is-white" (click)="onEditRecipe()">
-              {{ 'RECIPE_DETAILS_PAGE.EDIT' | translate }}
-            </span>
-          </div>
-        </div>
-        <div>
-        </div>
-      </div>
-
-      <div *ngIf="currentRecipe != null" class="container">
-        <h1 class="title">
-          {{ currentRecipe.name }}
-        </h1>
-        <h2 class="subtitle">
-          {{ currentRecipe.author.firstName }} {{ currentRecipe.author.lastName }}
-        </h2>
-      </div>
-    </div>
-  </div>
-</section>
+<app-breadcrumb [breadcrumps]="breadcrumbs" [buttonLabelKey]="'RECIPE_DETAILS_PAGE.EDIT'" (onButtonClicked)="onEditRecipe()"
+  [title]="currentRecipe?.name" [subtitle]="currentRecipe?.author?.firstName + ' ' + currentRecipe?.author?.lastName">
+</app-breadcrumb>
 
 <section *ngIf="currentRecipe != null" class="section">
   <div class="container">
