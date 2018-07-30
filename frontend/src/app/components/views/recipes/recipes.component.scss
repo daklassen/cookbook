@@ -10,3 +10,25 @@
 .border-top {
   border-radius: 6px 6px 0 0;
 }
+
+.tile {
+  position: relative;
+
+  .card-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+
+    &:hover ~ .card-title {
+      text-decoration: underline;
+    }
+  }
+
+  .card-image,
+  .card-title {
+    pointer-events: none;
+    position: relative;
+    z-index: 10;
+  }
+}
