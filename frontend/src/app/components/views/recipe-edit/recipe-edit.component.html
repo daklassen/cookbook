@@ -1,7 +1,12 @@
-<app-breadcrumb [breadcrumps]="breadcrumbs" [titleKey]="'EDIT_RECIPE_PAGE.TITLE'">
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [titleKey]="'EDIT_RECIPE_PAGE.TITLE'">
 </app-breadcrumb>
 
-<section class="section" *ngIf="recipe">
-  <app-edit-recipe-form [recipe]="recipe" [submitButtonText]="submitButtonText" (editedRecipe)="onRecipeUpdate($event)" (aborted)="onAbortClicked($event)">
+<section class="section"
+         *ngIf="recipe">
+  <app-edit-recipe-form [recipe]="recipe"
+                        [submitButtonText]="submitButtonText"
+                        (editedRecipe)="onRecipeUpdate($event)"
+                        (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
 </section>

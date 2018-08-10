@@ -1,7 +1,10 @@
-<app-breadcrumb [breadcrumps]="breadcrumbs" [titleKey]="'CREATE_RECIPE_PAGE.TITLE'"></app-breadcrumb>
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [titleKey]="'CREATE_RECIPE_PAGE.TITLE'"></app-breadcrumb>
 
 <section class="section">
-  <app-edit-recipe-form [recipe]="emptyRecipe" [submitButtonText]="submitButtonText" (editedRecipe)="onRecipeCreated($event)"
-    (aborted)="onAbortClicked($event)">
+  <app-edit-recipe-form [recipe]="emptyRecipe"
+                        [submitButtonText]="submitButtonText"
+                        (editedRecipe)="onRecipeCreated($event)"
+                        (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
 </section>

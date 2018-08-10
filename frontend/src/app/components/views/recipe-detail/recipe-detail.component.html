@@ -1,8 +1,12 @@
-<app-breadcrumb [breadcrumps]="breadcrumbs" [buttonLabelKey]="'RECIPE_DETAILS_PAGE.EDIT'" (onButtonClicked)="onEditRecipe()"
-  [title]="currentRecipe?.name" [subtitle]="currentRecipe?.author?.firstName + ' ' + currentRecipe?.author?.lastName">
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [buttonLabelKey]="'RECIPE_DETAILS_PAGE.EDIT'"
+                (onButtonClicked)="onEditRecipe()"
+                [title]="currentRecipe?.name"
+                [subtitle]="currentRecipe?.author?.firstName + ' ' + currentRecipe?.author?.lastName">
 </app-breadcrumb>
 
-<section *ngIf="currentRecipe != null" class="section">
+<section *ngIf="currentRecipe != null"
+         class="section">
   <div class="container">
     <div class="columns">
       <div class="column">
@@ -20,7 +24,8 @@
       </div>
       <div class="column is-two-thirds">
         <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INSTRUCTIONS' | translate }}</h4>
-        <div *ngFor="let descriptionBlock of splittedDescription" class="box">
+        <div *ngFor="let descriptionBlock of splittedDescription"
+             class="box">
           <p>
             {{ descriptionBlock }}
           </p>

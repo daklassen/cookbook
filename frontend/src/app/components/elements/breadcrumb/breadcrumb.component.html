@@ -3,18 +3,22 @@
     <div class="container">
       <div class="columns">
         <div class="column is-6">
-          <nav class="breadcrumb" aria-label="breadcrumbs">
+          <nav class="breadcrumb"
+               aria-label="breadcrumbs">
             <ul>
-              <li *ngFor="let breadcrump of breadcrumps; let last = last" [ngClass]="last ? 'is-active' : ''">
+              <li *ngFor="let breadcrump of breadcrumps; let last = last"
+                  [ngClass]="last ? 'is-active' : ''">
                 <a routerLink="{{ breadcrump.routerlink }}">{{ breadcrump.labelKey ? (breadcrump.labelKey | translate) : breadcrump.label }}</a>
               </li>
             </ul>
           </nav>
         </div>
 
-        <div *ngIf="buttonLabelKey" class="column is-6">
+        <div *ngIf="buttonLabelKey"
+             class="column is-6">
           <div class="buttons has-addons is-right">
-            <span class="button is-white" (click)="onButtonClicked.emit('')">
+            <span class="button is-white"
+                  (click)="onButtonClicked.emit('')">
               {{ buttonLabelKey | translate }}
             </span>
           </div>
@@ -23,7 +27,8 @@
         </div>
       </div>
 
-      <div *ngIf="title || titleKey" class="container">
+      <div *ngIf="title || titleKey"
+           class="container">
         <h1 class="title">
           {{ titleKey ? (titleKey | translate) : title }}
         </h1>

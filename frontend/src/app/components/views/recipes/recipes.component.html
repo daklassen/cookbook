@@ -1,14 +1,20 @@
-<app-breadcrumb [breadcrumps]="breadcrumbs" [buttonLabelKey]="'NAVIG.CREATE_RECIPE'" (onButtonClicked)="onCreateRecipe()">
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [buttonLabelKey]="'NAVIG.CREATE_RECIPE'"
+                (onButtonClicked)="onCreateRecipe()">
 </app-breadcrumb>
 
 <section class="section">
   <div class="container">
-    <div *ngFor="let chunkedRecipe of chunkedRecipes" class="tile is-ancestor">
-      <div *ngFor="let recipe of chunkedRecipe" class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
+    <div *ngFor="let chunkedRecipe of chunkedRecipes"
+         class="tile is-ancestor">
+      <div *ngFor="let recipe of chunkedRecipe"
+           class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
         <div class="tile is-child box is-paddingless">
-          <a routerLink="/recipe-details/{{recipe.id}}" class="card-link"></a>
+          <a routerLink="/recipe-details/{{recipe.id}}"
+             class="card-link"></a>
           <figure class="image card-image">
-            <img class="border-top card-image" src="assets/img/food/example-3.png">
+            <img class="border-top card-image"
+                 src="assets/img/food/example-3.png">
           </figure>
           <p class="title is-4 has-text-centered custom-title card-title">
             {{ recipe.name }}

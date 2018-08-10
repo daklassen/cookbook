@@ -3,24 +3,34 @@
 
     <!-- logo -->
     <div class="navbar-brand">
-      <a class="navbar-item" routerLink="/home">
-        <svg-icon src="assets/img/logo.svg" [svgStyle]="{ 'width.rem':2.5 }"></svg-icon>
+      <a class="navbar-item"
+         routerLink="/home">
+        <svg-icon src="assets/img/logo.svg"
+                  [svgStyle]="{ 'width.rem':2.5 }"></svg-icon>
       </a>
     </div>
 
     <!-- menu -->
     <div class="navbar-menu">
       <div class="navbar-start is-centered">
-        <a class="navbar-item is-top-border" *ngIf="currentUser != null" routerLinkActive="is-active" routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+        <a class="navbar-item is-top-border"
+           *ngIf="currentUser != null"
+           routerLinkActive="is-active"
+           routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
         </a>
-        <a class="navbar-item is-top-border" *ngIf="currentUser != null" routerLinkActive="is-active" routerLink="/recipe-details/3">Test
+        <a class="navbar-item is-top-border"
+           *ngIf="currentUser != null"
+           routerLinkActive="is-active"
+           routerLink="/recipe-details/3">Test
         </a>
       </div>
 
       <div class="navbar-end">
 
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null; else loginButton" class="navbar-item has-dropdown" hoverClass="is-active">
+        <div *ngIf="currentUser != null; else loginButton"
+             class="navbar-item has-dropdown"
+             hoverClass="is-active">
 
           <a class="navbar-link">
             {{ currentUser | titlecase }}
@@ -34,7 +44,8 @@
               {{ 'USER.SETTINGS' | translate }}
             </a>
             <hr class="navbar-divider">
-            <a (click)="onLogoutClicked()" class="navbar-item">
+            <a (click)="onLogoutClicked()"
+               class="navbar-item">
               {{ 'USER.LOGOUT' | translate }}
             </a>
           </div>
@@ -44,7 +55,8 @@
         <ng-template #loginButton>
           <div class="navbar-item">
             <p class="control">
-              <button (click)="onLoginClicked()" class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
+              <button (click)="onLoginClicked()"
+                      class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
             </p>
           </div>
         </ng-template>
