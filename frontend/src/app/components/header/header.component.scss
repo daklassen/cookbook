@@ -1,6 +1,4 @@
-.navbar {
-  min-height: 4.25rem;
-}
+@import './src/assets/sass/vars';
 
 .navbar-item {
   padding: 0 25px;
@@ -13,13 +11,13 @@
 
 .navbar-item.is-active.is-top-border,
 .navbar-item.is-active.is-top-border:hover {
-  border-color: #3672d7;
+  border-color: $link;
   background-color: #f1f1f1;
-  color: #3672d7;
+  color: $link;
 }
 
 .navbar-item.is-top-border:hover {
-  color: #3672d7;
+  color: $link;
 }
 
 .navbar-start.is-centered {
