@@ -1,39 +1,23 @@
-<section class="hero is-small is-primary has-bg-img">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns">
-        <div class="column is-6">
-          <nav class="breadcrumb" aria-label="breadcrumbs">
-            <ul>
-              <li>
-                <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
-              </li>
-              <li class="is-active">
-                <a routerLink="/recipes" aria-current="page">{{ 'NAVIG.RECIPES' | translate }}</a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-        <div class="column is-6">
-          <div class="buttons has-addons is-right">
-            <span class="button is-white" (click)="onCreateRecipe()">{{ 'NAVIG.CREATE_RECIPE' | translate }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [buttonLabelKey]="'NAVIG.CREATE_RECIPE'"
+                (onButtonClicked)="onCreateRecipe()">
+</app-breadcrumb>
 
 <section class="section">
   <div class="container">
-    <div *ngFor="let chunkedRecipe of chunkedRecipes" class="tile is-ancestor">
-      <div *ngFor="let recipe of chunkedRecipe" class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
+    <div *ngFor="let chunkedRecipe of chunkedRecipes"
+         class="tile is-ancestor">
+      <div *ngFor="let recipe of chunkedRecipe"
+           class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
         <div class="tile is-child box is-paddingless">
-          <figure class="image is-4by3">
-            <img class="border-top" src="assets/img/food/example-3.png">
+          <a routerLink="/recipe-details/{{recipe.id}}"
+             class="card-link"></a>
+          <figure class="image card-image">
+            <img class="border-top card-image"
+                 src="assets/img/food/example-3.png">
           </figure>
-          <p class="title is-4 has-text-centered custom-title">
-            <a routerLink="/recipe-details/{{recipe.id}}">{{ recipe.name }}</a>
+          <p class="title is-4 has-text-centered custom-title card-title">
+            {{ recipe.name }}
           </p>
         </div>
       </div>

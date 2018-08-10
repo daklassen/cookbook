@@ -11,19 +11,24 @@
   border-radius: 6px 6px 0 0;
 }
 
-.button {
-  margin-bottom: 0.5rem;
-  padding: 1.4rem 2rem;
-  font-weight: 600;
-}
+.tile {
+  position: relative;
 
-.hero.is-small .hero-body {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
-  box-shadow: 0 4px 50px 0px rgba(0, 0, 0, 0.2);
-}
+  .card-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
 
-.has-bg-img {
-  background: url('/assets/img/background/background-2.png') center center;
-  background-size: cover;
+    &:hover ~ .card-title {
+      text-decoration: underline;
+    }
+  }
+
+  .card-image,
+  .card-title {
+    pointer-events: none;
+    position: relative;
+    z-index: 10;
+  }
 }

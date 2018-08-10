@@ -9,20 +9,3 @@ th.align-right {
 .box {
   box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.09), 0 0 0 0.5px rgba(10, 10, 10, 0.1);
 }
-
-.button {
-  margin-bottom: 0.5rem;
-  padding: 1.4rem 2rem;
-  font-weight: 600;
-}
-
-.hero.is-small .hero-body {
-  padding-bottom: 1.5rem;
-  padding-top: 1.5rem;
-  box-shadow: 0 4px 50px 0px rgba(0, 0, 0, 0.2);
-}
-
-.has-bg-img {
-  background: url('/assets/img/background/background-2.png') center center;
-  background-size: cover;
-}

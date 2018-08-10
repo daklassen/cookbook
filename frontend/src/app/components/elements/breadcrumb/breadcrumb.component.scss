@@ -1,0 +1,16 @@
+.has-bg-img {
+  background: url('/assets/img/background/background-2.png') center center;
+  background-size: cover;
+}
+
+.button {
+  margin-bottom: 0.5rem;
+  padding: 1.4rem 2rem;
+  font-weight: 600;
+}
+
+.hero.is-small .hero-body {
+  padding-bottom: 1.5rem;
+  padding-top: 1.5rem;
+  box-shadow: 0 4px 50px 0px rgba(0, 0, 0, 0.2);
+}

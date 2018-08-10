@@ -21,6 +21,7 @@ import { EditRecipeFormComponent } from './components/elements/edit-recipe-form/
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RecipeEditComponent } from './components/views/recipe-edit/recipe-edit.component';
+import { BreadcrumbComponent } from './components/elements/breadcrumb/breadcrumb.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecipeDetailComponent,
     RecipeCreateComponent,
     EditRecipeFormComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,

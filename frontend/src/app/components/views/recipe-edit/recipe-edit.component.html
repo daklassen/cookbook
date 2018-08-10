@@ -1,33 +1,12 @@
-<section class="hero is-small is-primary has-bg-img">
-  <div class="hero-body">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-          <li>
-            <a routerLink="/home">{{ 'NAVIG.HOME' | translate }}</a>
-          </li>
-          <li>
-            <a routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}</a>
-          </li>
-          <li>
-            <a [routerLink]="routerLink">{{ recipe?.name }}</a>
-          </li>
-          <li class="is-active">
-            <a aria-current="page">{{ 'NAVIG.EDIT_RECIPE' | translate }}</a>
-          </li>
-        </ul>
-      </nav>
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [titleKey]="'EDIT_RECIPE_PAGE.TITLE'">
+</app-breadcrumb>
 
-      <div class="container">
-        <h1 class="title">
-          {{ 'EDIT_RECIPE_PAGE.TITLE' | translate }}
-        </h1>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" *ngIf="recipe">
-  <app-edit-recipe-form [recipe]="recipe" [submitButtonText]="submitButtonText" (editedRecipe)="onRecipeUpdate($event)" (aborted)="onAbortClicked($event)">
+<section class="section"
+         *ngIf="recipe">
+  <app-edit-recipe-form [recipe]="recipe"
+                        [submitButtonText]="submitButtonText"
+                        (editedRecipe)="onRecipeUpdate($event)"
+                        (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
 </section>
