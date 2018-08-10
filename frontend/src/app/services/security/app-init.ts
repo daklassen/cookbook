@@ -1,4 +1,5 @@
 import { KeycloakService } from 'keycloak-angular';
+import { environment } from '../../../environments/environment';
 
 export function initializer(keycloak: KeycloakService): () => Promise<any> {
   return (): Promise<any> => {
@@ -6,7 +7,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
       try {
         await keycloak.init({
           config: {
-            url: 'http://localhost:8080/auth',
+            url: environment.authorizationServer,
             realm: 'cookbook',
             clientId: 'cookbook-frontend'
           },

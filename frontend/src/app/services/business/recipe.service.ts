@@ -4,8 +4,7 @@ import { Recipe } from '../../models/Recipe';
 import { Observable } from 'rxjs';
 import { Ingredient } from '../../models/Ingredient';
 import { Category } from '../../models/Category';
-
-const BASE_URL: string = 'http://localhost:9000';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,23 +13,23 @@ export class RecipeService {
   constructor(private http: HttpClient) {}
 
   getUsersRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(BASE_URL + '/recipes');
+    return this.http.get<Recipe[]>(environment.apiUrl + '/recipes');
   }
 
   getRecipeById(id: number): Observable<Recipe> {
-    return this.http.get<Recipe>(BASE_URL + '/recipes/' + id);
+    return this.http.get<Recipe>(environment.apiUrl + '/recipes/' + id);
   }
 
   getAllCategories(): Observable<Array<Category>> {
-    return this.http.get<Array<Category>>(BASE_URL + '/recipes/categories');
+    return this.http.get<Array<Category>>(environment.apiUrl + '/recipes/categories');
   }
 
   createRecipe(formValue: any): Observable<Recipe> {
-    return this.http.post<Recipe>(BASE_URL + '/recipes', formValue);
+    return this.http.post<Recipe>(environment.apiUrl + '/recipes', formValue);
   }
 
   updateRecipe(formValue: any, recipeId: number): Observable<Recipe> {
-    return this.http.put<Recipe>(BASE_URL + '/recipes/' + recipeId, formValue);
+    return this.http.put<Recipe>(environment.apiUrl + '/recipes/' + recipeId, formValue);
   }
 
   parseUserInputIntoIngredient(input: string): Ingredient {
