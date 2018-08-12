@@ -42,10 +42,20 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.recipeService
       .updateRecipe(formValue, this.recipe.id)
       .takeWhile(() => this.viewAlive)
-      .subscribe(test => console.log(test), error => console.log(error));
+      .subscribe(
+        recipe => {
+          console.log('Edit was successful');
+          this.navigateToDetailView();
+        },
+        error => console.error(error)
+      );
   }
 
   public onAbortClicked(recipe: Recipe): void {
+    this.navigateToDetailView();
+  }
+
+  private navigateToDetailView(): void {
     this.router.navigateByUrl('/recipe-details/' + this.recipe.id);
   }
 

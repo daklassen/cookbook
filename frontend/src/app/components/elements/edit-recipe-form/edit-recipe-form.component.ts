@@ -12,16 +12,21 @@ import { Category } from '../../../models/Category';
   styleUrls: ['./edit-recipe-form.component.scss']
 })
 export class EditRecipeFormComponent implements OnInit, OnDestroy {
-  @Input() recipe: Recipe;
-  @Input() submitButtonText: string;
-  @Output() editedRecipe: EventEmitter<Recipe> = new EventEmitter();
-  @Output() aborted: EventEmitter<Recipe> = new EventEmitter();
+  @Input()
+  recipe: Recipe;
+  @Input()
+  submitButtonText: string;
+  @Output()
+  editedRecipe: EventEmitter<Recipe> = new EventEmitter();
+  @Output()
+  aborted: EventEmitter<Recipe> = new EventEmitter();
 
   public recipeForm: FormGroup;
   public items: FormArray;
   public currentIngredient: string;
   public categories: Array<Category>;
   public viewAlive: boolean = true;
+  public servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
 
   constructor(
     private fb: FormBuilder,
@@ -86,8 +91,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     let currentRecipe: Recipe = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
     this.recipeForm.get('servings').patchValue(currentRecipe.servings);
-    // TODO: fix patching category
-    // this.recipeForm.get('category').patchValue(currentRecipe.category[0].id);
+    this.recipeForm.get('category').patchValue(currentRecipe.category.id);
     currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
   }

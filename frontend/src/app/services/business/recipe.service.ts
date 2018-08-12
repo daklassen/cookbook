@@ -60,7 +60,7 @@ export class RecipeService {
         keycloakUserId: ''
       },
       description: '',
-      category: [],
+      category: null,
       imageURL: ''
     };
     return recipe;

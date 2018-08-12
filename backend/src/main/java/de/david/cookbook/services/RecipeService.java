@@ -56,15 +56,20 @@ public class RecipeService {
 
     public Recipe createRecipe(AccessToken accessToken, LinkedHashMap<String, Object> formValue) {
         User user = userService.getOrCreateUserFromAccessToken(accessToken);
-
         Recipe recipe = new Recipe();
-        recipe.setAuthor(user);
-        recipe.setName((String) formValue.get("name"));
-        recipe.setDescription((String) formValue.get("description"));
-        recipe.setServings(Integer.parseInt((String) formValue.get("servings")));
-        recipe.setCategory(categoryRepository.findById(Long.valueOf((int) formValue.get("category"))));
-        recipe.setIngredients(parseIngredients(formValue));
+        recipe = fillRecipeWithFormValues(recipe, user, formValue);
+        recipeRepository.save(recipe);
+        return recipe;
+    }
 
+    public Recipe updateRecipe(AccessToken accessToken, Long recipeId, LinkedHashMap<String, Object> formValue) {
+        User user = userService.getOrCreateUserFromAccessToken(accessToken);
+        Recipe recipe = recipeRepository.findById(recipeId);
+        if (recipe == null) {
+            // TODO: throw exception
+            return null;
+        }
+        recipe = fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
     }
@@ -89,5 +94,15 @@ public class RecipeService {
         String unit = (String) entry.get("unit");
         String name = (String) entry.get("name");
         return new Ingredient(amount, unit, name);
+    }
+
+    private Recipe fillRecipeWithFormValues(Recipe recipe, User user, LinkedHashMap<String, Object> formValue) {
+        recipe.setAuthor(user);
+        recipe.setName((String) formValue.get("name"));
+        recipe.setDescription((String) formValue.get("description"));
+        recipe.setServings((int) formValue.get("servings"));
+        recipe.setCategory(categoryRepository.findById(Long.valueOf((int) formValue.get("category"))));
+        recipe.setIngredients(parseIngredients(formValue));
+        return recipe;
     }
 }

@@ -9,6 +9,6 @@ export interface Recipe {
   ingredients: Array<Ingredient>;
   author: Author;
   description: string;
-  category: Array<Category>;
+  category: Category;
   imageURL: string;
 }
