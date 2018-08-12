@@ -7,14 +7,14 @@
   <div class="container">
     <div *ngFor="let chunkedRecipe of chunkedRecipes"
          class="tile is-ancestor">
-      <div *ngFor="let recipe of chunkedRecipe"
+      <div *ngFor="let recipe of chunkedRecipe; let i = index"
            class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
         <div class="tile is-child box is-paddingless">
           <a routerLink="/recipe-details/{{recipe.id}}"
              class="card-link"></a>
           <figure class="image card-image">
             <img class="border-top card-image"
-                 src="assets/img/food/example-3.png">
+                 src="assets/img/food/example-{{i + 1}}.png">
           </figure>
           <p class="title is-4 has-text-centered custom-title card-title">
             {{ recipe.name }}

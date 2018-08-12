@@ -64,6 +64,24 @@ public class CookBookApplication implements CommandLineRunner {
 		recipes.add(new Recipe("Chili", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
 		recipes.add(new Recipe("Paprika-Auflauf2", david, "https://image.ibb.co/hxD4WS/food_2.png", 4, description, vorspeise, null));
 		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
 
 		recipes.forEach(recipe -> recipeRepository.save(recipe));
 	}
