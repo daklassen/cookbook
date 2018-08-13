@@ -27,10 +27,10 @@ public class CookBookApplication implements CommandLineRunner {
 	// TODO: remove temporary content filling on startup
 	@Override
 	public void run(String... args) throws Exception {
-		Category hauptgericht = new Category("Hauptgericht");
+		Category hauptspeise = new Category("Hauptspeise");
 		Category vorspeise = new Category("Vorspeise");
 		Category nachspeise = new Category("Nachspeise");
-		categoryRepository.save(hauptgericht);
+		categoryRepository.save(hauptspeise);
 		categoryRepository.save(vorspeise);
 		categoryRepository.save(nachspeise);
 
@@ -60,28 +60,28 @@ public class CookBookApplication implements CommandLineRunner {
 				"Den Ziegenfrischkäse mit Meerrettich verrühren und den Blätterteigboden damit schön gleichmäßig bestreichen. Den Räucherlachs in lockeren Schleifen darauf verteilen. Die Krabben dazwischen streuen. Sahne und Eier verrühren, abschmecken und den gehackten Dill untermischen. Die Sahnemischung gleichmäßig auf den belegten Teig gießen und die Quiche im vorgeheizten Ofen bei 250 °C ca. 30 Min. backen.\n" +
 				"Alternativ zum Ziegenfrischkäse kann man die Quiche auch mit einem Meerrettichfrischkäse oder einem Kräuterfrischkäse zubereiten, dann aber die weicheren Sorten (z. B. Bresso) verwenden. Statt Dill kann man auch Basilikum nehmen.";
 
-		recipes.add(new Recipe("Bohneneintopf", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, description, hauptgericht, ingredients));
-		recipes.add(new Recipe("Chili", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Bohneneintopf", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, description, hauptspeise, ingredients));
+		recipes.add(new Recipe("Chili", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
 		recipes.add(new Recipe("Paprika-Auflauf2", david, "https://image.ibb.co/hxD4WS/food_2.png", 4, description, vorspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptgericht, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Salat", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Eis", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, nachspeise, null));
+		recipes.add(new Recipe("Joghurt", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, nachspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
+		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
 
 		recipes.forEach(recipe -> recipeRepository.save(recipe));
 	}

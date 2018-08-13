@@ -24,8 +24,9 @@ public class RecipeResource {
 
     @RequestMapping(value = "recipes", method = RequestMethod.GET)
     List<Recipe> readAllRecipes(HttpServletRequest request) {
+        String filterText = request.getParameter("filter");
         String keycloakUserId = Util.extractKeycloakUserIdFromRequest(request);
-        return recipeService.getAllRecipesFromUser(keycloakUserId);
+        return recipeService.getAllRecipesFromUser(keycloakUserId, filterText);
     }
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST)

@@ -39,6 +39,9 @@
     "ADD": "Add",
     "ABORT": "Abort",
     "CREATE": "Create",
-    "UPDATE": "Save"
+    "UPDATE": "Save",
+    "SEARCH": "Search",
+    "NOTFOUND": "Nothing found",
+    "TRYAGAIN": "Wrong search string?"
   }
 }

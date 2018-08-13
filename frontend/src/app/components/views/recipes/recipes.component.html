@@ -3,7 +3,19 @@
                 (onButtonClicked)="onCreateRecipe()">
 </app-breadcrumb>
 
-<section class="section has-background-white-bis">
+<section class="section has-background-white-bis has-small-padding">
+
+  <div class="container">
+    <div class="field">
+      <div class="control">
+        <input class="input is-huge"
+               type="text"
+               placeholder="{{ 'GENERAL.SEARCH' | translate }}"
+               #searchRef>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <div *ngFor="let chunkedRecipe of chunkedRecipes"
          class="tile is-ancestor">
@@ -23,4 +35,23 @@
       </div>
     </div>
   </div>
+
+  <section class="hero"
+           *ngIf="chunkedRecipes?.length == 0">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">
+          {{ 'GENERAL.NOTFOUND' | translate }}
+        </h1>
+        <h2 class="subtitle">
+          {{ 'GENERAL.TRYAGAIN' | translate }}
+        </h2>
+      </div>
+    </div>
+  </section>
 </section>
+
+<!--ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-spin-fade"></ngx-spinner-->

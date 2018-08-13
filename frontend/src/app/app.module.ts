@@ -24,6 +24,7 @@ import { RecipeEditComponent } from './components/views/recipe-edit/recipe-edit.
 import { BreadcrumbComponent } from './components/elements/breadcrumb/breadcrumb.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     KeycloakAngularModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

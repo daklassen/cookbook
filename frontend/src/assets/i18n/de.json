@@ -39,6 +39,9 @@
     "ADD": "Hinzufügen",
     "ABORT": "Abbrechen",
     "CREATE": "Erstellen",
-    "UPDATE": "Speichern"
+    "UPDATE": "Speichern",
+    "SEARCH": "Suche",
+    "NOTFOUND": "Nichts gefunden",
+    "TRYAGAIN": "Falscher Suchbegriff?"
   }
 }

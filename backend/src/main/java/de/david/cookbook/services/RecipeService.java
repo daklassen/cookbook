@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -35,9 +36,24 @@ public class RecipeService {
         this.permissionService = permissionService;
     }
 
-    public List<Recipe> getAllRecipesFromUser(String keycloakUserId) {
+    public List<Recipe> getAllRecipesFromUser(String keycloakUserId, String filterText) {
         List<User> user = userRepository.findByKeycloakUserId(keycloakUserId);
-        return recipeRepository.findByAuthor(user.get(0));
+        List<Recipe> recipesOfUser = recipeRepository.findByAuthor(user.get(0));
+
+        if (filterText != null && filterText != "") {
+            String filterTextLowered = filterText.toLowerCase();
+            recipesOfUser = recipesOfUser.stream()
+                    .filter(recipe ->
+                            recipe.getCategory().getName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getFirstName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getLastName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getEmail().toLowerCase().contains(filterTextLowered)
+                    )
+                    .collect(Collectors.toList());
+        }
+
+        return recipesOfUser;
     }
 
     public Recipe getRecipeByIdAndUser(Long id, String keycloakUserId) {

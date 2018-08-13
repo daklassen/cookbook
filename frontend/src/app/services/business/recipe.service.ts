@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Recipe } from '../../models/Recipe';
 import { Observable } from 'rxjs';
 import { Ingredient } from '../../models/Ingredient';
@@ -12,8 +12,9 @@ import { environment } from '../../../environments/environment';
 export class RecipeService {
   constructor(private http: HttpClient) {}
 
-  getUsersRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(environment.apiUrl + '/recipes');
+  getUsersRecipes(filter: string): Observable<Recipe[]> {
+    let params = new HttpParams().set('filter', filter);
+    return this.http.get<Recipe[]>(environment.apiUrl + '/recipes', { params: params });
   }
 
   getRecipeById(id: number): Observable<Recipe> {
