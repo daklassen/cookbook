@@ -21,6 +21,23 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   @Output()
   aborted: EventEmitter<Recipe> = new EventEmitter();
 
+  get ingredientFormArray(): FormArray {
+    return this.recipeForm.get('ingredients') as FormArray;
+  }
+
+  get name(): FormControl {
+    return this.recipeForm.get('name') as FormControl;
+  }
+
+  get description(): FormControl {
+    return this.recipeForm.get('description') as FormControl;
+  }
+
+  get currentIngredientValid(): boolean {
+    const REGEX = /\d+\s*-+\s*.+\s*-+\s*.+/g;
+    return REGEX.test(this.currentIngredient);
+  }
+
   public recipeForm: FormGroup;
   public items: FormArray;
   public currentIngredient: string;
@@ -90,8 +107,10 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   private fillForm(): void {
     let currentRecipe: Recipe = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
-    this.recipeForm.get('servings').patchValue(currentRecipe.servings);
-    this.recipeForm.get('category').patchValue(currentRecipe.category.id);
+    this.recipeForm.get('servings').patchValue(currentRecipe.servings ? currentRecipe.servings : 4);
+    this.recipeForm
+      .get('category')
+      .patchValue(currentRecipe.category ? currentRecipe.category.id : this.categories[0].id);
     currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
@@ -103,9 +122,5 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
 
   private createItem(ingredient: Ingredient): FormControl {
     return this.fb.control(ingredient);
-  }
-
-  get ingredientFormArray() {
-    return this.recipeForm.get('ingredients') as FormArray;
   }
 }

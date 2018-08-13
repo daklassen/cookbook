@@ -1,5 +1,4 @@
-<form [formGroup]="recipeForm"
-      (ngSubmit)="onSubmit(recipeForm.value)">
+<form [formGroup]="recipeForm">
 
   <div class="container">
     <div class="columns is-multiline">
@@ -10,10 +9,13 @@
           <label class="label is-medium">{{ 'EDIT_RECIPE.NAME' | translate }}</label>
           <div class="control">
             <input maxlength="30"
+                   [ngClass]="name.invalid && (name.dirty || name.touched) ? 'is-danger' : ''"
                    class="input is-medium"
                    type="text"
                    placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}"
                    formControlName="name">
+            <p *ngIf="name.invalid && (name.dirty || name.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
           </div>
         </div>
       </div>
@@ -71,20 +73,23 @@
         <div class="field has-addons">
           <div class="control is-expanded">
             <input class="input is-medium"
+                   [ngClass]="!currentIngredientValid && currentIngredient ? 'is-info' : ''"
                    type="text"
                    placeholder="{{ 'EDIT_RECIPE.AMOUNT' | translate }} - {{ 'EDIT_RECIPE.UNIT' | translate }} - {{ 'EDIT_RECIPE.DESCRIPTION' | translate }}"
 
-                   (keydown.enter)="addIngredient()"
+                   (keydown.enter)="currentIngredientValid ? addIngredient() : null"
                    [value]="currentIngredient"
                    (input)="currentIngredient = $event.target.value">
+            <p *ngIf="!currentIngredientValid && currentIngredient"
+               class="help is-info">{{ 'EDIT_RECIPE.EXAMPLE' | translate }}</p>
           </div>
           <div class="control">
             <a class="button is-primary is-medium"
-               (click)="addIngredient()">
+               (click)="currentIngredientValid ? addIngredient() : null"
+               [attr.disabled]="currentIngredientValid ? null : ''">
               {{ 'GENERAL.ADD' | translate }}
             </a>
           </div>
-
         </div>
       </div>
 
@@ -93,12 +98,15 @@
         <label class="label is-medium">{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}</label>
         <div class="field">
           <div class="control">
-            <textarea class="textarea is-medium"
+            <textarea [ngClass]="description.invalid && (description.dirty || description.touched) ? 'is-danger' : ''"
+                      class="textarea is-medium"
                       type="text"
                       maxlength="1000"
                       placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
                       formControlName="description"
                       rows="13"></textarea>
+            <p *ngIf="description.invalid && (description.dirty || description.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
           </div>
         </div>
       </div>
@@ -112,8 +120,9 @@
             </a>
           </p>
           <p class="control">
-            <input type="submit"
+            <input type="button"
                    class="button is-primary is-medium"
+                   (click)="onSubmit(recipeForm.value)"
                    [value]="submitButtonText"
                    [disabled]="!recipeForm.valid" />
           </p>

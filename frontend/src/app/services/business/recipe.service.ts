@@ -33,11 +33,11 @@ export class RecipeService {
   }
 
   parseUserInputIntoIngredient(input: string): Ingredient {
-    let splittetInput = input.split(' - ');
+    let splittetInput = input.split('-');
     return {
-      amount: parseInt(splittetInput[0]),
-      unit: splittetInput[1],
-      name: splittetInput[2]
+      amount: parseInt(splittetInput[0].trim()),
+      unit: splittetInput[1].trim(),
+      name: splittetInput[2].trim()
     };
   }
 

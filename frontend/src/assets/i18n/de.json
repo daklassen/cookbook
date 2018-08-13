@@ -30,7 +30,9 @@
     "INSTRUCTIONS": "Anweisungen",
     "AMOUNT": "Menge",
     "UNIT": "Einheit",
-    "DESCRIPTION": "Beschreibung"
+    "DESCRIPTION": "Beschreibung",
+    "HINT": "Darf nicht leer sein",
+    "EXAMPLE": "Bindestriche nicht vergessen (z.B. 5 - kg - Möhren)"
   },
   "GENERAL": {
     "DELETE": "Löschen",
