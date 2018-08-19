@@ -17,7 +17,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 group = 'de.david'
-version = '0.0.1'
+version = '0.1.0'
 sourceCompatibility = 1.8
 
 repositories {
