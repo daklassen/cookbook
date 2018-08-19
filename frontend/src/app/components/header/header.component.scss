@@ -1,33 +1,35 @@
 @import './src/assets/sass/vars';
 
-.navbar-item {
-  padding: 0 25px;
-  border-style: solid;
-  border-width: 0;
-  border-top-width: 3px;
-  border-color: transparent;
-  font-weight: 600;
-}
+.navbar-menu:not(.is-active) {
+  .navbar-item {
+    padding: 0 25px;
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 3px;
+    border-color: transparent;
+    font-weight: 600;
+  }
 
-.navbar-item.is-active.is-top-border,
-.navbar-item.is-active.is-top-border:hover {
-  border-color: $link;
-  background-color: #f1f1f1;
-  color: $link;
-}
+  .navbar-item.is-active.is-top-border,
+  .navbar-item.is-active.is-top-border:hover {
+    border-color: $link;
+    background-color: #f1f1f1;
+    color: $link;
+  }
 
-.navbar-item.is-top-border:hover {
-  color: $link;
-}
+  .navbar-item.is-top-border:hover {
+    color: $link;
+  }
 
-.navbar-start.is-centered {
-  position: absolute;
-  left: 50%;
-  margin-left: -110px;
-  height: 100%;
-  display: flex;
-}
+  .navbar-start.is-centered {
+    position: absolute;
+    left: 50%;
+    margin-left: -110px;
+    height: 100%;
+    display: flex;
+  }
 
-a {
-  font-size: 1.1rem;
+  a {
+    font-size: 1.1rem;
+  }
 }
