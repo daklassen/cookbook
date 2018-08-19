@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-
-const HOME_URL: string = 'http://localhost:4200'; // TODO
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +31,6 @@ export class HeaderComponent implements OnInit {
   }
 
   public onLogoutClicked(): void {
-    this.keycloakService.logout(HOME_URL);
+    this.keycloakService.logout(environment.apiUrl);
   }
 }
