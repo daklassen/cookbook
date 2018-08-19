@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  applicationUrl: 'http://localhost:4200',
   apiUrl: 'http://localhost:9000',
   authorizationServer: 'http://localhost:8080/auth'
 };

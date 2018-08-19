@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-
-const HOME_URL: string = 'http://localhost:4200'; // TODO
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +9,13 @@ const HOME_URL: string = 'http://localhost:4200'; // TODO
 })
 export class HeaderComponent implements OnInit {
   public currentUser;
+  public mobileMenuVisible;
 
   constructor(private keycloakService: KeycloakService) {}
 
   public ngOnInit() {
     this.loadCurrentUser();
+    this.mobileMenuVisible = false;
   }
 
   public loadCurrentUser(): void {
@@ -32,6 +33,10 @@ export class HeaderComponent implements OnInit {
   }
 
   public onLogoutClicked(): void {
-    this.keycloakService.logout(HOME_URL);
+    this.keycloakService.logout(environment.applicationUrl);
+  }
+
+  public onNavbarBurgerClick(): void {
+    this.mobileMenuVisible = !this.mobileMenuVisible;
   }
 }

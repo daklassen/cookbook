@@ -1,4 +1,4 @@
-<form [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
+<form [formGroup]="recipeForm">
 
   <div class="container">
     <div class="columns is-multiline">
@@ -8,7 +8,14 @@
         <div class="field">
           <label class="label is-medium">{{ 'EDIT_RECIPE.NAME' | translate }}</label>
           <div class="control">
-            <input maxlength="30" class="input is-medium" type="text" placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}" formControlName="name">
+            <input maxlength="30"
+                   [ngClass]="name.invalid && (name.dirty || name.touched) ? 'is-danger' : ''"
+                   class="input is-medium"
+                   type="text"
+                   placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}"
+                   formControlName="name">
+            <p *ngIf="name.invalid && (name.dirty || name.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
           </div>
         </div>
       </div>
@@ -17,7 +24,8 @@
           <label class="label is-medium">{{ 'EDIT_RECIPE.CATEGORY' | translate }}</label>
           <div class="select is-medium is-fullwidth">
             <select formControlName="category">
-              <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+              <option *ngFor="let category of categories"
+                      [ngValue]="category.id">{{ category.name }}</option>
             </select>
           </div>
         </div>
@@ -27,14 +35,14 @@
           <label class="label is-medium">{{ 'EDIT_RECIPE.PORTIONS' | translate }}</label>
           <div class="select is-medium is-fullwidth">
             <select formControlName="servings">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
+              <option [ngValue]="1">1</option>
+              <option [ngValue]="2">2</option>
+              <option [ngValue]="3">3</option>
+              <option [ngValue]="4">4</option>
+              <option [ngValue]="5">5</option>
+              <option [ngValue]="6">6</option>
+              <option [ngValue]="7">7</option>
+              <option [ngValue]="8">8</option>
             </select>
           </div>
         </div>
@@ -44,13 +52,19 @@
       <div class="column is-12">
         <label class="label is-medium">{{ 'EDIT_RECIPE.INGREDIENTS' | translate }}</label>
 
-        <div class="field has-addons" *ngFor="let formControl of ingredientFormArray.controls; let i=index">
+        <div class="field has-addons"
+             *ngFor="let formControl of ingredientFormArray.controls; let i=index">
           <div class="control is-expanded">
-            <input class="input is-medium" maxlength="40" type="text" [value]="ingredientToString(formControl.value)" [formControl]="formControl"
-              readonly>
+            <input class="input is-medium"
+                   maxlength="40"
+                   type="text"
+                   [value]="ingredientToString(formControl.value)"
+                   [formControl]="formControl"
+                   readonly>
           </div>
           <div class="control">
-            <a class="button is-error is-medium" (click)="deleteIngredient(i)">
+            <a class="button is-error is-medium"
+               (click)="deleteIngredient(i)">
               {{ 'GENERAL.DELETE' | translate }}
             </a>
           </div>
@@ -58,15 +72,24 @@
 
         <div class="field has-addons">
           <div class="control is-expanded">
-            <input class="input is-medium" type="text" placeholder="{{ 'EDIT_RECIPE.AMOUNT' | translate }} - {{ 'EDIT_RECIPE.UNIT' | translate }} - {{ 'EDIT_RECIPE.DESCRIPTION' | translate }}"
-              (keydown.enter)="addIngredient()" [value]="currentIngredient" (input)="currentIngredient = $event.target.value">
+            <input class="input is-medium"
+                   [ngClass]="!currentIngredientValid && currentIngredient ? 'is-info' : ''"
+                   type="text"
+                   placeholder="{{ 'EDIT_RECIPE.AMOUNT' | translate }} - {{ 'EDIT_RECIPE.UNIT' | translate }} - {{ 'EDIT_RECIPE.DESCRIPTION' | translate }}"
+
+                   (keydown.enter)="currentIngredientValid ? addIngredient() : null"
+                   [value]="currentIngredient"
+                   (input)="currentIngredient = $event.target.value">
+            <p *ngIf="!currentIngredientValid && currentIngredient"
+               class="help is-info">{{ 'EDIT_RECIPE.EXAMPLE' | translate }}</p>
           </div>
           <div class="control">
-            <a class="button is-primary is-medium" (click)="addIngredient()">
+            <a class="button is-primary is-medium"
+               (click)="currentIngredientValid ? addIngredient() : null"
+               [attr.disabled]="currentIngredientValid ? null : ''">
               {{ 'GENERAL.ADD' | translate }}
             </a>
           </div>
-
         </div>
       </div>
 
@@ -75,8 +98,15 @@
         <label class="label is-medium">{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}</label>
         <div class="field">
           <div class="control">
-            <textarea class="textarea is-medium" type="text" maxlength="1000" placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
-              formControlName="description" rows="13"></textarea>
+            <textarea [ngClass]="description.invalid && (description.dirty || description.touched) ? 'is-danger' : ''"
+                      class="textarea is-medium"
+                      type="text"
+                      maxlength="1000"
+                      placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
+                      formControlName="description"
+                      rows="13"></textarea>
+            <p *ngIf="description.invalid && (description.dirty || description.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
           </div>
         </div>
       </div>
@@ -84,12 +114,17 @@
       <div class="column is-12">
         <div class="field is-grouped is-grouped-centered">
           <p class="control">
-            <a class="button is-light is-medium" (click)="onAbortClicked()">
+            <a class="button is-light is-medium"
+               (click)="onAbortClicked()">
               {{ 'GENERAL.ABORT' | translate }}
             </a>
           </p>
           <p class="control">
-            <input type="submit" class="button is-primary is-medium" [value]="submitButtonText" [disabled]="!recipeForm.valid" />
+            <input type="button"
+                   class="button is-primary is-medium"
+                   (click)="onSubmit(recipeForm.value)"
+                   [value]="submitButtonText"
+                   [disabled]="!recipeForm.valid" />
           </p>
         </div>
       </div>

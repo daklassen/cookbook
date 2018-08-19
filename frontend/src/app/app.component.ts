@@ -10,7 +10,7 @@ import 'rxjs/add/operator/takeWhile';
 export class AppComponent {
   constructor(translate: TranslateService) {
     translate.addLangs(['en', 'de']);
-    translate.setDefaultLang('en');
-    translate.use('en'); // TODO: load from user personal settings
+    translate.setDefaultLang('de');
+    translate.use('de'); // TODO: load from user personal settings
   }
 }

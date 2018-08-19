@@ -22,6 +22,10 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RecipeEditComponent } from './components/views/recipe-edit/recipe-edit.component';
 import { BreadcrumbComponent } from './components/elements/breadcrumb/breadcrumb.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -50,13 +54,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     KeycloakAngularModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFontAwesomeModule,
+    NgxSpinnerModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {

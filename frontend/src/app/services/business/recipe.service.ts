@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Recipe } from '../../models/Recipe';
 import { Observable } from 'rxjs';
 import { Ingredient } from '../../models/Ingredient';
@@ -12,8 +12,9 @@ import { environment } from '../../../environments/environment';
 export class RecipeService {
   constructor(private http: HttpClient) {}
 
-  getUsersRecipes(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>(environment.apiUrl + '/recipes');
+  getUsersRecipes(filter: string): Observable<Recipe[]> {
+    let params = new HttpParams().set('filter', filter);
+    return this.http.get<Recipe[]>(environment.apiUrl + '/recipes', { params: params });
   }
 
   getRecipeById(id: number): Observable<Recipe> {
@@ -33,11 +34,11 @@ export class RecipeService {
   }
 
   parseUserInputIntoIngredient(input: string): Ingredient {
-    let splittetInput = input.split(' - ');
+    let splittetInput = input.split('-');
     return {
-      amount: parseInt(splittetInput[0]),
-      unit: splittetInput[1],
-      name: splittetInput[2]
+      amount: parseInt(splittetInput[0].trim()),
+      unit: splittetInput[1].trim(),
+      name: splittetInput[2].trim()
     };
   }
 
@@ -60,7 +61,7 @@ export class RecipeService {
         keycloakUserId: ''
       },
       description: '',
-      category: [],
+      category: null,
       imageURL: ''
     };
     return recipe;

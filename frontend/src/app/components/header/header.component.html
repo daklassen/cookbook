@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar is-light">
   <div class="container">
 
     <!-- logo -->
@@ -8,20 +8,27 @@
         <svg-icon src="assets/img/logo.svg"
                   [svgStyle]="{ 'width.rem':2.5 }"></svg-icon>
       </a>
+
+      <a role="button"
+         class="navbar-burger"
+         [class.is-active]="mobileMenuVisible"
+         aria-label="menu"
+         aria-expanded="false"
+         (click)="onNavbarBurgerClick()">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
 
     <!-- menu -->
-    <div class="navbar-menu">
+    <div class="navbar-menu"
+         [class.is-active]="mobileMenuVisible">
       <div class="navbar-start is-centered">
         <a class="navbar-item is-top-border"
            *ngIf="currentUser != null"
            routerLinkActive="is-active"
            routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
-        </a>
-        <a class="navbar-item is-top-border"
-           *ngIf="currentUser != null"
-           routerLinkActive="is-active"
-           routerLink="/recipe-details/3">Test
         </a>
       </div>
 
@@ -36,7 +43,7 @@
             {{ currentUser | titlecase }}
           </a>
 
-          <div class="navbar-dropdown is-right">
+          <div class="navbar-dropdown is-right is-boxed">
             <a class="navbar-item">
               {{ 'USER.PROFILE' | translate }}
             </a>

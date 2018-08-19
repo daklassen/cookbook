@@ -24,8 +24,9 @@ public class RecipeResource {
 
     @RequestMapping(value = "recipes", method = RequestMethod.GET)
     List<Recipe> readAllRecipes(HttpServletRequest request) {
+        String filterText = request.getParameter("filter");
         String keycloakUserId = Util.extractKeycloakUserIdFromRequest(request);
-        return recipeService.getAllRecipesFromUser(keycloakUserId);
+        return recipeService.getAllRecipesFromUser(keycloakUserId, filterText);
     }
 
     @RequestMapping(value = "recipes", method = RequestMethod.POST)
@@ -34,10 +35,16 @@ public class RecipeResource {
         return recipeService.createRecipe(accessToken, formValue);
     }
 
-    @RequestMapping(value = "recipes/{id}", method = RequestMethod.GET)
-    Recipe readRecipesById(HttpServletRequest request, @PathVariable Long id) {
+    @RequestMapping(value = "recipes/{recipeId}", method = RequestMethod.PUT)
+    Recipe updateRecipe(HttpServletRequest request, @PathVariable Long recipeId, @RequestBody LinkedHashMap<String, Object> formValue) {
+        AccessToken accessToken = Util.getTokenFromRequest(request);
+        return recipeService.updateRecipe(accessToken, recipeId, formValue);
+    }
+
+    @RequestMapping(value = "recipes/{recipeId}", method = RequestMethod.GET)
+    Recipe readRecipesById(HttpServletRequest request, @PathVariable Long recipeId) {
         String keycloakUserId = Util.extractKeycloakUserIdFromRequest(request);
-        return recipeService.getRecipeByIdAndUser(id, keycloakUserId);
+        return recipeService.getRecipeByIdAndUser(recipeId, keycloakUserId);
     }
 
     @RequestMapping(value = "recipes/categories", method = RequestMethod.GET)

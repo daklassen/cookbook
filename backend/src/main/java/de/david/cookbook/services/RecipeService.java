@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -35,9 +36,24 @@ public class RecipeService {
         this.permissionService = permissionService;
     }
 
-    public List<Recipe> getAllRecipesFromUser(String keycloakUserId) {
+    public List<Recipe> getAllRecipesFromUser(String keycloakUserId, String filterText) {
         List<User> user = userRepository.findByKeycloakUserId(keycloakUserId);
-        return recipeRepository.findByAuthor(user.get(0));
+        List<Recipe> recipesOfUser = recipeRepository.findByAuthor(user.get(0));
+
+        if (filterText != null && filterText != "") {
+            String filterTextLowered = filterText.toLowerCase();
+            recipesOfUser = recipesOfUser.stream()
+                    .filter(recipe ->
+                            recipe.getCategory().getName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getFirstName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getLastName().toLowerCase().contains(filterTextLowered) ||
+                            recipe.getAuthor().getEmail().toLowerCase().contains(filterTextLowered)
+                    )
+                    .collect(Collectors.toList());
+        }
+
+        return recipesOfUser;
     }
 
     public Recipe getRecipeByIdAndUser(Long id, String keycloakUserId) {
@@ -56,15 +72,20 @@ public class RecipeService {
 
     public Recipe createRecipe(AccessToken accessToken, LinkedHashMap<String, Object> formValue) {
         User user = userService.getOrCreateUserFromAccessToken(accessToken);
-
         Recipe recipe = new Recipe();
-        recipe.setAuthor(user);
-        recipe.setName((String) formValue.get("name"));
-        recipe.setDescription((String) formValue.get("description"));
-        recipe.setServings(Integer.parseInt((String) formValue.get("servings")));
-        recipe.setCategory(categoryRepository.findById(Long.valueOf((int) formValue.get("category"))));
-        recipe.setIngredients(parseIngredients(formValue));
+        recipe = fillRecipeWithFormValues(recipe, user, formValue);
+        recipeRepository.save(recipe);
+        return recipe;
+    }
 
+    public Recipe updateRecipe(AccessToken accessToken, Long recipeId, LinkedHashMap<String, Object> formValue) {
+        User user = userService.getOrCreateUserFromAccessToken(accessToken);
+        Recipe recipe = recipeRepository.findById(recipeId);
+        if (recipe == null) {
+            // TODO: throw exception
+            return null;
+        }
+        recipe = fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
     }
@@ -89,5 +110,15 @@ public class RecipeService {
         String unit = (String) entry.get("unit");
         String name = (String) entry.get("name");
         return new Ingredient(amount, unit, name);
+    }
+
+    private Recipe fillRecipeWithFormValues(Recipe recipe, User user, LinkedHashMap<String, Object> formValue) {
+        recipe.setAuthor(user);
+        recipe.setName((String) formValue.get("name"));
+        recipe.setDescription((String) formValue.get("description"));
+        recipe.setServings((int) formValue.get("servings"));
+        recipe.setCategory(categoryRepository.findById(Long.valueOf((int) formValue.get("category"))));
+        recipe.setIngredients(parseIngredients(formValue));
+        return recipe;
     }
 }

@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { RecipeService } from '../../../services/business/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
+import { Observable } from 'rxjs';
+import 'rxjs/Rx';
+import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
 
 @Component({
   selector: 'app-recipes',
@@ -14,23 +17,34 @@ export class RecipesComponent implements OnInit, OnDestroy {
   public chunkedRecipes: any;
   public viewAlive: boolean = true;
   public breadcrumbs: Breadcrumb[];
+  public mainFilter: string;
 
-  constructor(private recipeService: RecipeService, private router: Router) {}
+  @ViewChild('searchRef')
+  searchRef: ElementRef;
+
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) {}
 
   public ngOnInit(): void {
     this.loadUsersRecipes();
     this.generateBreadcrumbs();
+    this.initSearch();
   }
 
   public ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public loadUsersRecipes(): void {
+  public loadUsersRecipes(filter: string = ''): void {
+    this.spinner.show();
     this.recipeService
-      .getUsersRecipes()
+      .getUsersRecipes(filter)
       .takeWhile(() => this.viewAlive)
       .subscribe(result => {
+        this.spinner.hide();
         this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
       });
   }
@@ -46,5 +60,13 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.breadcrumbs = [];
     this.breadcrumbs.push(home);
     this.breadcrumbs.push(recipes);
+  }
+
+  private initSearch(): void {
+    Observable.fromEvent(this.searchRef.nativeElement, 'keyup')
+      .map((evt: any) => evt.target.value)
+      .debounceTime(400)
+      .distinctUntilChanged()
+      .subscribe((filterText: string) => this.loadUsersRecipes(filterText));
   }
 }

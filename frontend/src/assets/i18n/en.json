@@ -30,13 +30,18 @@
     "INSTRUCTIONS": "Instructions",
     "AMOUNT": "Amount",
     "UNIT": "Unit",
-    "DESCRIPTION": "Description"
+    "DESCRIPTION": "Description",
+    "HINT": "Cannot be empty",
+    "EXAMPLE": "Don't forget the hyphens (e.g. 5 - kg - Carrots)"
   },
   "GENERAL": {
     "DELETE": "Delete",
     "ADD": "Add",
     "ABORT": "Abort",
     "CREATE": "Create",
-    "UPDATE": "Save"
+    "UPDATE": "Save",
+    "SEARCH": "Search",
+    "NOTFOUND": "Nothing found",
+    "TRYAGAIN": "Wrong search string?"
   }
 }

@@ -1,5 +1,28 @@
+@import './src/assets/sass/vars';
+
 .hero.is-small .hero-body {
   padding-bottom: 1.5rem;
   padding-top: 1.5rem;
-  box-shadow: 0 4px 50px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: $box-shadow;
+}
+
+.input,
+.select,
+.textarea {
+  box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.03);
+}
+
+.button.is-error {
+  box-shadow: 0 4px 10px 0px rgba(0, 0, 0, 0.03);
+  border-width: 0;
+
+  &:hover {
+    color: $white;
+    background: $red;
+  }
+}
+
+.help {
+  padding-left: 0.5rem;
+  font-size: 1rem;
 }
