@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Recipe } from '../../../models/Recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
+import { Observable } from '../../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -12,7 +13,7 @@ import { Breadcrumb } from '../../../models/view/Breadcrumb';
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
   public recipe: Recipe;
-  public submitButtonText: string;
+  public submitButtonText$: Observable<string>;
   public viewAlive: boolean = true;
   public routerLink: string;
   public breadcrumbs: Breadcrumb[];
@@ -25,10 +26,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.translate
-      .get('GENERAL.UPDATE')
-      .takeWhile(() => this.viewAlive)
-      .subscribe(res => (this.submitButtonText = res));
+    this.submitButtonText$ = this.translate.get('GENERAL.UPDATE');
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;
@@ -73,7 +71,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private generateBreadcrumbs(): void {
-    const home: Breadcrumb = { labelKey: 'NAVIG.HOME', routerlink: '/home' };
     const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
     const currentRecipe: Breadcrumb = {
       label: this.recipe.name,
@@ -82,7 +79,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
 
     this.breadcrumbs = [];
-    this.breadcrumbs.push(home);
     this.breadcrumbs.push(recipes);
     this.breadcrumbs.push(currentRecipe);
     this.breadcrumbs.push(editRecipe);

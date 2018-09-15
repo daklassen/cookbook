@@ -54,12 +54,10 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   private generateBreadcrumbs(): void {
-    const home: Breadcrumb = { labelKey: 'NAVIG.HOME', routerlink: '/home' };
     const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
     const currentRecipe: Breadcrumb = { label: this.currentRecipe.name };
 
     this.breadcrumbs = [];
-    this.breadcrumbs.push(home);
     this.breadcrumbs.push(recipes);
     this.breadcrumbs.push(currentRecipe);
   }

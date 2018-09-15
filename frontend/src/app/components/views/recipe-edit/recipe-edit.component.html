@@ -5,7 +5,7 @@
 <section class="section has-background-white-bis"
          *ngIf="recipe">
   <app-edit-recipe-form [recipe]="recipe"
-                        [submitButtonText]="submitButtonText"
+                        [submitButtonText]="submitButtonText$ | async"
                         (editedRecipe)="onRecipeUpdate($event)"
                         (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>

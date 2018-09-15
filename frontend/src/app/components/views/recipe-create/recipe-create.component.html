@@ -3,7 +3,7 @@
 
 <section class="section has-background-white-bis">
   <app-edit-recipe-form [recipe]="emptyRecipe"
-                        [submitButtonText]="submitButtonText"
+                        [submitButtonText]="submitButtonText$ | async"
                         (editedRecipe)="onRecipeCreated($event)"
                         (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
