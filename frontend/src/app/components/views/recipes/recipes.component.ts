@@ -6,6 +6,7 @@ import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { Recipe } from '../../../models/Recipe';
 
 @Component({
   selector: 'app-recipes',
@@ -67,6 +68,12 @@ export class RecipesComponent implements OnInit, OnDestroy {
       .map((evt: any) => evt.target.value)
       .debounceTime(400)
       .distinctUntilChanged()
-      .subscribe((filterText: string) => this.loadUsersRecipes(filterText));
+      .do(() => this.spinner.show())
+      .switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText))
+      .takeWhile(() => this.viewAlive)
+      .subscribe((recipes: Recipe[]) => {
+        this.spinner.hide();
+        this.chunkedRecipes = chunk(recipes, this.RECIPES_PER_ROW);
+      });
   }
 }
