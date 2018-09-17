@@ -1,21 +1,29 @@
 package de.david.cookbook.persistence;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "CB_INGREDIENT")
 public class Ingredient {
 
     @Id
     @GeneratedValue
-    private long id;
+    @Column(name = "ID")
+    private Long id;
 
+    @Column(name = "AMOUNT")
     private double amount;
+
+    @Column(name = "UNIT")
     private String unit;
+
+    @Column(name = "NAME")
     private String name;
 
-    Ingredient() {}
+    Ingredient() {
+    }
 
     public Ingredient(double amount, String unit, String name) {
         this.amount = amount;
@@ -23,7 +31,7 @@ public class Ingredient {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

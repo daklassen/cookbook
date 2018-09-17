@@ -1,21 +1,29 @@
 package de.david.cookbook.persistence;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "CB_USER")
 public class User {
+
     @Id
     @GeneratedValue()
-    private long id;
+    @Column(name = "ID")
+    private Long id;
 
+    @Column(name = "FIRST_NAME")
     private String firstName;
+
+    @Column(name = "LAST_NAME")
     private String lastName;
+
+    @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "KEYCLOAK_USER_ID")
     private String keycloakUserId;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String firstName, String lastName, String email, String keycloakUserId) {
         this.firstName = firstName;
@@ -24,7 +32,7 @@ public class User {
         this.keycloakUserId = keycloakUserId;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

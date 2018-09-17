@@ -1,24 +1,29 @@
 package de.david.cookbook.persistence;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+@Entity(name = "CB_CATEGORY")
 public class Category {
 
     @Id
     @GeneratedValue
-    private long id;
+    @Column(name = "ID")
+    private Long id;
+
+    @Column(name = "NAME")
     private String name;
 
-    Category() {}
+    Category() {
+    }
 
     public Category(String name) {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

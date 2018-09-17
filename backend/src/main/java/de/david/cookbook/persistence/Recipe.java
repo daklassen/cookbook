@@ -1,29 +1,46 @@
 package de.david.cookbook.persistence;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "CB_RECIPE")
 public class Recipe {
 
     @Id
-    @GeneratedValue()
-    private long id;
+    @GeneratedValue
+    @Column(name = "ID")
+    private Long id;
+
+    @Column(name = "NAME")
     private String name;
+
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User author; //TODO
+
+    @Column(name = "IMAGE_URL")
     private String imageURL;
+
+    @Column(name = "SERVINGS")
     private int servings;
+
     @Lob
+    @Column(name = "DESCRIPTION")
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "CATEGORY_ID")
     private Category category;
+
     @OneToMany
+    @JoinColumn(name = "FK_RECIPE_ID")
     private List<Ingredient> ingredients;
 
-
-    public Recipe() {}
+    public Recipe() {
+        this.ingredients = new ArrayList<>();
+    }
 
     public Recipe(String name, User author, String imageURL,
                   int servings, String description,
@@ -37,7 +54,7 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
