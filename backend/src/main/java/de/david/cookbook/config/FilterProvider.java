@@ -16,8 +16,12 @@ public class FilterProvider {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedMethods(HttpMethod.GET.toString(), HttpMethod.POST.toString(),
-                                HttpMethod.PUT.toString(), HttpMethod.DELETE.toString(), HttpMethod.OPTIONS.toString())
+                        .allowedMethods(
+                                HttpMethod.GET.toString(),
+                                HttpMethod.POST.toString(),
+                                HttpMethod.PUT.toString(),
+                                HttpMethod.DELETE.toString(),
+                                HttpMethod.OPTIONS.toString())
                         .allowedOrigins("*");
             }
         };

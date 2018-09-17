@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,19 +37,18 @@ public class RecipeService {
         this.permissionService = permissionService;
     }
 
-    public List<Recipe> getAllRecipesFromUser(String keycloakUserId, String filterText) {
-        List<User> user = userRepository.findByKeycloakUserId(keycloakUserId);
-        List<Recipe> recipesOfUser = recipeRepository.findByAuthor(user.get(0));
+    public List<Recipe> getAllRecipesFromUser(User user, String filterText) {
+        List<Recipe> recipesOfUser = recipeRepository.findByAuthor(user);
 
         if (filterText != null && filterText != "") {
             String filterTextLowered = filterText.toLowerCase();
             recipesOfUser = recipesOfUser.stream()
                     .filter(recipe ->
                             recipe.getCategory().getName().toLowerCase().contains(filterTextLowered) ||
-                            recipe.getName().toLowerCase().contains(filterTextLowered) ||
-                            recipe.getAuthor().getFirstName().toLowerCase().contains(filterTextLowered) ||
-                            recipe.getAuthor().getLastName().toLowerCase().contains(filterTextLowered) ||
-                            recipe.getAuthor().getEmail().toLowerCase().contains(filterTextLowered)
+                                    recipe.getName().toLowerCase().contains(filterTextLowered) ||
+                                    recipe.getAuthor().getFirstName().toLowerCase().contains(filterTextLowered) ||
+                                    recipe.getAuthor().getLastName().toLowerCase().contains(filterTextLowered) ||
+                                    recipe.getAuthor().getEmail().toLowerCase().contains(filterTextLowered)
                     )
                     .collect(Collectors.toList());
         }
@@ -70,8 +70,7 @@ public class RecipeService {
         return categoryRepository.findAll();
     }
 
-    public Recipe createRecipe(AccessToken accessToken, LinkedHashMap<String, Object> formValue) {
-        User user = userService.getOrCreateUserFromAccessToken(accessToken);
+    public Recipe createRecipe(User user, LinkedHashMap<String, Object> formValue) {
         Recipe recipe = new Recipe();
         recipe = fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
@@ -80,7 +79,7 @@ public class RecipeService {
 
     public Recipe updateRecipe(AccessToken accessToken, Long recipeId, LinkedHashMap<String, Object> formValue) {
         User user = userService.getOrCreateUserFromAccessToken(accessToken);
-        Recipe recipe = recipeRepository.findById(recipeId);
+        Recipe recipe = recipeRepository.findOne(recipeId);
         if (recipe == null) {
             // TODO: throw exception
             return null;
@@ -117,7 +116,7 @@ public class RecipeService {
         recipe.setName((String) formValue.get("name"));
         recipe.setDescription((String) formValue.get("description"));
         recipe.setServings((int) formValue.get("servings"));
-        recipe.setCategory(categoryRepository.findById(Long.valueOf((int) formValue.get("category"))));
+        recipe.setCategory(categoryRepository.findOne(Long.valueOf((int) formValue.get("category"))));
         recipe.setIngredients(parseIngredients(formValue));
         return recipe;
     }
