@@ -1,12 +1,10 @@
 package de.david.cookbook.services;
 
 import de.david.cookbook.persistence.*;
-import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,25 +12,19 @@ import java.util.stream.Collectors;
 @Service
 public class RecipeService {
 
-    private UserRepository userRepository;
     private RecipeRepository recipeRepository;
     private CategoryRepository categoryRepository;
-    private UserService userService;
     private IngredientRepository ingredientRepository;
     private PermissionService permissionService;
 
     @Autowired
     public RecipeService(
-            UserRepository userRepository,
             RecipeRepository recipeRepository,
             CategoryRepository categoryRepository,
-            UserService userService,
             IngredientRepository ingredientRepository,
             PermissionService permissionService) {
-        this.userRepository = userRepository;
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
-        this.userService = userService;
         this.ingredientRepository = ingredientRepository;
         this.permissionService = permissionService;
     }
@@ -56,10 +48,10 @@ public class RecipeService {
         return recipesOfUser;
     }
 
-    public Recipe getRecipeByIdAndUser(Long id, String keycloakUserId) {
+    public Recipe getRecipeByIdAndUser(Long id, User user) {
         Recipe recipe = recipeRepository.findOne(id);
 
-        if (permissionService.isUserAllowedToRead(keycloakUserId, recipe)) {
+        if (permissionService.isUserAllowedToReadRecipe(user, recipe)) {
             return recipeRepository.findOne(id);
         } else {
             return null; // TODO: throw Permission Exception
@@ -77,8 +69,7 @@ public class RecipeService {
         return recipe;
     }
 
-    public Recipe updateRecipe(AccessToken accessToken, Long recipeId, LinkedHashMap<String, Object> formValue) {
-        User user = userService.getOrCreateUserFromAccessToken(accessToken);
+    public Recipe updateRecipe(User user, Long recipeId, LinkedHashMap<String, Object> formValue) {
         Recipe recipe = recipeRepository.findOne(recipeId);
         if (recipe == null) {
             // TODO: throw exception

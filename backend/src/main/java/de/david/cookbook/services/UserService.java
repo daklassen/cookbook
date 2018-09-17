@@ -2,10 +2,12 @@ package de.david.cookbook.services;
 
 import de.david.cookbook.persistence.User;
 import de.david.cookbook.persistence.UserRepository;
+import de.david.cookbook.rest.util.Util;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -16,6 +18,11 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User getUserFromRequest(HttpServletRequest request) {
+        AccessToken accessToken = Util.getTokenFromRequest(request);
+        return this.getOrCreateUserFromAccessToken(accessToken);
     }
 
     public User getOrCreateUserFromAccessToken(AccessToken accessToken) {
