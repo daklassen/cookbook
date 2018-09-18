@@ -1,8 +1,8 @@
 package de.david.cookbook.rest;
 
-import de.david.cookbook.persistence.Category;
-import de.david.cookbook.persistence.Recipe;
-import de.david.cookbook.persistence.User;
+import de.david.cookbook.persistence.entities.Category;
+import de.david.cookbook.persistence.entities.Recipe;
+import de.david.cookbook.persistence.entities.User;
 import de.david.cookbook.services.RecipeService;
 import de.david.cookbook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

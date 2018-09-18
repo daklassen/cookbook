@@ -1,7 +1,7 @@
 package de.david.cookbook.services;
 
-import de.david.cookbook.persistence.User;
-import de.david.cookbook.persistence.UserRepository;
+import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.repositories.UserRepository;
 import de.david.cookbook.rest.util.Util;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;

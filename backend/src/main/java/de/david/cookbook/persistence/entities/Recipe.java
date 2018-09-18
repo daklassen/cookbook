@@ -1,7 +1,6 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 

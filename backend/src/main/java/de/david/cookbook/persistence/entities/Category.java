@@ -1,4 +1,4 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
