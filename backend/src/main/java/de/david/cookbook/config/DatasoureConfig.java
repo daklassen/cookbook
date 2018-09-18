@@ -1,4 +1,5 @@
 package de.david.cookbook.config;
 
-public class DatasoureConfig {
+public interface DatasoureConfig {
+    public void setup();
 }
