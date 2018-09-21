@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Rezept-Entity. Beinhaltet Meta-Informationen zu einem Rezept.
+ */
 @Entity(name = "CB_RECIPE")
 public class Recipe {
 
@@ -12,34 +15,29 @@ public class Recipe {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", nullable = false)
-    private User author; //TODO
+    private User author;
 
     @Column(name = "IMAGE_URL")
     private String imageURL;
 
-    @Column(name = "SERVINGS")
+    @Column(name = "SERVINGS", nullable = false)
     private int servings;
 
-    @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category category;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "FK_RECIPE_ID")
     private List<Ingredient> ingredients;
-
-    public Recipe() {
-        this.ingredients = new ArrayList<>();
-    }
 
     public Recipe(String name, User author, String imageURL,
                   int servings, String description,
@@ -53,8 +51,17 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public Recipe() {
+        //Todo: Später ein Recipe DTO bauen um update und create zu einer Methoden verbinden zu können,
+        // ohne die Notwendigkeit eines leeres Konstruktors. Das hier sorgt dafür, dass nullable false Felder null werden können
+    }
+
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -36,13 +36,15 @@ public class UserService {
     }
 
     private User createUserFromAccessToken(AccessToken accessToken) {
-        User newUser = new User();
-        newUser.setEmail(accessToken.getEmail());
-        newUser.setFirstName(accessToken.getGivenName());
-        newUser.setLastName(accessToken.getFamilyName());
-        newUser.setKeycloakUserId(accessToken.getSubject());
 
-        userRepository.save(newUser);
-        return newUser;
+        String firstName = accessToken.getGivenName();
+        String lastName = accessToken.getFamilyName();
+        String email = accessToken.getEmail();
+        String keycloakUserId = accessToken.getSubject();
+
+        //TODO: Prüfung auf Null ergänzen und ggf. Exception werfen
+
+        userRepository.save(new User(firstName, lastName, email, keycloakUserId));
+        return new User(firstName, lastName, email, keycloakUserId);
     }
 }
