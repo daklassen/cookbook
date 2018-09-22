@@ -40,6 +40,9 @@ http://localhost:8080/auth/admin/
 ```
 # Contribution
 
+## Debug-Mode
+Use gradlew ```bootrun --debug-jvm``` to start Spring Bootrun in Debug-Mode. Spring will log the debug port to connect with. 
+
 ## Setup your Testdatabase
 First set the Dev-Profile in application.properties active by chaing the following property
 ```
