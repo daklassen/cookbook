@@ -6,9 +6,7 @@ import { Ingredient } from '../../models/Ingredient';
 import { Category } from '../../models/Category';
 import { environment } from '../../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class RecipeService {
   constructor(private http: HttpClient) {}
 

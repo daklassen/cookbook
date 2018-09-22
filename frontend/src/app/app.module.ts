@@ -10,8 +10,6 @@ import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { AuthGuardService } from './services/security/auth-guard.service';
-import { RecipeService } from './services/business/recipe.service';
 import { HoverClassDirective } from './directives/hover-class.directive';
 import { RecipesComponent } from './components/views/recipes/recipes.component';
 import { RecipeDetailComponent } from './components/views/recipe-detail/recipe-detail.component';
@@ -26,6 +24,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { RecipeService } from './services/business/recipe.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -71,7 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
-    }
+    },
+    RecipeService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
-import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Recipe } from '../../../models/Recipe';
 
 @Component({
