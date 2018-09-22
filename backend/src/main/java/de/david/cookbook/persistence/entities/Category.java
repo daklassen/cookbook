@@ -1,10 +1,13 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Kategorie-Entity. Rezepte werden in Kategorien unterteilt.
+ */
 @Entity(name = "CB_CATEGORY")
 public class Category {
 
@@ -13,7 +16,7 @@ public class Category {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
     Category() {

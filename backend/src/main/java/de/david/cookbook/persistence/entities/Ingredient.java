@@ -1,10 +1,13 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * Zutaten-Entity. Beinhaltet Informationen einer Zutat eines Rezeptes.
+ */
 @Entity(name = "CB_INGREDIENT")
 public class Ingredient {
 
@@ -13,17 +16,14 @@ public class Ingredient {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "AMOUNT")
+    @Column(name = "AMOUNT", nullable = false)
     private double amount;
 
-    @Column(name = "UNIT")
+    @Column(name = "UNIT", nullable = false)
     private String unit;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
-
-    Ingredient() {
-    }
 
     public Ingredient(double amount, String unit, String name) {
         this.amount = amount;
@@ -33,6 +33,10 @@ public class Ingredient {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getAmount() {

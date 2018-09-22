@@ -1,7 +1,7 @@
 package de.david.cookbook.services;
 
-import de.david.cookbook.persistence.User;
-import de.david.cookbook.persistence.UserRepository;
+import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.repositories.UserRepository;
 import de.david.cookbook.rest.util.Util;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,15 @@ public class UserService {
     }
 
     private User createUserFromAccessToken(AccessToken accessToken) {
-        User newUser = new User();
-        newUser.setEmail(accessToken.getEmail());
-        newUser.setFirstName(accessToken.getGivenName());
-        newUser.setLastName(accessToken.getFamilyName());
-        newUser.setKeycloakUserId(accessToken.getSubject());
 
-        userRepository.save(newUser);
-        return newUser;
+        String firstName = accessToken.getGivenName();
+        String lastName = accessToken.getFamilyName();
+        String email = accessToken.getEmail();
+        String keycloakUserId = accessToken.getSubject();
+
+        //TODO: Prüfung auf Null ergänzen und ggf. Exception werfen
+
+        userRepository.save(new User(firstName, lastName, email, keycloakUserId));
+        return new User(firstName, lastName, email, keycloakUserId);
     }
 }

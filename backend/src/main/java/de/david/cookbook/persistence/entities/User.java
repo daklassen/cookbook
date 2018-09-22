@@ -1,29 +1,29 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.*;
 
+/**
+ * Benutzer-Entity zur Anlage und Verwaltung von Rezepten.
+ */
 @Entity(name = "CB_USER")
 public class User {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "KEYCLOAK_USER_ID")
+    @Column(name = "KEYCLOAK_USER_ID", nullable = false)
     private String keycloakUserId;
-
-    public User() {
-    }
 
     public User(String firstName, String lastName, String email, String keycloakUserId) {
         this.firstName = firstName;
@@ -34,6 +34,10 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
