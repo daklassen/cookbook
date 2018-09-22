@@ -2,6 +2,9 @@ package de.david.cookbook.persistence.entities;
 
 import javax.persistence.*;
 
+/**
+ * Benutzer-Entity zur Anlage und Verwaltung von Rezepten.
+ */
 @Entity(name = "CB_USER")
 public class User {
 
