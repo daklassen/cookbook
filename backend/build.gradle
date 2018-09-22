@@ -12,6 +12,12 @@ buildscript {
 	}
 }
 
+plugins {
+	id "org.flywaydb.flyway" version "5.1.4"
+}
+
+
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
@@ -37,7 +43,7 @@ dependencies {
 	compile('org.keycloak:keycloak-spring-boot-adapter')
 	compile('org.keycloak:keycloak-tomcat8-adapter')
 	compile('org.mariadb.jdbc:mariadb-java-client')
-	compile('org.flywaydb:flyway-core')
+	compile "org.flywaydb:flyway-core:5.1.4"
 	compile('org.apache.commons:commons-lang3:3.8')
 
 	runtime('com.h2database:h2')
@@ -49,4 +55,20 @@ dependencyManagement {
 	imports {
 		mavenBom "org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}"
 	}
+}
+
+processResources {
+	expand(project.properties)
+}
+
+configurations {
+	flywayMigration
+}
+
+flyway {
+	// Use Flyway Plugin Tasks only for the Test Database
+	url = 'jdbc:mariadb://localhost:3306/DB_COOKBOOK'
+	user = 'root'
+	password = 'root'
+
 }
