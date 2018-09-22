@@ -57,10 +57,6 @@ dependencyManagement {
 	}
 }
 
-processResources {
-	expand(project.properties)
-}
-
 configurations {
 	flywayMigration
 }
