@@ -44,10 +44,20 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.recipeService
       .getUsersRecipes(filter)
       .takeWhile(() => this.viewAlive)
-      .subscribe(result => {
-        this.spinner.hide();
-        this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
-      });
+      .subscribe(
+        result => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 300);
+          this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
+        },
+        error => {
+          console.error(error);
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 300);
+        }
+      );
   }
 
   public onCreateRecipe(): void {
@@ -72,7 +82,9 @@ export class RecipesComponent implements OnInit, OnDestroy {
       .switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText))
       .takeWhile(() => this.viewAlive)
       .subscribe((recipes: Recipe[]) => {
-        this.spinner.hide();
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 300);
         this.chunkedRecipes = chunk(recipes, this.RECIPES_PER_ROW);
       });
   }
