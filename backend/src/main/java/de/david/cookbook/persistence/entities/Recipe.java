@@ -36,7 +36,7 @@ public class Recipe {
     private Category category;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FK_RECIPE_ID")
+    @JoinColumn(name = "RECIPE_ID")
     private List<Ingredient> ingredients;
 
     public Recipe(String name, User author, String imageURL,
