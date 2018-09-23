@@ -5,5 +5,4 @@
 */build/*
 *.idea*
 */out/*
-keycloak/keycloak-3\.4\.3\.Final/standalone/log/
 keycloak/keycloak-4\.4\.0\.Final/standalone/log/
