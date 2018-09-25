@@ -45,7 +45,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
 
   public splitDescription(): void {
     if (this.currentRecipe) {
-      this.splittedDescription = this.currentRecipe.description.split(REGEX_SPLITTING_DESCRIPTION);
+      this.splittedDescription = this.currentRecipe.description
+        .split(REGEX_SPLITTING_DESCRIPTION)
+        .filter(descBlock => descBlock.length != 0);
     }
   }
 

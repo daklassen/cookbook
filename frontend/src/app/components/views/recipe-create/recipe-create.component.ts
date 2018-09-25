@@ -4,7 +4,7 @@ import { Recipe } from '../../../models/Recipe';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
-import { Observable } from '../../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-create',
