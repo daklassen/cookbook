@@ -38,9 +38,9 @@ http://localhost:8080/auth/admin/
 // Username: admin
 // Password: admin
 ```
-# Contribution
 
-## Setup your Testdatabase
+### Setup your Testdatabase
+
 First activate the dev profile in application.properties by changing the following property
 ```
 spring.profiles.active=dev
