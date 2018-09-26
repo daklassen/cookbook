@@ -1,7 +1,6 @@
-package de.david.cookbook.persistence;
+package de.david.cookbook.persistence.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,34 +12,29 @@ public class Recipe {
     @Column(name = "ID")
     private Long id;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID", nullable = false)
-    private User author; //TODO
+    private User author;
 
     @Column(name = "IMAGE_URL")
     private String imageURL;
 
-    @Column(name = "SERVINGS")
+    @Column(name = "SERVINGS", nullable = false)
     private int servings;
 
-    @Lob
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category category;
 
-    @OneToMany
-    @JoinColumn(name = "FK_RECIPE_ID")
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "RECIPE_ID")
     private List<Ingredient> ingredients;
-
-    public Recipe() {
-        this.ingredients = new ArrayList<>();
-    }
 
     public Recipe(String name, User author, String imageURL,
                   int servings, String description,
@@ -56,6 +50,10 @@ public class Recipe {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

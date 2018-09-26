@@ -1,6 +1,13 @@
 package de.david.cookbook;
 
-import de.david.cookbook.persistence.*;
+import de.david.cookbook.persistence.entities.Category;
+import de.david.cookbook.persistence.entities.Ingredient;
+import de.david.cookbook.persistence.entities.Recipe;
+import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.repositories.CategoryRepository;
+import de.david.cookbook.persistence.repositories.IngredientRepository;
+import de.david.cookbook.persistence.repositories.RecipeRepository;
+import de.david.cookbook.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

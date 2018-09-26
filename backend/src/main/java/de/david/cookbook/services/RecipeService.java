@@ -1,6 +1,13 @@
 package de.david.cookbook.services;
 
-import de.david.cookbook.persistence.*;
+import de.david.cookbook.persistence.entities.Category;
+import de.david.cookbook.persistence.entities.Ingredient;
+import de.david.cookbook.persistence.entities.Recipe;
+import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.repositories.CategoryRepository;
+import de.david.cookbook.persistence.repositories.IngredientRepository;
+import de.david.cookbook.persistence.repositories.RecipeRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +39,7 @@ public class RecipeService {
     public List<Recipe> getAllRecipesFromUser(User user, String filterText) {
         List<Recipe> recipesOfUser = recipeRepository.findByAuthor(user);
 
-        if (filterText != null && filterText != "") {
+        if (StringUtils.isNotEmpty(filterText)) {
             String filterTextLowered = filterText.toLowerCase();
             recipesOfUser = recipesOfUser.stream()
                     .filter(recipe ->
@@ -63,18 +70,15 @@ public class RecipeService {
     }
 
     public Recipe createRecipe(User user, LinkedHashMap<String, Object> formValue) {
+
         Recipe recipe = new Recipe();
-        recipe = fillRecipeWithFormValues(recipe, user, formValue);
+        fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     public Recipe updateRecipe(User user, Long recipeId, LinkedHashMap<String, Object> formValue) {
         Recipe recipe = recipeRepository.findOne(recipeId);
-        if (recipe == null) {
-            // TODO: throw exception
-            return null;
-        }
         recipe = fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
