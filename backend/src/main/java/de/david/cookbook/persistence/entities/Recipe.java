@@ -48,11 +48,6 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
-    public Recipe() {
-        //Todo: Später ein Recipe DTO bauen um update und create zu einer Methoden verbinden zu können,
-        // ohne die Notwendigkeit eines leeres Konstruktors. Das hier sorgt dafür, dass nullable false Felder null werden können
-    }
-
     public Long getId() {
         return id;
     }
