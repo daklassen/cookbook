@@ -42,7 +42,7 @@ public class UserService {
         String email = accessToken.getEmail();
         String keycloakUserId = accessToken.getSubject();
 
-        //TODO: Prüfung auf Null ergänzen und ggf. Exception werfen
+        //TODO: Check if null and throw exception
 
         userRepository.save(new User(firstName, lastName, email, keycloakUserId));
         return new User(firstName, lastName, email, keycloakUserId);
