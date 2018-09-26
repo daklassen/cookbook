@@ -4,9 +4,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Rezept-Entity. Beinhaltet Meta-Informationen zu einem Rezept.
- */
 @Entity(name = "CB_RECIPE")
 public class Recipe {
 
