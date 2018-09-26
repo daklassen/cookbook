@@ -72,18 +72,13 @@ public class RecipeService {
     public Recipe createRecipe(User user, LinkedHashMap<String, Object> formValue) {
 
         Recipe recipe = new Recipe();
-        fillRecipeWithFormValues(recipe,user, formValue);
+        fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
     }
 
     public Recipe updateRecipe(User user, Long recipeId, LinkedHashMap<String, Object> formValue) {
         Recipe recipe = recipeRepository.findOne(recipeId);
-        if (recipe == null) {
-            // TODO: throw exception -> nein. Das tut die findOne Methode schon.
-            return null;
-        }
-
         recipe = fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
         return recipe;
