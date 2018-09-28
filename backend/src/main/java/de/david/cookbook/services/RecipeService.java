@@ -70,7 +70,6 @@ public class RecipeService {
     }
 
     public Recipe createRecipe(User user, LinkedHashMap<String, Object> formValue) {
-
         Recipe recipe = new Recipe();
         fillRecipeWithFormValues(recipe, user, formValue);
         recipeRepository.save(recipe);
@@ -79,9 +78,14 @@ public class RecipeService {
 
     public Recipe updateRecipe(User user, Long recipeId, LinkedHashMap<String, Object> formValue) {
         Recipe recipe = recipeRepository.findOne(recipeId);
-        recipe = fillRecipeWithFormValues(recipe, user, formValue);
-        recipeRepository.save(recipe);
-        return recipe;
+
+        if (!permissionService.isUserAllowedToReadRecipe(user, recipe)) {
+            recipe = fillRecipeWithFormValues(recipe, user, formValue);
+            recipeRepository.save(recipe);
+            return recipe;
+        } else {
+            return null; // TODO: throw NotPermittedException
+        }
     }
 
     private List<Ingredient> parseIngredients(LinkedHashMap<String, Object> formValue) {
@@ -100,7 +104,7 @@ public class RecipeService {
     }
 
     private Ingredient generateIngredientFromEntry(LinkedHashMap<String, Object> entry) {
-        double amount = (double) (int) entry.get("amount");
+        double amount = (double) entry.get("amount");
         String unit = (String) entry.get("unit");
         String name = (String) entry.get("name");
         return new Ingredient(amount, unit, name);

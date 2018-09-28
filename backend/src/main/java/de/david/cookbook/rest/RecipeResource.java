@@ -25,32 +25,32 @@ public class RecipeResource {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "recipes", method = RequestMethod.GET)
+    @GetMapping(value = "recipes")
     List<Recipe> readAllRecipes(HttpServletRequest request, @RequestParam("filter") String filterText) {
         User user = userService.getUserFromRequest(request);
         return recipeService.getAllRecipesFromUser(user, filterText);
     }
 
-    @RequestMapping(value = "recipes", method = RequestMethod.POST)
+    @PostMapping(value = "recipes")
     Recipe createRecipe(HttpServletRequest request, @RequestBody LinkedHashMap<String, Object> formValue) {
         User user = userService.getUserFromRequest(request);
         return recipeService.createRecipe(user, formValue);
     }
 
-    @RequestMapping(value = "recipes/{recipeId}", method = RequestMethod.PUT)
+    @PutMapping(value = "recipes/{recipeId}")
     Recipe updateRecipe(HttpServletRequest request, @PathVariable Long recipeId,
                         @RequestBody LinkedHashMap<String, Object> formValue) {
         User user = userService.getUserFromRequest(request);
         return recipeService.updateRecipe(user, recipeId, formValue);
     }
 
-    @RequestMapping(value = "recipes/{recipeId}", method = RequestMethod.GET)
+    @GetMapping(value = "recipes/{recipeId}")
     Recipe readRecipesById(HttpServletRequest request, @PathVariable Long recipeId) {
         User user = userService.getUserFromRequest(request);
         return recipeService.getRecipeByIdAndUser(recipeId, user);
     }
 
-    @RequestMapping(value = "recipes/categories", method = RequestMethod.GET)
+    @GetMapping(value = "recipes/categories")
     List<Category> readAllRecipeCategories(HttpServletRequest request) {
         return recipeService.getAllCategories();
     }

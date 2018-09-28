@@ -16,9 +16,6 @@ public class Category {
     @Column(name = "NAME", nullable = false)
     private String name;
 
-    Category() {
-    }
-
     public Category(String name) {
         this.name = name;
     }

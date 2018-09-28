@@ -62,8 +62,10 @@
         <ng-template #loginButton>
           <div class="navbar-item">
             <p class="control">
-              <button (click)="onLoginClicked()"
-                      class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
+              <input type="button"
+                     class="button is-primary is-medium"
+                     (click)="onLoginClicked()"
+                     [value]="loginBtnText$ | async" />
             </p>
           </div>
         </ng-template>

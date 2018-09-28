@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from '../../../environments/environment';
+import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
+import { Observable } from '../../../../node_modules/rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,14 +10,16 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public currentUser;
-  public mobileMenuVisible;
+  public currentUser: string;
+  public mobileMenuVisible: boolean;
+  public loginBtnText$: Observable<string>;
 
-  constructor(private keycloakService: KeycloakService) {}
+  constructor(private keycloakService: KeycloakService, private translate: TranslateService) {}
 
   public ngOnInit() {
     this.loadCurrentUser();
     this.mobileMenuVisible = false;
+    this.loginBtnText$ = this.translate.get('USER.LOGIN');
   }
 
   public loadCurrentUser(): void {
