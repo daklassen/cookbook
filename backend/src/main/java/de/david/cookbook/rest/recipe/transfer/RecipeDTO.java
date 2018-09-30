@@ -1,5 +1,6 @@
-package de.david.cookbook.rest.transfer;
+package de.david.cookbook.rest.recipe.transfer;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -10,8 +11,7 @@ public class RecipeDTO {
     @NotNull
     private String name;
 
-    @NotNull
-    private String userId;
+    private UserDTO author;
 
     private String imageURL;
 
@@ -22,9 +22,10 @@ public class RecipeDTO {
     private String description;
 
     @NotNull
-    private CategoryDTO categoryId;
+    private Long categoryId;
 
     @NotNull
+    @Valid
     private List<IngredientDTO> ingredients;
 
     public RecipeDTO() {
@@ -46,12 +47,12 @@ public class RecipeDTO {
         this.name = name;
     }
 
-    public String getUserId() {
-        return userId;
+    public UserDTO getAuthor() {
+        return author;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAuthor(UserDTO author) {
+        this.author = author;
     }
 
     public String getImageURL() {
@@ -78,11 +79,11 @@ public class RecipeDTO {
         this.description = description;
     }
 
-    public CategoryDTO getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(CategoryDTO categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 

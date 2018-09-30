@@ -1,5 +1,4 @@
-export interface Ingredient {
-  id?: number;
+export interface IngredientDTO {
   amount: number;
   unit: string;
   name: string;

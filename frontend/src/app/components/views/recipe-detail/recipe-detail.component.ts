@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecipeService } from '../../../services/business/recipe.service';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeService } from '../../../services/recipe/recipe.service';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 
 const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
@@ -12,7 +12,7 @@ const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  public currentRecipe: Recipe;
+  public currentRecipe: RecipeDTO;
   public splittedDescription: Array<string>;
   public viewAlive: boolean = true;
   public breadcrumbs: Breadcrumb[];

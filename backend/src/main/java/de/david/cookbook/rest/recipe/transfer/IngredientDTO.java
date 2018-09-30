@@ -1,8 +1,10 @@
-package de.david.cookbook.rest.transfer;
+package de.david.cookbook.rest.recipe.transfer;
 
 import javax.validation.constraints.NotNull;
 
 public class IngredientDTO {
+
+    private Long id;
 
     @NotNull
     private double amount;
@@ -14,6 +16,14 @@ public class IngredientDTO {
     private String name;
 
     public IngredientDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public double getAmount() {

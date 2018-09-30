@@ -42,6 +42,7 @@ dependencies {
 	compile('org.mariadb.jdbc:mariadb-java-client')
 	compile "org.flywaydb:flyway-core:5.1.4"
 	compile('org.apache.commons:commons-lang3:3.8')
+	compile('org.modelmapper:modelmapper:0.7.5')
 
 	runtime('com.h2database:h2')
 

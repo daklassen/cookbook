@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { environment } from '../../../environments/environment';
-import { TranslateService } from '../../../../node_modules/@ngx-translate/core';
-import { Observable } from '../../../../node_modules/rxjs';
+import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',

@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
+import { RecipeService } from '../../../services/recipe/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 
 @Component({
   selector: 'app-recipes',
@@ -81,7 +81,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
       .do(() => this.spinner.show())
       .switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText))
       .takeWhile(() => this.viewAlive)
-      .subscribe((recipes: Recipe[]) => {
+      .subscribe((recipes: RecipeDTO[]) => {
         setTimeout(() => {
           this.spinner.hide();
         }, 300);

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeService } from '../../../services/recipe/recipe.service';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./recipe-create.component.scss']
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
-  public emptyRecipe: Recipe;
+  public emptyRecipe: RecipeDTO;
   public submitButtonText$: Observable<string>;
   public viewAlive: boolean = true;
   public breadcrumbs: Breadcrumb[];
@@ -33,12 +33,12 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public onRecipeCreated(formValue: any): void {
+  public onRecipeCreated(recipe: RecipeDTO): void {
     this.recipeService
-      .createRecipe(formValue)
+      .createRecipe(recipe)
       .takeWhile(() => this.viewAlive)
       .subscribe(
-        (recipe: Recipe) => {
+        (recipe: RecipeDTO) => {
           this.router.navigateByUrl('/recipes');
         },
         error => {
@@ -47,7 +47,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onAbortClicked(recipe: Recipe): void {
+  public onAbortClicked(recipe: RecipeDTO): void {
     this.router.navigateByUrl('/recipes');
   }
 

@@ -22,6 +22,8 @@ public class User {
     @Column(name = "KEYCLOAK_USER_ID", nullable = false)
     private String keycloakUserId;
 
+    public User() {}
+
     public User(String firstName, String lastName, String email, String keycloakUserId) {
         this.firstName = firstName;
         this.lastName = lastName;

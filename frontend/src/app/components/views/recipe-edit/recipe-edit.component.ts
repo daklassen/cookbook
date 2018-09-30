@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
+import { RecipeService } from '../../../services/recipe/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./recipe-edit.component.scss']
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
-  public recipe: Recipe;
+  public recipe: RecipeDTO;
   public submitButtonText$: Observable<string>;
   public viewAlive: boolean = true;
   public routerLink: string;
@@ -36,9 +36,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public onRecipeUpdate(formValue: any): void {
+  public onRecipeUpdate(recipe: RecipeDTO): void {
     this.recipeService
-      .updateRecipe(formValue, this.recipe.id)
+      .updateRecipe(recipe, this.recipe.id)
       .takeWhile(() => this.viewAlive)
       .subscribe(
         recipe => {
@@ -49,7 +49,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onAbortClicked(recipe: Recipe): void {
+  public onAbortClicked(recipe: RecipeDTO): void {
     this.navigateToDetailView();
   }
 

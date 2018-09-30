@@ -36,6 +36,8 @@ public class Recipe {
     @JoinColumn(name = "RECIPE_ID")
     private List<Ingredient> ingredients;
 
+    public Recipe() {}
+
     public Recipe(String name, User author, String imageURL,
                   int servings, String description,
                   Category category, List<Ingredient> ingredients) {

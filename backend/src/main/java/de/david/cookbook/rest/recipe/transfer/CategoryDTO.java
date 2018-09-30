@@ -1,8 +1,12 @@
-package de.david.cookbook.rest.transfer;
+package de.david.cookbook.rest.recipe.transfer;
+
+import javax.validation.constraints.NotNull;
 
 public class CategoryDTO {
 
     private Long id;
+
+    @NotNull
     private String name;
 
     public CategoryDTO() {

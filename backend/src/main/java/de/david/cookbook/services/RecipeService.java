@@ -69,54 +69,28 @@ public class RecipeService {
         return categoryRepository.findAll();
     }
 
-    public Recipe createRecipe(User user, LinkedHashMap<String, Object> formValue) {
-        Recipe recipe = new Recipe();
-        fillRecipeWithFormValues(recipe, user, formValue);
+    public Recipe createRecipe(User user, Recipe recipe) {
+        List<Ingredient> ingredients = recipe.getIngredients();
+        ingredientRepository.save(ingredients);
+
+        Long categoryId = recipe.getCategory().getId();
+        Category category = categoryRepository.findOne(categoryId);
+        recipe.setCategory(category);
+
+        recipe.setAuthor(user);
         recipeRepository.save(recipe);
         return recipe;
     }
 
-    public Recipe updateRecipe(User user, Long recipeId, LinkedHashMap<String, Object> formValue) {
-        Recipe recipe = recipeRepository.findOne(recipeId);
+    public Recipe updateRecipe(User user, Long recipeId, Recipe recipe) {
+        Recipe oldRecipe = recipeRepository.findOne(recipeId);
 
-        if (!permissionService.isUserAllowedToReadRecipe(user, recipe)) {
-            recipe = fillRecipeWithFormValues(recipe, user, formValue);
-            recipeRepository.save(recipe);
+        if (!permissionService.isUserAllowedToReadRecipe(user, oldRecipe)) {
+            //TODO: copy values
+            recipeRepository.save(oldRecipe);
             return recipe;
         } else {
             return null; // TODO: throw NotPermittedException
         }
-    }
-
-    private List<Ingredient> parseIngredients(LinkedHashMap<String, Object> formValue) {
-        ArrayList<Ingredient> ingredients = new ArrayList<>();
-
-        ArrayList<LinkedHashMap<String, Object>> ingredientsList =
-                (ArrayList<LinkedHashMap<String, Object>>) formValue.get("ingredients");
-
-        for (LinkedHashMap<String, Object> ingredientEntry : ingredientsList) {
-            Ingredient ingredient = generateIngredientFromEntry(ingredientEntry);
-            ingredientRepository.save(ingredient);
-            ingredients.add(ingredient);
-        }
-
-        return ingredients;
-    }
-
-    private Ingredient generateIngredientFromEntry(LinkedHashMap<String, Object> entry) {
-        double amount = (double) entry.get("amount");
-        String unit = (String) entry.get("unit");
-        String name = (String) entry.get("name");
-        return new Ingredient(amount, unit, name);
-    }
-
-    private Recipe fillRecipeWithFormValues(Recipe recipe, User user, LinkedHashMap<String, Object> formValue) {
-        recipe.setAuthor(user);
-        recipe.setName((String) formValue.get("name"));
-        recipe.setDescription((String) formValue.get("description"));
-        recipe.setServings((int) formValue.get("servings"));
-        recipe.setCategory(categoryRepository.findOne(Long.valueOf((int) formValue.get("category"))));
-        recipe.setIngredients(parseIngredients(formValue));
-        return recipe;
     }
 }
