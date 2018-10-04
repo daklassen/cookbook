@@ -10,6 +10,11 @@
     font-weight: 600;
   }
 
+  .navbar-item.login-button,
+  .navbar-item.has-dropdown {
+    border-top-width: 0px;
+  }
+
   .navbar-item.is-active.is-top-border,
   .navbar-item.is-active.is-top-border:hover {
     border-color: $link;
@@ -37,4 +42,9 @@
     left: auto;
     right: 1.4rem;
   }
+}
+
+.button {
+  padding: 1.4rem 2rem;
+  font-weight: 400;
 }
