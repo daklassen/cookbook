@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
+import { RecipeService } from '../../../services/recipe/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
+import { Observable } from 'rxjs';
+import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -11,8 +13,8 @@ import { Breadcrumb } from '../../../models/view/Breadcrumb';
   styleUrls: ['./recipe-edit.component.scss']
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
-  public recipe: Recipe;
-  public submitButtonText: string;
+  public recipe: RecipeDTO;
+  public submitButtonText$: Observable<string>;
   public viewAlive: boolean = true;
   public routerLink: string;
   public breadcrumbs: Breadcrumb[];
@@ -21,14 +23,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   public ngOnInit(): void {
-    this.translate
-      .get('GENERAL.UPDATE')
-      .takeWhile(() => this.viewAlive)
-      .subscribe(res => (this.submitButtonText = res));
+    this.submitButtonText$ = this.translate.get('GENERAL.UPDATE');
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;
@@ -38,20 +38,33 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public onRecipeUpdate(formValue: any): void {
+  public onRecipeUpdate(recipe: RecipeDTO): void {
+    this.spinner.show();
     this.recipeService
-      .updateRecipe(formValue, this.recipe.id)
+      .updateRecipe(recipe, this.recipe.id)
       .takeWhile(() => this.viewAlive)
       .subscribe(
         recipe => {
           console.log('Edit was successful');
+          this.spinner.hide();
           this.navigateToDetailView();
         },
         error => console.error(error)
       );
   }
 
-  public onAbortClicked(recipe: Recipe): void {
+  public onDeleteRecipe(): void {
+    this.spinner.show();
+    this.recipeService
+      .deleteRecipe(this.recipe.id)
+      .takeWhile(() => this.viewAlive)
+      .subscribe(success => {
+        this.spinner.show();
+        this.router.navigateByUrl('/recipes');
+      });
+  }
+
+  public onAbortClicked(recipe: RecipeDTO): void {
     this.navigateToDetailView();
   }
 
@@ -73,7 +86,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private generateBreadcrumbs(): void {
-    const home: Breadcrumb = { labelKey: 'NAVIG.HOME', routerlink: '/home' };
     const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
     const currentRecipe: Breadcrumb = {
       label: this.recipe.name,
@@ -82,7 +94,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
 
     this.breadcrumbs = [];
-    this.breadcrumbs.push(home);
     this.breadcrumbs.push(recipes);
     this.breadcrumbs.push(currentRecipe);
     this.breadcrumbs.push(editRecipe);

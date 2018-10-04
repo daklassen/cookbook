@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Ingredient } from '../../../models/Ingredient';
-import { Recipe } from '../../../models/Recipe';
-import { RecipeService } from '../../../services/business/recipe.service';
-import { Category } from '../../../models/Category';
+import { IngredientDTO } from '../../../services/recipe/transfer/IngredientDTO';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
+import { RecipeService } from '../../../services/recipe/recipe.service';
+import { CategoryDTO } from '../../../services/recipe/transfer/CategoryDTO';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -13,13 +12,13 @@ import { Category } from '../../../models/Category';
 })
 export class EditRecipeFormComponent implements OnInit, OnDestroy {
   @Input()
-  recipe: Recipe;
+  recipe: RecipeDTO;
   @Input()
   submitButtonText: string;
   @Output()
-  editedRecipe: EventEmitter<Recipe> = new EventEmitter();
+  editedRecipe: EventEmitter<RecipeDTO> = new EventEmitter();
   @Output()
-  aborted: EventEmitter<Recipe> = new EventEmitter();
+  aborted: EventEmitter<RecipeDTO> = new EventEmitter();
 
   get ingredientFormArray(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
@@ -41,15 +40,11 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   public recipeForm: FormGroup;
   public items: FormArray;
   public currentIngredient: string;
-  public categories: Array<Category>;
+  public categories: Array<CategoryDTO>;
   public viewAlive: boolean = true;
   public servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private recipeService: RecipeService
-  ) {}
+  constructor(private fb: FormBuilder, private recipeService: RecipeService) {}
 
   public ngOnInit(): void {
     this.currentIngredient = '';
@@ -61,12 +56,19 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public ingredientToString(ingredient: Ingredient): string {
+  public ingredientToString(ingredient: IngredientDTO): string {
     return this.recipeService.formatIngredientToString(ingredient);
   }
 
   public onSubmit(formValue) {
-    this.editedRecipe.emit(formValue);
+    const recipe: RecipeDTO = {
+      categoryId: formValue.category,
+      description: formValue.description,
+      ingredients: formValue.ingredients,
+      name: formValue.name,
+      servings: formValue.servings
+    };
+    this.editedRecipe.emit(recipe);
   }
 
   public onAbortClicked() {
@@ -105,22 +107,22 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   private fillForm(): void {
-    let currentRecipe: Recipe = this.recipe;
+    let currentRecipe: RecipeDTO = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
     this.recipeForm.get('servings').patchValue(currentRecipe.servings ? currentRecipe.servings : 4);
     this.recipeForm
       .get('category')
-      .patchValue(currentRecipe.category ? currentRecipe.category.id : this.categories[0].id);
+      .patchValue(currentRecipe.categoryId ? currentRecipe.categoryId : this.categories[0].id);
     currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
   }
 
-  private addItem(ingredient: Ingredient): void {
+  private addItem(ingredient: IngredientDTO): void {
     this.items = this.recipeForm.get('ingredients') as FormArray;
     this.items.push(this.createItem(ingredient));
   }
 
-  private createItem(ingredient: Ingredient): FormControl {
+  private createItem(ingredient: IngredientDTO): FormControl {
     return this.fb.control(ingredient);
   }
 }

@@ -7,11 +7,15 @@
 
   <div class="container">
     <div class="field">
-      <div class="control">
+      <div class="control has-icons-right">
         <input class="input is-huge"
                type="text"
                placeholder="{{ 'GENERAL.SEARCH' | translate }}"
                #searchRef>
+        <span class="icon is-huge-icon is-right">
+          <fa name="search"
+              size="2x"></fa>
+        </span>
       </div>
     </div>
   </div>
@@ -51,7 +55,7 @@
   </section>
 </section>
 
-<!--ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
              size="medium"
              color="#fff"
-             type="ball-spin-fade"></ngx-spinner-->
+             type="ball-spin-fade"></ngx-spinner>

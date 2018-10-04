@@ -35,7 +35,7 @@
       <div class="navbar-end">
 
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null; else loginButton"
+        <div *ngIf="currentUser != null"
              class="navbar-item has-dropdown"
              hoverClass="is-active">
 
@@ -59,16 +59,13 @@
         </div>
 
         <!-- user is not logged in -->
-        <ng-template #loginButton>
-          <div class="navbar-item">
-            <p class="control">
-              <button (click)="onLoginClicked()"
-                      class="button is-right is-light">{{ 'USER.LOGIN' | translate }}</button>
-            </p>
-          </div>
-        </ng-template>
-
+        <div *ngIf="currentUser == null"
+             class="navbar-item login-button">
+          <span class="button is-primary"
+                (click)="onLoginClicked()">{{ loginBtnText$ | async }}</span>
+        </div>
       </div>
     </div>
+
   </div>
 </nav>

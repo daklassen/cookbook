@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
+import { RecipeService } from '../../../services/recipe/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
-import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 
 @Component({
   selector: 'app-recipes',
@@ -43,10 +44,20 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.recipeService
       .getUsersRecipes(filter)
       .takeWhile(() => this.viewAlive)
-      .subscribe(result => {
-        this.spinner.hide();
-        this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
-      });
+      .subscribe(
+        result => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 300);
+          this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
+        },
+        error => {
+          console.error(error);
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 300);
+        }
+      );
   }
 
   public onCreateRecipe(): void {
@@ -67,6 +78,14 @@ export class RecipesComponent implements OnInit, OnDestroy {
       .map((evt: any) => evt.target.value)
       .debounceTime(400)
       .distinctUntilChanged()
-      .subscribe((filterText: string) => this.loadUsersRecipes(filterText));
+      .do(() => this.spinner.show())
+      .switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText))
+      .takeWhile(() => this.viewAlive)
+      .subscribe((recipes: RecipeDTO[]) => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 300);
+        this.chunkedRecipes = chunk(recipes, this.RECIPES_PER_ROW);
+      });
   }
 }

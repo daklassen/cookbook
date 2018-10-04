@@ -1,92 +1,55 @@
 package de.david.cookbook;
 
-import de.david.cookbook.persistence.*;
+import de.david.cookbook.persistence.entities.Category;
+import de.david.cookbook.persistence.entities.Ingredient;
+import de.david.cookbook.persistence.entities.Recipe;
+import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.repositories.CategoryRepository;
+import de.david.cookbook.persistence.repositories.IngredientRepository;
+import de.david.cookbook.persistence.repositories.RecipeRepository;
+import de.david.cookbook.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class CookBookApplication implements CommandLineRunner {
 
-	@Autowired
-	private CategoryRepository categoryRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-	@Autowired
-	private RecipeRepository recipeRepository;
+    @Autowired
+    private RecipeRepository recipeRepository;
 
-	@Autowired
-	private IngredientRepository ingredientRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	// TODO: remove temporary content filling on startup
-	@Override
-	public void run(String... args) throws Exception {
-		Category hauptspeise = new Category("Hauptspeise");
-		Category vorspeise = new Category("Vorspeise");
-		Category nachspeise = new Category("Nachspeise");
-		categoryRepository.save(hauptspeise);
-		categoryRepository.save(vorspeise);
-		categoryRepository.save(nachspeise);
+    public static void main(String[] args) {
+        SpringApplication.run(CookBookApplication.class, args);
+    }
 
-		User david = new User("David", "Klassen", "david@online.de", "6563472c-04d3-43a2-9664-d2f1c4a763f3");
-		userRepository.save(david);
+    // TODO: remove temporary content filling on startup
+    @Override
+    public void run(String... args) throws Exception {
+        Category hauptspeise = new Category("Hauptspeise");
+        Category vorspeise = new Category("Vorspeise");
+        Category nachspeise = new Category("Nachspeise");
+        categoryRepository.save(hauptspeise);
+        categoryRepository.save(vorspeise);
+        categoryRepository.save(nachspeise);
 
-		Ingredient teig = new Ingredient(200, "g", "Blätterteig");
-		Ingredient lachs = new Ingredient(450, "g", "Lachs");
-		Ingredient sahne = new Ingredient(200, "ml", "Schlagsahne");
-		Ingredient eier = new Ingredient(3, "", "Eier");
-		Ingredient salz = new Ingredient(0, "", "Salz, Pfeffer");
-		ArrayList<Ingredient> ingredients = new ArrayList<>();
-		ingredientRepository.save(teig);
-		ingredientRepository.save(lachs);
-		ingredientRepository.save(sahne);
-		ingredientRepository.save(eier);
-		ingredientRepository.save(salz);
-		ingredients.add(teig);
-		ingredients.add(lachs);
-		ingredients.add(sahne);
-		ingredients.add(eier);
-		ingredients.add(salz);
+        User david = new User("David", "Klassen", "david@online.de", "7fb96b6b-175b-4f06-bf76-64b451b27086");
+        userRepository.save(david);
 
-		List<Recipe> recipes = new ArrayList<>();
-
-		String description = "Eine Quicheform mit dem Blätterteig auskleiden (die Form vorher entweder mit dem mitgelieferten Backpapier auskleiden oder ausfetten).\n" +
-				"Den Ziegenfrischkäse mit Meerrettich verrühren und den Blätterteigboden damit schön gleichmäßig bestreichen. Den Räucherlachs in lockeren Schleifen darauf verteilen. Die Krabben dazwischen streuen. Sahne und Eier verrühren, abschmecken und den gehackten Dill untermischen. Die Sahnemischung gleichmäßig auf den belegten Teig gießen und die Quiche im vorgeheizten Ofen bei 250 °C ca. 30 Min. backen.\n" +
-				"Alternativ zum Ziegenfrischkäse kann man die Quiche auch mit einem Meerrettichfrischkäse oder einem Kräuterfrischkäse zubereiten, dann aber die weicheren Sorten (z. B. Bresso) verwenden. Statt Dill kann man auch Basilikum nehmen.";
-
-		recipes.add(new Recipe("Bohneneintopf", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, description, hauptspeise, ingredients));
-		recipes.add(new Recipe("Chili", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
-		recipes.add(new Recipe("Paprika-Auflauf2", david, "https://image.ibb.co/hxD4WS/food_2.png", 4, description, vorspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Salat", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, vorspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Eis", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, nachspeise, null));
-		recipes.add(new Recipe("Joghurt", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, nachspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-		recipes.add(new Recipe("Chili2", david, "https://preview.ibb.co/bBThJ7/food_1.png", 4, description, hauptspeise, null));
-
-		recipes.forEach(recipe -> recipeRepository.save(recipe));
-	}
-
-	public static void main(String[] args) {
-		SpringApplication.run(CookBookApplication.class, args);
-	}
+        Category testcategory = categoryRepository.save(new Category("Testcategory"));
+        Ingredient zucker = ingredientRepository.save(new Ingredient(1, "Zucker", "Kg"));
+        Recipe recipe = new Recipe("Testrecipe 1", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, "description", testcategory, Arrays.asList(zucker));
+        recipeRepository.save(recipe);
+    }
 }

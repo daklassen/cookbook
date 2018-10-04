@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../../../services/business/recipe.service';
-import { Recipe } from '../../../models/Recipe';
+import { RecipeService } from '../../../services/recipe/recipe.service';
+import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-create',
@@ -11,8 +12,8 @@ import { Breadcrumb } from '../../../models/view/Breadcrumb';
   styleUrls: ['./recipe-create.component.scss']
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
-  public emptyRecipe: Recipe;
-  public submitButtonText: string;
+  public emptyRecipe: RecipeDTO;
+  public submitButtonText$: Observable<string>;
   public viewAlive: boolean = true;
   public breadcrumbs: Breadcrumb[];
 
@@ -23,7 +24,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.translate.get('GENERAL.CREATE').subscribe(res => (this.submitButtonText = res));
+    this.submitButtonText$ = this.translate.get('GENERAL.CREATE');
     this.emptyRecipe = this.recipeService.createEmptyRecipe();
     this.generateBreadcrumbs();
   }
@@ -32,12 +33,12 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  public onRecipeCreated(formValue: any): void {
+  public onRecipeCreated(recipe: RecipeDTO): void {
     this.recipeService
-      .createRecipe(formValue)
+      .createRecipe(recipe)
       .takeWhile(() => this.viewAlive)
       .subscribe(
-        (recipe: Recipe) => {
+        (recipe: RecipeDTO) => {
           this.router.navigateByUrl('/recipes');
         },
         error => {
@@ -46,17 +47,15 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onAbortClicked(recipe: Recipe): void {
+  public onAbortClicked(recipe: RecipeDTO): void {
     this.router.navigateByUrl('/recipes');
   }
 
   private generateBreadcrumbs(): void {
-    const home: Breadcrumb = { labelKey: 'NAVIG.HOME', routerlink: '/home' };
     const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
     const createRecipe: Breadcrumb = { labelKey: 'NAVIG.CREATE_RECIPE' };
 
     this.breadcrumbs = [];
-    this.breadcrumbs.push(home);
     this.breadcrumbs.push(recipes);
     this.breadcrumbs.push(createRecipe);
   }
