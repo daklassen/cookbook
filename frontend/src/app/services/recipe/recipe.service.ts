@@ -10,6 +10,10 @@ import { CategoryDTO } from './transfer/CategoryDTO';
 export class RecipeService {
   constructor(private http: HttpClient) {}
 
+  createRecipe(recipe: RecipeDTO): Observable<RecipeDTO> {
+    return this.http.post<RecipeDTO>(environment.apiUrl + '/recipes', recipe);
+  }
+
   getUsersRecipes(filter: string): Observable<RecipeDTO[]> {
     let params = new HttpParams().set('filter', filter);
     return this.http.get<RecipeDTO[]>(environment.apiUrl + '/recipes', { params: params });
@@ -23,12 +27,12 @@ export class RecipeService {
     return this.http.get<Array<CategoryDTO>>(environment.apiUrl + '/recipes/categories');
   }
 
-  createRecipe(recipe: RecipeDTO): Observable<RecipeDTO> {
-    return this.http.post<RecipeDTO>(environment.apiUrl + '/recipes', recipe);
-  }
-
   updateRecipe(recipe: RecipeDTO, recipeId: number): Observable<RecipeDTO> {
     return this.http.put<RecipeDTO>(environment.apiUrl + '/recipes/' + recipeId, recipe);
+  }
+
+  deleteRecipe(recipeId: number): Observable<Response> {
+    return this.http.delete<Response>(environment.apiUrl + '/recipes/' + recipeId);
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {

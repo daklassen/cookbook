@@ -9,7 +9,7 @@ public class Util {
 
     public static AccessToken getTokenFromRequest(HttpServletRequest request) {
         return ((KeycloakPrincipal) request.getUserPrincipal())
-                        .getKeycloakSecurityContext()
-                        .getToken();
+                .getKeycloakSecurityContext()
+                .getToken();
     }
 }

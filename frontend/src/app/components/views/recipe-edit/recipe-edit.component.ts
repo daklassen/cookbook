@@ -5,6 +5,7 @@ import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -22,7 +23,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private translate: TranslateService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   public ngOnInit(): void {
@@ -37,16 +39,29 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   public onRecipeUpdate(recipe: RecipeDTO): void {
+    this.spinner.show();
     this.recipeService
       .updateRecipe(recipe, this.recipe.id)
       .takeWhile(() => this.viewAlive)
       .subscribe(
         recipe => {
           console.log('Edit was successful');
+          this.spinner.hide();
           this.navigateToDetailView();
         },
         error => console.error(error)
       );
+  }
+
+  public onDeleteRecipe(): void {
+    this.spinner.show();
+    this.recipeService
+      .deleteRecipe(this.recipe.id)
+      .takeWhile(() => this.viewAlive)
+      .subscribe(success => {
+        this.spinner.show();
+        this.router.navigateByUrl('/recipes');
+      });
   }
 
   public onAbortClicked(recipe: RecipeDTO): void {

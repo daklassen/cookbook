@@ -1,4 +1,6 @@
 <app-breadcrumb [breadcrumps]="breadcrumbs"
+                [buttonLabelKey]="'EDIT_RECIPE_PAGE.DELETE'"
+                (onButtonClicked)="onDeleteRecipe()"
                 [titleKey]="'EDIT_RECIPE_PAGE.TITLE'">
 </app-breadcrumb>
 
@@ -10,3 +12,8 @@
                         (aborted)="onAbortClicked($event)">
   </app-edit-recipe-form>
 </section>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-spin-fade"></ngx-spinner>

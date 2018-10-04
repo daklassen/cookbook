@@ -15,12 +15,13 @@
     "TITLE": "Neues Rezept erstellen"
   },
   "EDIT_RECIPE_PAGE": {
-    "TITLE": "Rezept bearbeiten"
+    "TITLE": "Rezept bearbeiten",
+    "DELETE": "Löschen"
   },
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Zutaten",
     "INSTRUCTIONS": "Anweisungen",
-    "EDIT": "Rezept bearbeiten"
+    "EDIT": "Bearbeiten"
   },
   "EDIT_RECIPE": {
     "NAME": "Rezeptname",

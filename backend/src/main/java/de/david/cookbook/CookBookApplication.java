@@ -30,6 +30,10 @@ public class CookBookApplication implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    public static void main(String[] args) {
+        SpringApplication.run(CookBookApplication.class, args);
+    }
+
     // TODO: remove temporary content filling on startup
     @Override
     public void run(String... args) throws Exception {
@@ -47,9 +51,5 @@ public class CookBookApplication implements CommandLineRunner {
         Ingredient zucker = ingredientRepository.save(new Ingredient(1, "Zucker", "Kg"));
         Recipe recipe = new Recipe("Testrecipe 1", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, "description", testcategory, Arrays.asList(zucker));
         recipeRepository.save(recipe);
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(CookBookApplication.class, args);
     }
 }

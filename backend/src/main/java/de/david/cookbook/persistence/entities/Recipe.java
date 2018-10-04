@@ -1,7 +1,6 @@
 package de.david.cookbook.persistence.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "CB_RECIPE")
@@ -36,7 +35,8 @@ public class Recipe {
     @JoinColumn(name = "RECIPE_ID")
     private List<Ingredient> ingredients;
 
-    public Recipe() {}
+    public Recipe() {
+    }
 
     public Recipe(String name, User author, String imageURL,
                   int servings, String description,

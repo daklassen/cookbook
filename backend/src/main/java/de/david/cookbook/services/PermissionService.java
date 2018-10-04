@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PermissionService {
 
-    public boolean isUserAllowedToReadRecipe(User user, Recipe recipe) {
+    public boolean isUserAllowedToEditRecipe(User user, Recipe recipe) {
         User author = recipe.getAuthor();
         return author.getKeycloakUserId().equals(user.getKeycloakUserId());
     }

@@ -44,7 +44,8 @@ public class UserService {
 
         //TODO: Check if null and throw exception
 
-        userRepository.save(new User(firstName, lastName, email, keycloakUserId));
-        return new User(firstName, lastName, email, keycloakUserId);
+        User user = new User(firstName, lastName, email, keycloakUserId);
+        userRepository.save(user);
+        return user;
     }
 }

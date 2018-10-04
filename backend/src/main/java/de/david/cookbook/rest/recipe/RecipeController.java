@@ -8,6 +8,7 @@ import de.david.cookbook.services.RecipeService;
 import de.david.cookbook.services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,14 @@ public class RecipeController {
         this.modelMapper = modelMapper;
     }
 
+    @PostMapping(value = "recipes")
+    RecipeDTO createRecipe(HttpServletRequest request, @RequestBody @Valid RecipeDTO recipeDTO) {
+        User user = userService.getUserFromRequest(request);
+        Recipe recipe = convertToEntity(recipeDTO);
+        recipe = recipeService.createRecipe(user, recipe);
+        return convertToDto(recipe);
+    }
+
     @GetMapping(value = "recipes")
     List<RecipeDTO> getAllRecipes(HttpServletRequest request, @RequestParam("filter") String filterText) {
         User user = userService.getUserFromRequest(request);
@@ -40,28 +49,27 @@ public class RecipeController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping(value = "recipes")
-    RecipeDTO createRecipe(HttpServletRequest request, @RequestBody @Valid RecipeDTO recipeDTO) {
-        User user = userService.getUserFromRequest(request);
-        Recipe recipe = convertToEntity(recipeDTO);
-        RecipeDTO recipeDTOCreated = convertToDto(recipeService.createRecipe(user, recipe));
-        return recipeDTOCreated;
-    }
-
     @PutMapping(value = "recipes/{recipeId}")
     RecipeDTO updateRecipe(HttpServletRequest request, @PathVariable Long recipeId,
-                        @RequestBody @Valid RecipeDTO recipeDTO) {
+                           @RequestBody @Valid RecipeDTO recipeDTO) {
         User user = userService.getUserFromRequest(request);
         Recipe recipe = convertToEntity(recipeDTO);
-        RecipeDTO recipeDTOupdated = convertToDto(recipeService.updateRecipe(user, recipeId, recipe));
-        return recipeDTOupdated;
+        recipe = recipeService.updateRecipe(user, recipeId, recipe);
+        return convertToDto(recipe);
+    }
+
+    @DeleteMapping(value = "recipes/{recipeId}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    void deleteRecipe(HttpServletRequest request, @PathVariable Long recipeId) {
+        User user = userService.getUserFromRequest(request);
+        recipeService.deleteRecipe(user, recipeId);
     }
 
     @GetMapping(value = "recipes/{recipeId}")
     RecipeDTO getRecipeById(HttpServletRequest request, @PathVariable Long recipeId) {
         User user = userService.getUserFromRequest(request);
-        RecipeDTO recipeDTO = convertToDto(recipeService.getRecipeByIdAndUser(recipeId, user));
-        return recipeDTO;
+        Recipe recipe = recipeService.getRecipeByIdAndUser(recipeId, user);
+        return convertToDto(recipe);
     }
 
     @GetMapping(value = "recipes/categories")

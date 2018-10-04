@@ -15,12 +15,13 @@
     "TITLE": "Create New Recipe"
   },
   "EDIT_RECIPE_PAGE": {
-    "TITLE": "Edit Recipe"
+    "TITLE": "Edit Recipe",
+    "DELETE": "Delete"
   },
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Ingredients",
     "INSTRUCTIONS": "Instructions",
-    "EDIT": "Edit Recipe"
+    "EDIT": "Edit"
   },
   "EDIT_RECIPE": {
     "NAME": "Recipe Name",
