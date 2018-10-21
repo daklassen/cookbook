@@ -25,7 +25,8 @@
          class="tile is-ancestor">
       <div *ngFor="let recipe of chunkedRecipe; let i = index"
            class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
-        <div class="tile is-child box is-paddingless">
+        <div class="tile is-child box is-paddingless"
+             [@fadeInAndOut]>
           <a routerLink="/recipe-details/{{recipe.id}}"
              class="card-link"></a>
           <figure class="image card-image">

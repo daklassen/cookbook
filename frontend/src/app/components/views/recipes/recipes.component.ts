@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
+import { Animations } from '../../../animations/Animations';
 
 @Component({
   selector: 'app-recipes',
+  animations: [Animations.fadeInAndOut],
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss']
 })
