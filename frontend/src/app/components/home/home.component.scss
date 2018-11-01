@@ -8,7 +8,17 @@
   max-width: 800px;
 }
 
-.has-bg-img {
-  background: url('/assets/img/background/background-1.png') center center;
+.has-bg-img-1 {
+  background: url('/assets/img/background/background-1.jpg') center center;
   background-size: cover;
+}
+
+.title {
+  font-size: 3.5rem;
+}
+
+.button {
+  margin-bottom: 0.5rem;
+  padding: 1.4rem 2rem;
+  font-weight: 600;
 }

@@ -86,7 +86,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private generateBreadcrumbs(): void {
-    const recipes: Breadcrumb = { labelKey: 'NAVIG.RECIPES', routerlink: '/recipes' };
     const currentRecipe: Breadcrumb = {
       label: this.recipe.name,
       routerlink: '/recipe-details/' + this.recipe.id
@@ -94,7 +93,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
 
     this.breadcrumbs = [];
-    this.breadcrumbs.push(recipes);
     this.breadcrumbs.push(currentRecipe);
     this.breadcrumbs.push(editRecipe);
   }

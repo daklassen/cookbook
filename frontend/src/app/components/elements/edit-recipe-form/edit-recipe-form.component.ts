@@ -33,7 +33,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   get currentIngredientValid(): boolean {
-    const REGEX = /\d+\s*-+\s*.+\s*-+\s*.+/g;
+    const REGEX = /\d+\s* +\s*.+\s* +\s*.+/g;
     return REGEX.test(this.currentIngredient);
   }
 

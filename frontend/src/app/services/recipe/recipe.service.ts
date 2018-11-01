@@ -36,11 +36,12 @@ export class RecipeService {
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {
-    let splittetInput = input.split('-');
+    let splittetInput = input.split(' ');
+    const [amount, unit, ...name] = splittetInput;
     return {
-      amount: parseInt(splittetInput[0].trim()),
-      unit: splittetInput[1].trim(),
-      name: splittetInput[2].trim()
+      amount: parseInt(amount),
+      unit: unit,
+      name: name.join(' ')
     };
   }
 

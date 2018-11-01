@@ -1,4 +1,8 @@
 {
+  "HOME": {
+    "TITLE": "Cookbook",
+    "DESCRIPTION": "Dein persönliches digitales Kochbuch mit all deinen Lieblingsrezepten"
+  },
   "NAVIG": {
     "HOME": "Startseite",
     "RECIPES": "Rezepte",
@@ -33,7 +37,7 @@
     "UNIT": "Einheit",
     "DESCRIPTION": "Beschreibung",
     "HINT": "Darf nicht leer sein",
-    "EXAMPLE": "Bindestriche nicht vergessen (z.B. 5 - kg - Möhren)"
+    "EXAMPLE": "Leerzeichen nicht vergessen (z.B. 5 kg Möhren)"
   },
   "GENERAL": {
     "DELETE": "Löschen",

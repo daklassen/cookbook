@@ -1,4 +1,8 @@
 {
+  "HOME": {
+    "TITLE": "Cookbook",
+    "DESCRIPTION": "Your personal digital cookbook with all your favourite recipes"
+  },
   "NAVIG": {
     "HOME": "Home",
     "RECIPES": "Recipes",
@@ -33,7 +37,7 @@
     "UNIT": "Unit",
     "DESCRIPTION": "Description",
     "HINT": "Cannot be empty",
-    "EXAMPLE": "Don't forget the hyphens (e.g. 5 - kg - Carrots)"
+    "EXAMPLE": "Don't forget the spaces (e.g. 5 kg Carrots)"
   },
   "GENERAL": {
     "DELETE": "Delete",
