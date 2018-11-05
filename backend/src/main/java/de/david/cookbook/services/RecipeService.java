@@ -7,10 +7,12 @@ import de.david.cookbook.persistence.entities.User;
 import de.david.cookbook.persistence.repositories.CategoryRepository;
 import de.david.cookbook.persistence.repositories.IngredientRepository;
 import de.david.cookbook.persistence.repositories.RecipeRepository;
+import de.david.cookbook.services.exceptions.RecipeNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.naming.NoPermissionException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,53 +64,60 @@ public class RecipeService {
                     )
                     .collect(Collectors.toList());
         }
-
         return recipesOfUser;
     }
 
-    public Recipe getRecipeByIdAndUser(Long id, User user) {
+    public Recipe getRecipeByIdAndUser(Long id, User user) throws NoPermissionException, RecipeNotFoundException {
         Recipe recipe = recipeRepository.findOne(id);
-
-        if (permissionService.isUserAllowedToEditRecipe(user, recipe)) {
-            return recipeRepository.findOne(id);
-        } else {
-            return null; // TODO: throw Permission Exception
-        }
+        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + id);
+        this.checkReadPermission(user, recipe);
+        return recipe;
     }
 
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
 
-    public Recipe updateRecipe(User user, Long recipeId, Recipe recipe) {
+    public Recipe updateRecipe(User user, Long recipeId, Recipe recipe)
+            throws NoPermissionException, RecipeNotFoundException {
         Recipe oldRecipe = recipeRepository.findOne(recipeId);
+        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
+        this.checkEditPermission(user, recipe);
 
-        if (permissionService.isUserAllowedToEditRecipe(user, oldRecipe)) {
+        ingredientRepository.delete(oldRecipe.getIngredients());
 
-            ingredientRepository.delete(oldRecipe.getIngredients());
+        oldRecipe.setIngredients(recipe.getIngredients());
+        ingredientRepository.save(oldRecipe.getIngredients());
+        oldRecipe.setCategory(recipe.getCategory());
+        oldRecipe.setDescription(recipe.getDescription());
+        oldRecipe.setImageURL(recipe.getImageURL());
+        oldRecipe.setName(recipe.getName());
+        oldRecipe.setServings(recipe.getServings());
+        recipeRepository.save(oldRecipe);
+        return recipe;
+    }
 
-            oldRecipe.setIngredients(recipe.getIngredients());
-            ingredientRepository.save(oldRecipe.getIngredients());
-            oldRecipe.setCategory(recipe.getCategory());
-            oldRecipe.setDescription(recipe.getDescription());
-            oldRecipe.setImageURL(recipe.getImageURL());
-            oldRecipe.setName(recipe.getName());
-            oldRecipe.setServings(recipe.getServings());
-            recipeRepository.save(oldRecipe);
+    public Recipe deleteRecipe(User user, Long recipeId) throws NoPermissionException, RecipeNotFoundException {
+        Recipe recipe = recipeRepository.findOne(recipeId);
+        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
+        this.checkEditPermission(user, recipe);
 
-            return recipe;
-        } else {
-            return null; // TODO: throw NotPermittedException
+        ingredientRepository.delete(recipe.getIngredients());
+        recipeRepository.delete(recipe);
+        return recipe;
+    }
+
+    private void checkReadPermission(User user, Recipe recipe) throws NoPermissionException {
+        if (!permissionService.isUserAllowedToReadRecipe(user, recipe)) {
+            throw new NoPermissionException("User " + user.getEmail()
+                    + " is not permitted to read recipe " + recipe.getId());
         }
     }
 
-    public boolean deleteRecipe(User user, Long recipeId) {
-        Recipe recipe = recipeRepository.findOne(recipeId);
-        if (recipe != null && permissionService.isUserAllowedToEditRecipe(user, recipe)) {
-            ingredientRepository.delete(recipe.getIngredients());
-            recipeRepository.delete(recipe);
-            return true;
+    private void checkEditPermission(User user, Recipe recipe) throws NoPermissionException {
+        if (!permissionService.isUserAllowedToEditRecipe(user, recipe)) {
+            throw new NoPermissionException("User " + user.getEmail()
+                    + " is not permitted to edit recipe " + recipe.getId());
         }
-        return false;
     }
 }

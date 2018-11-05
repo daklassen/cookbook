@@ -6,11 +6,13 @@ import de.david.cookbook.persistence.entities.User;
 import de.david.cookbook.rest.recipe.transfer.RecipeDTO;
 import de.david.cookbook.services.RecipeService;
 import de.david.cookbook.services.UserService;
+import de.david.cookbook.services.exceptions.RecipeNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NoPermissionException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
@@ -51,7 +53,8 @@ public class RecipeController {
 
     @PutMapping(value = "recipes/{recipeId}")
     RecipeDTO updateRecipe(HttpServletRequest request, @PathVariable Long recipeId,
-                           @RequestBody @Valid RecipeDTO recipeDTO) {
+                           @RequestBody @Valid RecipeDTO recipeDTO)
+            throws NoPermissionException, RecipeNotFoundException {
         User user = userService.getUserFromRequest(request);
         Recipe recipe = convertToEntity(recipeDTO);
         recipe = recipeService.updateRecipe(user, recipeId, recipe);
@@ -60,13 +63,15 @@ public class RecipeController {
 
     @DeleteMapping(value = "recipes/{recipeId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    void deleteRecipe(HttpServletRequest request, @PathVariable Long recipeId) {
+    void deleteRecipe(HttpServletRequest request, @PathVariable Long recipeId)
+            throws NoPermissionException, RecipeNotFoundException {
         User user = userService.getUserFromRequest(request);
         recipeService.deleteRecipe(user, recipeId);
     }
 
     @GetMapping(value = "recipes/{recipeId}")
-    RecipeDTO getRecipeById(HttpServletRequest request, @PathVariable Long recipeId) {
+    RecipeDTO getRecipeById(HttpServletRequest request, @PathVariable Long recipeId)
+            throws NoPermissionException, RecipeNotFoundException {
         User user = userService.getUserFromRequest(request);
         Recipe recipe = recipeService.getRecipeByIdAndUser(recipeId, user);
         return convertToDto(recipe);
