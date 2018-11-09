@@ -26,6 +26,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipeService } from './services/recipe/recipe.service';
+import { ImageService } from './services/image/image.service';
+import { SecurePipe } from './pipes/secure.pipe';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -44,7 +46,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RecipeCreateComponent,
     EditRecipeFormComponent,
     RecipeEditComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    SecurePipe
   ],
   imports: [
     BrowserModule,
@@ -73,7 +76,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true,
       deps: [KeycloakService]
     },
-    RecipeService
+    RecipeService,
+    ImageService
   ],
   bootstrap: [AppComponent]
 })

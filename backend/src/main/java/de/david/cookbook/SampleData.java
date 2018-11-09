@@ -45,7 +45,7 @@ public class SampleData {
 
         Category testcategory = categoryRepository.save(new Category("Testcategory"));
         Ingredient zucker = ingredientRepository.save(new Ingredient(1, "Zucker", "Kg"));
-        Recipe recipe = new Recipe("Testrecipe 1", david, "https://image.ibb.co/hpQUy7/food_3.png", 4, "description", testcategory, Arrays.asList(zucker));
+        Recipe recipe = new Recipe("Testrecipe 1", david, 4, "description", testcategory, Arrays.asList(zucker), null);
         recipeRepository.save(recipe);
     }
 }

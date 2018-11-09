@@ -4,6 +4,9 @@ import { IngredientDTO } from '../../../services/recipe/transfer/IngredientDTO';
 import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { RecipeService } from '../../../services/recipe/recipe.service';
 import { CategoryDTO } from '../../../services/recipe/transfer/CategoryDTO';
+import { ImageService } from '../../../services/image/image.service';
+import { ImageDTO } from '../../../services/recipe/transfer/ImageDTO';
+import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -32,6 +35,10 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     return this.recipeForm.get('description') as FormControl;
   }
 
+  get imageFile(): FormControl {
+    return this.recipeForm.get('imageFile') as FormControl;
+  }
+
   get currentIngredientValid(): boolean {
     const REGEX = /\d+\s* +\s*.+\s* +\s*.+/g;
     return REGEX.test(this.currentIngredient);
@@ -40,14 +47,21 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   public recipeForm: FormGroup;
   public items: FormArray;
   public currentIngredient: string;
+  public currentImageFileName: string;
   public categories: Array<CategoryDTO>;
   public viewAlive: boolean = true;
   public servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  constructor(private fb: FormBuilder, private recipeService: RecipeService) {}
+  constructor(
+    private fb: FormBuilder,
+    private recipeService: RecipeService,
+    private imageService: ImageService,
+    private spinner: NgxSpinnerService
+  ) {}
 
   public ngOnInit(): void {
     this.currentIngredient = '';
+    this.currentImageFileName = '';
     this.initForm();
     this.loadAllCategories();
   }
@@ -60,19 +74,36 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     return this.recipeService.formatIngredientToString(ingredient);
   }
 
-  public onSubmit(formValue) {
+  public onSubmit(formValue): void {
     const recipe: RecipeDTO = {
       categoryId: formValue.category,
       description: formValue.description,
       ingredients: formValue.ingredients,
       name: formValue.name,
-      servings: formValue.servings
+      servings: formValue.servings,
+      imageFile: formValue.imageFile
     };
     this.editedRecipe.emit(recipe);
   }
 
   public onAbortClicked() {
     this.aborted.emit(this.recipe);
+  }
+
+  public onFileChange(event): void {
+    if (event.target.files) {
+      const [file] = event.target.files;
+      this.spinner.show();
+      this.imageService
+        .uploadImageFile(file)
+        .finally(() => this.spinner.hide())
+        .takeWhile(() => this.viewAlive)
+        .subscribe((image: ImageDTO) => {
+          this.recipeForm.patchValue({
+            imageFile: image
+          });
+        });
+    }
   }
 
   public addIngredient(): void {
@@ -99,6 +130,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   private initForm(): void {
     this.recipeForm = this.fb.group({
       name: [null, Validators.required],
+      imageFile: [null],
       servings: [null, Validators.required],
       category: [null, Validators.required],
       ingredients: this.fb.array([], Validators.required),
@@ -115,6 +147,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
       .patchValue(currentRecipe.categoryId ? currentRecipe.categoryId : this.categories[0].id);
     currentRecipe.ingredients.map(ingredient => this.addItem(ingredient));
     this.recipeForm.get('description').patchValue(currentRecipe.description);
+    this.recipeForm.get('imageFile').patchValue(currentRecipe.imageFile);
   }
 
   private addItem(ingredient: IngredientDTO): void {

@@ -1,5 +1,7 @@
 package de.david.cookbook.rest.recipe.transfer;
 
+import de.david.cookbook.rest.image.transfer.ImageDTO;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,7 +15,7 @@ public class RecipeDTO {
 
     private UserDTO author;
 
-    private String imageURL;
+    private ImageDTO imageFile;
 
     @NotNull
     private int servings;
@@ -55,12 +57,12 @@ public class RecipeDTO {
         this.author = author;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public ImageDTO getImageFile() {
+        return imageFile;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageFile(ImageDTO imageFile) {
+        this.imageFile = imageFile;
     }
 
     public int getServings() {

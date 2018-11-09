@@ -42,11 +42,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .updateRecipe(recipe, this.recipe.id)
+      .finally(() => this.spinner.hide())
       .takeWhile(() => this.viewAlive)
       .subscribe(
         recipe => {
-          console.log('Edit was successful');
-          this.spinner.hide();
           this.navigateToDetailView();
         },
         error => console.error(error)
@@ -57,9 +56,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .deleteRecipe(this.recipe.id)
+      .finally(() => this.spinner.hide())
       .takeWhile(() => this.viewAlive)
       .subscribe(success => {
-        this.spinner.show();
         this.router.navigateByUrl('/recipes');
       });
   }

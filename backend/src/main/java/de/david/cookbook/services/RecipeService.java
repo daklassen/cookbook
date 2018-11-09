@@ -1,10 +1,8 @@
 package de.david.cookbook.services;
 
-import de.david.cookbook.persistence.entities.Category;
-import de.david.cookbook.persistence.entities.Ingredient;
-import de.david.cookbook.persistence.entities.Recipe;
-import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.persistence.entities.*;
 import de.david.cookbook.persistence.repositories.CategoryRepository;
+import de.david.cookbook.persistence.repositories.ImageRepository;
 import de.david.cookbook.persistence.repositories.IngredientRepository;
 import de.david.cookbook.persistence.repositories.RecipeRepository;
 import de.david.cookbook.services.exceptions.RecipeNotFoundException;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +21,7 @@ public class RecipeService {
     private RecipeRepository recipeRepository;
     private CategoryRepository categoryRepository;
     private IngredientRepository ingredientRepository;
+    private ImageRepository imageRepository;
     private PermissionService permissionService;
 
     @Autowired
@@ -29,16 +29,23 @@ public class RecipeService {
             RecipeRepository recipeRepository,
             CategoryRepository categoryRepository,
             IngredientRepository ingredientRepository,
+            ImageRepository imageRepository,
             PermissionService permissionService) {
         this.recipeRepository = recipeRepository;
         this.categoryRepository = categoryRepository;
         this.ingredientRepository = ingredientRepository;
+        this.imageRepository = imageRepository;
         this.permissionService = permissionService;
     }
 
     public Recipe createRecipe(User user, Recipe recipe) {
         List<Ingredient> ingredients = recipe.getIngredients();
         ingredientRepository.save(ingredients);
+
+        if (recipeHasImage(recipe)) {
+            Image image = recipe.getImages().get(0);
+            imageRepository.save(image);
+        }
 
         Long categoryId = recipe.getCategory().getId();
         Category category = categoryRepository.findOne(categoryId);
@@ -82,17 +89,28 @@ public class RecipeService {
             throws NoPermissionException, RecipeNotFoundException {
         Recipe oldRecipe = recipeRepository.findOne(recipeId);
         if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
-        this.checkEditPermission(user, recipe);
+        this.checkEditPermission(user, oldRecipe);
 
+        // Ingredients
         ingredientRepository.delete(oldRecipe.getIngredients());
-
         oldRecipe.setIngredients(recipe.getIngredients());
         ingredientRepository.save(oldRecipe.getIngredients());
+
+        // Image
+        if (recipeHasImage(recipe)) {
+            Image image = imageRepository.findOne(recipe.getImages().get(0).getId());
+            List<Image> imageList = new ArrayList<Image>();
+            imageList.add(image);
+            oldRecipe.setImages(imageList);
+            imageRepository.save(oldRecipe.getImages().get(0));
+        }
+
+        // Rest
         oldRecipe.setCategory(recipe.getCategory());
         oldRecipe.setDescription(recipe.getDescription());
-        oldRecipe.setImageURL(recipe.getImageURL());
         oldRecipe.setName(recipe.getName());
         oldRecipe.setServings(recipe.getServings());
+
         recipeRepository.save(oldRecipe);
         return recipe;
     }
@@ -102,6 +120,9 @@ public class RecipeService {
         if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
         this.checkEditPermission(user, recipe);
 
+        if (recipeHasImage(recipe)) {
+            imageRepository.delete(recipe.getImages().get(0).getId());
+        }
         ingredientRepository.delete(recipe.getIngredients());
         recipeRepository.delete(recipe);
         return recipe;
@@ -119,5 +140,9 @@ public class RecipeService {
             throw new NoPermissionException("User " + user.getEmail()
                     + " is not permitted to edit recipe " + recipe.getId());
         }
+    }
+
+    private boolean recipeHasImage(Recipe recipe) {
+        return recipe.getImages() != null && recipe.getImages().size() > 0;
     }
 }

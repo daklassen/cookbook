@@ -31,6 +31,8 @@
     "NAME": "Recipe Name",
     "CATEGORY": "Category",
     "PORTIONS": "Portions",
+    "IMAGE": "Image",
+    "IMAGE_SELECT": "Upload Image",
     "INGREDIENTS": "Ingredients",
     "INSTRUCTIONS": "Instructions",
     "AMOUNT": "Amount",

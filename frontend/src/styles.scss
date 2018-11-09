@@ -2,3 +2,9 @@
 @import './src/assets/sass/vars';
 
 @import '../node_modules/bulma/bulma';
+
+ngx-spinner {
+  .black-overlay {
+    position: fixed !important;
+  }
+}

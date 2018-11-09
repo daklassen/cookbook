@@ -1,8 +1,11 @@
 package de.david.cookbook.rest.recipe;
 
 import de.david.cookbook.persistence.entities.Category;
+import de.david.cookbook.persistence.entities.Image;
 import de.david.cookbook.persistence.entities.Recipe;
 import de.david.cookbook.persistence.entities.User;
+import de.david.cookbook.rest.image.ImageController;
+import de.david.cookbook.rest.image.transfer.ImageDTO;
 import de.david.cookbook.rest.recipe.transfer.RecipeDTO;
 import de.david.cookbook.services.RecipeService;
 import de.david.cookbook.services.UserService;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.naming.NoPermissionException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,16 +27,19 @@ import java.util.stream.Collectors;
 public class RecipeController {
 
     private RecipeService recipeService;
-
     private UserService userService;
-
     private ModelMapper modelMapper;
+    private ImageController imageController;
 
     @Autowired
-    public RecipeController(RecipeService recipeService, UserService userService, ModelMapper modelMapper) {
+    public RecipeController(RecipeService recipeService,
+                            UserService userService,
+                            ModelMapper modelMapper,
+                            ImageController imageController) {
         this.recipeService = recipeService;
         this.userService = userService;
         this.modelMapper = modelMapper;
+        this.imageController = imageController;
     }
 
     @PostMapping(value = "recipes")
@@ -84,14 +92,30 @@ public class RecipeController {
 
     private RecipeDTO convertToDto(Recipe recipe) {
         RecipeDTO recipeDTO = modelMapper.map(recipe, RecipeDTO.class);
+
+        if (recipe.getImages() != null && recipe.getImages().size() > 0) {
+            Image image = recipe.getImages().get(0);
+            ImageDTO imageDTO = imageController.convertToDto(image);
+            recipeDTO.setImageFile(imageDTO);
+        }
+
         return recipeDTO;
     }
 
     private Recipe convertToEntity(RecipeDTO recipeDTO) {
         Recipe recipe = modelMapper.map(recipeDTO, Recipe.class);
+
         Category category = new Category();
         category.setId(recipeDTO.getCategoryId());
         recipe.setCategory(category);
+
+        ImageDTO imageDTO = recipeDTO.getImageFile();
+        if (imageDTO != null) {
+            Image image = new Image();
+            image.setId(imageDTO.getId());
+            recipe.setImages(Arrays.asList(image));
+        }
+
         return recipe;
     }
 }

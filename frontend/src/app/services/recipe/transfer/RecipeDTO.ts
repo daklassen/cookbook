@@ -1,6 +1,6 @@
-import { CategoryDTO } from './CategoryDTO';
 import { UserDTO } from './UserDTO';
 import { IngredientDTO } from './IngredientDTO';
+import { ImageDTO } from './ImageDTO';
 
 export interface RecipeDTO {
   id?: number;
@@ -11,4 +11,5 @@ export interface RecipeDTO {
   description: string;
   categoryId: number;
   ingredients: Array<IngredientDTO>;
+  imageFile: ImageDTO;
 }
