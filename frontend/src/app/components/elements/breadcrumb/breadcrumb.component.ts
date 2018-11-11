@@ -23,7 +23,7 @@ export class BreadcrumbComponent implements OnInit {
   @Input()
   buttonLabelKey: string;
   @Output()
-  onButtonClicked: EventEmitter<string> = new EventEmitter();
+  buttonClicked: EventEmitter<string> = new EventEmitter();
 
   constructor() {}
 

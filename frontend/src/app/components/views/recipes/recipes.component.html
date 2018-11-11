@@ -1,9 +1,9 @@
 <app-breadcrumb [breadcrumps]="breadcrumbs"
                 [buttonLabelKey]="'NAVIG.CREATE_RECIPE'"
-                (onButtonClicked)="onCreateRecipe()">
+                (buttonClicked)="onCreateRecipe()">
 </app-breadcrumb>
 
-<section class="section has-background-white-bis has-small-padding">
+<section class="section has-background-white has-small-padding">
 
   <div class="container">
     <div class="field">
@@ -29,16 +29,19 @@
              [@fadeInAndOut]>
           <a routerLink="/recipe-details/{{recipe.id}}"
              class="card-link"></a>
-          <figure class="image card-image">
-            <div *ngIf="recipe.imageFile != null; else placeholder">
-              <img class="border-top card-image"
-                   [src]="(recipe.imageFile.fileDownloadUri | secure | async) || ''">
-            </div>
-            <ng-template #placeholder>
-              <img class="border-top card-image"
-                   src="assets/img/placeholder/placeholder_gallery.jpg">
-            </ng-template>
-          </figure>
+          <div class="card-image">
+
+            <figure class="image is-4by3">
+              <div *ngIf="recipe.imageFile != null; else placeholder">
+                <img class="border-top"
+                     [src]="(recipe.imageFile.fileDownloadUri | secure | async) || ''">
+              </div>
+              <ng-template #placeholder>
+                <img class="border-top"
+                     src="assets/img/placeholder/placeholder_gallery.jpg">
+              </ng-template>
+            </figure>
+          </div>
           <p class="title is-4 has-text-centered custom-title card-title">
             {{ recipe.name }}
           </p>
