@@ -1,7 +1,8 @@
 {
   "HOME": {
     "TITLE": "Cookbook",
-    "DESCRIPTION": "Your personal digital cookbook with all your favourite recipes"
+    "DESCRIPTION": "Your personal digital cookbook with all your favourite recipes",
+    "CALL2ACTION": "Your recipes"
   },
   "NAVIG": {
     "HOME": "Home",

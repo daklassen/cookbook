@@ -6,7 +6,7 @@ import { RecipeService } from '../../../services/recipe/recipe.service';
 import { CategoryDTO } from '../../../services/recipe/transfer/CategoryDTO';
 import { ImageService } from '../../../services/image/image.service';
 import { ImageDTO } from '../../../services/recipe/transfer/ImageDTO';
-import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -139,7 +139,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   private fillForm(): void {
-    let currentRecipe: RecipeDTO = this.recipe;
+    const currentRecipe: RecipeDTO = this.recipe;
     this.recipeForm.get('name').patchValue(currentRecipe.name);
     this.recipeForm.get('servings').patchValue(currentRecipe.servings ? currentRecipe.servings : 4);
     this.recipeForm

@@ -3,10 +3,10 @@ import { RecipeService } from '../../../services/recipe/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
 import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
-import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { SnackbarService } from 'src/app/services/ui/snackbar.service';
+import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
 
 @Component({
   selector: 'app-recipe-edit',

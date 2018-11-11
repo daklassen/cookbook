@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/co
 import { RecipeService } from '../../../services/recipe/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
-import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { Animations } from '../../../animations/Animations';
+import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
 
 @Component({
   selector: 'app-recipes',

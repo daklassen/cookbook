@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../../../services/recipe/recipe.service';
 import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
-import { Breadcrumb } from '../../../models/view/Breadcrumb';
+import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
 
 const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
 
@@ -47,7 +47,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     if (this.currentRecipe) {
       this.splittedDescription = this.currentRecipe.description
         .split(REGEX_SPLITTING_DESCRIPTION)
-        .filter(descBlock => descBlock.length != 0);
+        .filter(descBlock => descBlock.length !== 0);
     }
   }
 

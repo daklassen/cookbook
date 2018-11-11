@@ -1,7 +1,8 @@
 {
   "HOME": {
     "TITLE": "Cookbook",
-    "DESCRIPTION": "Dein persönliches digitales Kochbuch mit all deinen Lieblingsrezepten"
+    "DESCRIPTION": "Dein persönliches digitales Kochbuch mit all deinen Lieblingsrezepten",
+    "CALL2ACTION": "Deine Rezepte"
   },
   "NAVIG": {
     "HOME": "Startseite",
