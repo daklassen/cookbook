@@ -45,19 +45,18 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .getUsersRecipes(filter)
+      .finally(() => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 300);
+      })
       .takeWhile(() => this.viewAlive)
       .subscribe(
         result => {
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 300);
           this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
         },
         error => {
           console.error(error);
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 300);
         }
       );
   }

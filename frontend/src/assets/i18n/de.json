@@ -31,6 +31,8 @@
     "NAME": "Rezeptname",
     "CATEGORY": "Kategorie",
     "PORTIONS": "Portionen",
+    "IMAGE": "Bild",
+    "IMAGE_SELECT": "Lade Bild hoch",
     "INGREDIENTS": "Zutaten",
     "INSTRUCTIONS": "Anweisungen",
     "AMOUNT": "Menge",

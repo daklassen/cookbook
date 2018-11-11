@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
 
 @Component({
   selector: 'app-recipe-create',
@@ -20,7 +21,8 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   constructor(
     private recipeService: RecipeService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private spinner: NgxSpinnerService
   ) {}
 
   public ngOnInit(): void {
@@ -34,6 +36,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   }
 
   public onRecipeCreated(recipe: RecipeDTO): void {
+    this.spinner.show();
     this.recipeService
       .createRecipe(recipe)
       .takeWhile(() => this.viewAlive)

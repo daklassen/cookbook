@@ -63,7 +63,7 @@ export class RecipeService {
       },
       description: '',
       categoryId: null,
-      imageURL: ''
+      imageFile: null
     };
     return recipe;
   }

@@ -48,6 +48,29 @@
         </div>
       </div>
 
+      <!-- Image Upload -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.IMAGE' | translate }}</label>
+
+        <div class="file is-medium has-name is-fullwidth is-primary">
+          <label class="file-label">
+            <input class="file-input"
+                   type="file"
+                   name="resume"
+                   accept=".jpg,.jpeg,.png"
+                   (change)="onFileChange($event)">
+            <span class="file-cta">
+              <span class="file-label">
+                {{ 'EDIT_RECIPE.IMAGE_SELECT' | translate }}
+              </span>
+            </span>
+            <span class="file-name">
+              {{ imageFile.value?.fileName }}
+            </span>
+          </label>
+        </div>
+      </div>
+
       <!-- Ingredients -->
       <div class="column is-12">
         <label class="label is-medium">{{ 'EDIT_RECIPE.INGREDIENTS' | translate }}</label>
@@ -132,3 +155,8 @@
     </div>
   </div>
 </form>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-spin-fade"></ngx-spinner>
