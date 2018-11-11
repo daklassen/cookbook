@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { SnackbarService } from 'src/app/services/ui/snackbar.service';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -24,7 +25,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private snackBar: SnackbarService
   ) {}
 
   public ngOnInit(): void {
@@ -45,10 +47,14 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       .finally(() => this.spinner.hide())
       .takeWhile(() => this.viewAlive)
       .subscribe(
-        recipe => {
+        success => {
+          this.snackBar.openShortSnackbar('EDIT_RECIPE.SUCCESS');
           this.navigateToDetailView();
         },
-        error => console.error(error)
+        error => {
+          this.snackBar.openShortSnackbar('EDIT_RECIPE.ERROR');
+          console.error(error);
+        }
       );
   }
 
@@ -58,9 +64,16 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       .deleteRecipe(this.recipe.id)
       .finally(() => this.spinner.hide())
       .takeWhile(() => this.viewAlive)
-      .subscribe(success => {
-        this.router.navigateByUrl('/recipes');
-      });
+      .subscribe(
+        success => {
+          this.snackBar.openShortSnackbar('GENERAL.DELETE_SUCCESS');
+          this.router.navigateByUrl('/recipes');
+        },
+        error => {
+          this.snackBar.openShortSnackbar('GENERAL.DELETE_ERROR');
+          console.error(error);
+        }
+      );
   }
 
   public onAbortClicked(recipe: RecipeDTO): void {

@@ -16,7 +16,9 @@
     "LOGIN": "Anmelden"
   },
   "CREATE_RECIPE_PAGE": {
-    "TITLE": "Neues Rezept erstellen"
+    "TITLE": "Neues Rezept erstellen",
+    "SUCCESS": "Rezept wurde erstellt",
+    "ERROR": "Fehler bei Erstellung"
   },
   "EDIT_RECIPE_PAGE": {
     "TITLE": "Rezept bearbeiten",
@@ -39,10 +41,14 @@
     "UNIT": "Einheit",
     "DESCRIPTION": "Beschreibung",
     "HINT": "Darf nicht leer sein",
-    "EXAMPLE": "Leerzeichen nicht vergessen (z.B. 5 kg Möhren)"
+    "EXAMPLE": "Leerzeichen nicht vergessen (z.B. 5 kg Möhren)",
+    "SUCCESS": "Rezept wurde aktualisiert",
+    "ERROR": "Fehler beim Aktualisieren"
   },
   "GENERAL": {
     "DELETE": "Löschen",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht",
+    "DELETE_ERROR": "Fehler beim Löschen",
     "ADD": "Hinzufügen",
     "ABORT": "Abbrechen",
     "CREATE": "Erstellen",

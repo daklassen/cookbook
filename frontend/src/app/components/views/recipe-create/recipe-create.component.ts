@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Breadcrumb } from '../../../models/view/Breadcrumb';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from '../../../../../node_modules/ngx-spinner';
+import { SnackbarService } from 'src/app/services/ui/snackbar.service';
 
 @Component({
   selector: 'app-recipe-create',
@@ -22,7 +23,8 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     private recipeService: RecipeService,
     private translate: TranslateService,
     private router: Router,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private snackBar: SnackbarService
   ) {}
 
   public ngOnInit(): void {
@@ -42,9 +44,11 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.viewAlive)
       .subscribe(
         (recipe: RecipeDTO) => {
+          this.snackBar.openShortSnackbar('CREATE_RECIPE_PAGE.SUCCESS');
           this.router.navigateByUrl('/recipes');
         },
         error => {
+          this.snackBar.openShortSnackbar('CREATE_RECIPE_PAGE.ERROR');
           console.error(error);
         }
       );

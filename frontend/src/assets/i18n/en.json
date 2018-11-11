@@ -16,7 +16,9 @@
     "LOGIN": "Login"
   },
   "CREATE_RECIPE_PAGE": {
-    "TITLE": "Create New Recipe"
+    "TITLE": "Create New Recipe",
+    "SUCCESS": "Recipe created",
+    "ERROR": "Error while creating"
   },
   "EDIT_RECIPE_PAGE": {
     "TITLE": "Edit Recipe",
@@ -39,10 +41,14 @@
     "UNIT": "Unit",
     "DESCRIPTION": "Description",
     "HINT": "Cannot be empty",
-    "EXAMPLE": "Don't forget the spaces (e.g. 5 kg Carrots)"
+    "EXAMPLE": "Don't forget the spaces (e.g. 5 kg Carrots)",
+    "SUCCESS": "Recipe was updated",
+    "ERROR": "Error while updating"
   },
   "GENERAL": {
     "DELETE": "Delete",
+    "DELETE_SUCCESS": "Deletion was successful",
+    "DELETE_ERROR": "Error while deleting",
     "ADD": "Add",
     "ABORT": "Abort",
     "CREATE": "Create",

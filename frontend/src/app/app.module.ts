@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RecipeService } from './services/recipe/recipe.service';
 import { ImageService } from './services/image/image.service';
 import { SecurePipe } from './pipes/secure.pipe';
+import { MatDialogModule, MatSnackBarModule } from '@angular/material';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     NgxSpinnerModule,
+    MatSnackBarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 @import './src/assets/sass/vars';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 @import '../node_modules/bulma/bulma';
 
+// Always center spinner (also on scrollable page)
 ngx-spinner {
   .black-overlay {
     position: fixed !important;
   }
+}
+
+// Center snackbar text und make font slightly bigger
+.mat-simple-snackbar {
+  justify-content: center !important;
+  font-size: 1rem;
 }
