@@ -44,6 +44,7 @@ public class RecipeService {
 
         if (recipeHasImage(recipe)) {
             Image image = recipe.getImages().get(0);
+            image = imageRepository.findOne(image.getId());
             imageRepository.save(image);
         }
 
