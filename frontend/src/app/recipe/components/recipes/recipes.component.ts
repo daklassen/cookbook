@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { RecipeService } from '../../../services/recipe/recipe.service';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
-import { Animations } from '../../../animations/Animations';
-import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
+import { Animations } from 'src/app/shared/animations/animations';
+import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
+import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
+import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 
 @Component({
   selector: 'app-recipes',
@@ -62,7 +62,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   public onCreateRecipe(): void {
-    this.router.navigateByUrl('/recipe-create');
+    this.router.navigateByUrl('recipes/recipe-create');
   }
 
   private generateBreadcrumbs(): void {

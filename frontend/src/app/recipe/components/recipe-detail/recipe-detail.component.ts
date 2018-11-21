@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RecipeService } from '../../../services/recipe/recipe.service';
-import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
-import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
+import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
+import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 
 const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
 
@@ -52,7 +52,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   public onEditRecipe(): void {
-    this.router.navigateByUrl('/recipe-edit/' + this.currentRecipe.id);
+    this.router.navigateByUrl('recipes/recipe-edit/' + this.currentRecipe.id);
   }
 
   private generateBreadcrumbs(): void {

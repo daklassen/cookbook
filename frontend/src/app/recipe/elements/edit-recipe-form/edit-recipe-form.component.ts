@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { IngredientDTO } from '../../../services/recipe/transfer/IngredientDTO';
-import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
-import { RecipeService } from '../../../services/recipe/recipe.service';
-import { CategoryDTO } from '../../../services/recipe/transfer/CategoryDTO';
-import { ImageService } from '../../../services/image/image.service';
-import { ImageDTO } from '../../../services/recipe/transfer/ImageDTO';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { CategoryDTO } from 'src/app/shared/services/recipe/transfer/CategoryDTO';
+import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
+import { ImageService } from 'src/app/shared/services/image/image.service';
+import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
+import { ImageDTO } from 'src/app/shared/services/recipe/transfer/ImageDTO';
 
 @Component({
   selector: 'app-edit-recipe-form',

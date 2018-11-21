@@ -1,12 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RecipeService } from '../../../services/recipe/recipe.service';
 import { TranslateService } from '@ngx-translate/core';
-import { RecipeDTO } from '../../../services/recipe/transfer/RecipeDTO';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { SnackbarService } from 'src/app/services/ui/snackbar.service';
-import { Breadcrumb } from '../../elements/breadcrumb/Breadcrumb';
+import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
+import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
+import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
 
 @Component({
   selector: 'app-recipe-edit',

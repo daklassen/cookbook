@@ -1,71 +1,56 @@
 <nav class="navbar is-light">
   <div class="container">
-
     <!-- logo -->
     <div class="navbar-brand">
-      <a class="navbar-item"
-         routerLink="/home">
-        <svg-icon src="assets/img/logo.svg"
-                  [svgStyle]="{ 'width.rem':2.5 }"></svg-icon>
+      <a class="navbar-item" routerLink="/home">
+        <svg-icon src="assets/img/logo.svg" [svgStyle]="{ 'width.rem': 2.5 }"></svg-icon>
       </a>
 
-      <a role="button"
-         class="navbar-burger"
-         [class.is-active]="mobileMenuVisible"
-         aria-label="menu"
-         aria-expanded="false"
-         (click)="onNavbarBurgerClick()">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
+      <a
+        role="button"
+        class="navbar-burger"
+        [class.is-active]="mobileMenuVisible"
+        aria-label="menu"
+        aria-expanded="false"
+        (click)="onNavbarBurgerClick()"
+      >
+        <span aria-hidden="true"></span> <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
     <!-- menu -->
-    <div class="navbar-menu"
-         [class.is-active]="mobileMenuVisible">
+    <div class="navbar-menu" [class.is-active]="mobileMenuVisible">
       <div class="navbar-start is-centered">
-        <a class="navbar-item is-top-border"
-           *ngIf="currentUser != null"
-           routerLinkActive="is-active"
-           routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+        <a
+          class="navbar-item is-top-border"
+          *ngIf="currentUser != null"
+          routerLinkActive="is-active"
+          routerLink="/recipes"
+          >{{ 'NAVIG.RECIPES' | translate }}
         </a>
       </div>
 
       <div class="navbar-end">
-
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null"
-             class="navbar-item has-dropdown"
-             hoverClass="is-active">
-
-          <a class="navbar-link">
-            {{ currentUser | titlecase }}
-          </a>
+        <div *ngIf="currentUser != null" class="navbar-item has-dropdown" appHoverClass="is-active">
+          <a class="navbar-link"> {{ currentUser | titlecase }} </a>
 
           <div class="navbar-dropdown is-right is-boxed">
-            <a class="navbar-item">
-              {{ 'USER.PROFILE' | translate }}
-            </a>
-            <a class="navbar-item">
-              {{ 'USER.SETTINGS' | translate }}
-            </a>
-            <hr class="navbar-divider">
-            <a (click)="onLogoutClicked()"
-               class="navbar-item">
-              {{ 'USER.LOGOUT' | translate }}
-            </a>
+            <a class="navbar-item"> {{ 'USER.PROFILE' | translate }} </a>
+            <a class="navbar-item"> {{ 'USER.SETTINGS' | translate }} </a>
+            <hr class="navbar-divider" />
+            <a (click)="onLogoutClicked()" class="navbar-item"> {{ 'USER.LOGOUT' | translate }} </a>
           </div>
         </div>
 
         <!-- user is not logged in -->
-        <div *ngIf="currentUser == null"
-             class="navbar-item login-button">
-          <span class="button is-primary"
-                (click)="onLoginClicked()">{{ loginBtnText$ | async }}</span>
+        <div *ngIf="currentUser == null" class="navbar-item login-button">
+          <span class="button is-primary" (click)="onLoginClicked()">{{
+            loginBtnText$ | async
+          }}</span>
         </div>
       </div>
     </div>
-
   </div>
 </nav>

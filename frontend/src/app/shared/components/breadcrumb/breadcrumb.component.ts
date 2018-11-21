@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Animations } from '../../../animations/Animations';
-import { Breadcrumb } from './Breadcrumb';
+import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
+import { Animations } from '../../animations/animations';
 
 @Component({
   selector: 'app-breadcrumb',

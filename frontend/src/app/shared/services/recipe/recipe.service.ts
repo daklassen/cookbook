@@ -3,8 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { RecipeDTO } from './transfer/RecipeDTO';
 import { Observable } from 'rxjs';
 import { IngredientDTO } from './transfer/IngredientDTO';
-import { environment } from '../../../environments/environment';
 import { CategoryDTO } from './transfer/CategoryDTO';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class RecipeService {
@@ -15,7 +15,7 @@ export class RecipeService {
   }
 
   getUsersRecipes(filter: string): Observable<RecipeDTO[]> {
-    let params = new HttpParams().set('filter', filter);
+    const params = new HttpParams().set('filter', filter);
     return this.http.get<RecipeDTO[]>(environment.apiUrl + '/recipes', { params: params });
   }
 
@@ -36,10 +36,10 @@ export class RecipeService {
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {
-    let splittetInput = input.split(' ');
+    const splittetInput = input.split(' ');
     const [amount, unit, ...name] = splittetInput;
     return {
-      amount: parseInt(amount),
+      amount: parseInt(amount, 10),
       unit: unit,
       name: name.join(' ')
     };
@@ -51,7 +51,7 @@ export class RecipeService {
 
   createEmptyRecipe(): RecipeDTO {
     // TODO:
-    let recipe = {
+    const recipe = {
       id: null,
       name: '',
       rating: null,
