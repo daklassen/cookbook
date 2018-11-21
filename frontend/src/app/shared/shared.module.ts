@@ -13,7 +13,6 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { RouterModule } from '@angular/router';
 import { MatSnackBarModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [HoverClassDirective, SecurePipe, BreadcrumbComponent],
@@ -23,8 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     MatSnackBarModule,
     AngularSvgIconModule,
-    AngularFontAwesomeModule,
-    HttpClientModule
+    AngularFontAwesomeModule
   ],
   exports: [
     CommonModule,
