@@ -7,6 +7,7 @@ import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
+import { finalize, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -44,8 +45,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .updateRecipe(recipe, this.recipe.id)
-      .finally(() => this.spinner.hide())
-      .takeWhile(() => this.viewAlive)
+      .pipe(
+        finalize(() => this.spinner.hide()),
+        takeWhile(() => this.viewAlive)
+      )
       .subscribe(
         success => {
           this.snackBar.openShortSnackbar('EDIT_RECIPE.SUCCESS');
@@ -62,8 +65,10 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .deleteRecipe(this.recipe.id)
-      .finally(() => this.spinner.hide())
-      .takeWhile(() => this.viewAlive)
+      .pipe(
+        finalize(() => this.spinner.hide()),
+        takeWhile(() => this.viewAlive)
+      )
       .subscribe(
         success => {
           this.snackBar.openShortSnackbar('GENERAL.DELETE_SUCCESS');
@@ -87,7 +92,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private loadRecipe(id: number): void {
     this.recipeService
       .getRecipeById(id)
-      .takeWhile(() => this.viewAlive)
+      .pipe(takeWhile(() => this.viewAlive))
       .subscribe(
         recipe => {
           this.recipe = recipe;

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ImageDTO } from '../recipe/transfer/ImageDTO';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ImageService {
@@ -14,6 +15,6 @@ export class ImageService {
 
     return this.http
       .post(environment.apiUrl + '/image', formData)
-      .map((response: ImageDTO) => response);
+      .pipe(map((response: ImageDTO) => response));
   }
 }

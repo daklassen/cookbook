@@ -7,6 +7,7 @@ import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipe-create',
@@ -41,7 +42,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .createRecipe(recipe)
-      .takeWhile(() => this.viewAlive)
+      .pipe(takeWhile(() => this.viewAlive))
       .subscribe(
         success => {
           this.snackBar.openShortSnackbar('CREATE_RECIPE_PAGE.SUCCESS');

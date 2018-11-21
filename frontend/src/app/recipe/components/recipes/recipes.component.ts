@@ -1,13 +1,21 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { chunk } from 'lodash';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import 'rxjs/Rx';
+import {
+  finalize,
+  takeWhile,
+  map,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  tap
+} from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Animations } from 'src/app/shared/animations/animations';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'app-recipes',
@@ -45,12 +53,14 @@ export class RecipesComponent implements OnInit, OnDestroy {
     this.spinner.show();
     this.recipeService
       .getUsersRecipes(filter)
-      .finally(() => {
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 300);
-      })
-      .takeWhile(() => this.viewAlive)
+      .pipe(
+        finalize(() => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 300);
+        }),
+        takeWhile(() => this.viewAlive)
+      )
       .subscribe(
         result => {
           this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
@@ -75,13 +85,15 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   private initSearch(): void {
-    Observable.fromEvent(this.searchRef.nativeElement, 'keyup')
-      .map((evt: any) => evt.target.value)
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .do(() => this.spinner.show())
-      .switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText))
-      .takeWhile(() => this.viewAlive)
+    fromEvent(this.searchRef.nativeElement, 'keyup')
+      .pipe(
+        map((evt: any) => evt.target.value),
+        debounceTime(400),
+        distinctUntilChanged(),
+        tap(() => this.spinner.show()),
+        switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText)),
+        takeWhile(() => this.viewAlive)
+      )
       .subscribe((recipes: RecipeDTO[]) => {
         setTimeout(() => {
           this.spinner.hide();

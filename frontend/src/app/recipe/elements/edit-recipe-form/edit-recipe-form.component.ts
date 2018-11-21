@@ -7,6 +7,7 @@ import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { ImageService } from 'src/app/shared/services/image/image.service';
 import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
 import { ImageDTO } from 'src/app/shared/services/recipe/transfer/ImageDTO';
+import { finalize, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -96,8 +97,10 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
       this.spinner.show();
       this.imageService
         .uploadImageFile(file)
-        .finally(() => this.spinner.hide())
-        .takeWhile(() => this.viewAlive)
+        .pipe(
+          finalize(() => this.spinner.hide()),
+          takeWhile(() => this.viewAlive)
+        )
         .subscribe((image: ImageDTO) => {
           this.recipeForm.patchValue({
             imageFile: image
@@ -120,7 +123,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   private loadAllCategories(): void {
     this.recipeService
       .getAllCategories()
-      .takeWhile(() => this.viewAlive)
+      .pipe(takeWhile(() => this.viewAlive))
       .subscribe(categories => {
         this.categories = categories;
         this.fillForm();
