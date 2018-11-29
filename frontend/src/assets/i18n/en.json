@@ -12,7 +12,6 @@
   },
   "USER": {
     "PROFILE": "Profile",
-    "SETTINGS": "Settings",
     "LOGOUT": "Logout",
     "LOGIN": "Login"
   },
@@ -23,7 +22,8 @@
   },
   "EDIT_RECIPE_PAGE": {
     "TITLE": "Edit Recipe",
-    "DELETE": "Delete"
+    "DELETE": "Delete",
+    "DELETE_CONFIRM": "Are you sure, that you want to delete this recipe?"
   },
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Ingredients",
@@ -56,6 +56,9 @@
     "UPDATE": "Save",
     "SEARCH": "Search",
     "NOTFOUND": "Nothing found",
-    "TRYAGAIN": "Wrong search string?"
+    "TRYAGAIN": "Wrong search string?",
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel",
+    "CONTINUE": "Continue"
   }
 }

@@ -12,7 +12,6 @@
   },
   "USER": {
     "PROFILE": "Profil",
-    "SETTINGS": "Einstellungen",
     "LOGOUT": "Abmelden",
     "LOGIN": "Anmelden"
   },
@@ -23,7 +22,8 @@
   },
   "EDIT_RECIPE_PAGE": {
     "TITLE": "Rezept bearbeiten",
-    "DELETE": "Löschen"
+    "DELETE": "Löschen",
+    "DELETE_CONFIRM": "Sind Sie sicher, dass Sie das Rezept löschen wollen?"
   },
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Zutaten",
@@ -56,6 +56,9 @@
     "UPDATE": "Speichern",
     "SEARCH": "Suche",
     "NOTFOUND": "Nichts gefunden",
-    "TRYAGAIN": "Falscher Suchbegriff?"
+    "TRYAGAIN": "Falscher Suchbegriff?",
+    "CONFIRM": "Bestätigung",
+    "CANCEL": "Abbrechen",
+    "CONTINUE": "Weiter"
   }
 }
