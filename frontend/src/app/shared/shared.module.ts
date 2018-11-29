@@ -9,38 +9,42 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AngularSvgIconModule } from 'angular-svg-icon';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { RouterModule } from '@angular/router';
-import { MatSnackBarModule } from '@angular/material';
+import { MatSnackBarModule, MatDialogModule } from '@angular/material';
+import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
+import { DialogService } from './services/ui/dialog.service';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
-  declarations: [HoverClassDirective, SecurePipe, BreadcrumbComponent],
+  declarations: [HoverClassDirective, SecurePipe, BreadcrumbComponent, ConfirmDialogComponent],
   imports: [
     CommonModule,
     TranslateModule,
     RouterModule,
     MatSnackBarModule,
-    AngularSvgIconModule,
-    AngularFontAwesomeModule
+    MatDialogModule,
+    AngularFontAwesomeModule,
+    InlineSVGModule.forRoot({ baseUrl: '/' })
   ],
   exports: [
     CommonModule,
-    AngularSvgIconModule,
     AngularFontAwesomeModule,
     HoverClassDirective,
     SecurePipe,
     BreadcrumbComponent,
     NgxSpinnerModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    InlineSVGModule
+  ],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [RecipeService, ImageService, SnackbarService]
+      providers: [RecipeService, ImageService, SnackbarService, DialogService]
     };
   }
 }

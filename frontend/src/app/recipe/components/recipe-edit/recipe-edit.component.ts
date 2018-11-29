@@ -79,7 +79,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private navigateToDetailView(): void {
-    this.router.navigateByUrl('/recipe-details/' + this.recipe.id);
+    this.router.navigateByUrl('/recipes/recipe-details/' + this.recipe.id);
   }
 
   private loadRecipe(id: number): void {
