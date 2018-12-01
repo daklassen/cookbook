@@ -98,7 +98,7 @@
             <input class="input is-medium"
                    [ngClass]="!currentIngredientValid && currentIngredient ? 'is-info' : ''"
                    type="text"
-                   placeholder="{{ 'EDIT_RECIPE.AMOUNT' | translate }} - {{ 'EDIT_RECIPE.UNIT' | translate }} - {{ 'EDIT_RECIPE.DESCRIPTION' | translate }}"
+                   placeholder="{{ 'EDIT_RECIPE.INGREDIENT_PLACEHOLDER' | translate }}"
                    (keydown.enter)="currentIngredientValid ? addIngredient() : null"
                    [value]="currentIngredient"
                    (input)="currentIngredient = $event.target.value">

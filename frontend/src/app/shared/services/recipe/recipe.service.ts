@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IngredientDTO } from './transfer/IngredientDTO';
 import { CategoryDTO } from './transfer/CategoryDTO';
 import { environment } from 'src/environments/environment';
+import { INGREDIENT_REGEX } from 'src/app/recipe/elements/edit-recipe-form/edit-recipe-form.constants';
 
 @Injectable()
 export class RecipeService {
@@ -36,17 +37,21 @@ export class RecipeService {
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {
-    const splittetInput = input.split(' ');
-    const [amount, unit, ...name] = splittetInput;
+    const match = input.match(INGREDIENT_REGEX);
+
+    const amount = match[1];
+    const unit = match[3] != null ? match[2] : ''; // no match means short notation without unit (e.g. 5 carrots)
+    const name = match[3] != null ? match[3] : match[2];
+
     return {
       amount: parseInt(amount, 10),
       unit: unit,
-      name: name.join(' ')
+      name: name
     };
   }
 
   formatIngredientToString(ingredient: IngredientDTO): string {
-    return ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name;
+    return (ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name).replace('  ', ' ');
   }
 
   createEmptyRecipe(): RecipeDTO {

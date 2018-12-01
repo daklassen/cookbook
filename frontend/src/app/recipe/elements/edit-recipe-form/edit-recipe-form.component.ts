@@ -8,6 +8,7 @@ import { ImageService } from 'src/app/shared/services/image/image.service';
 import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
 import { ImageDTO } from 'src/app/shared/services/recipe/transfer/ImageDTO';
 import { finalize, takeWhile } from 'rxjs/operators';
+import { INGREDIENT_REGEX } from './edit-recipe-form.constants';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -41,8 +42,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   get currentIngredientValid(): boolean {
-    const REGEX = /\d+\s* +\s*.+\s* +\s*.+/g;
-    return REGEX.test(this.currentIngredient);
+    return INGREDIENT_REGEX.test(this.currentIngredient);
   }
 
   public recipeForm: FormGroup;
