@@ -1,0 +1,163 @@
+<form [formGroup]="recipeForm">
+
+  <div class="container">
+    <div class="columns is-multiline">
+
+      <!-- Name, Portions & Category -->
+      <div class="column is-6">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.NAME' | translate }}</label>
+          <div class="control">
+            <input maxlength="30"
+                   [ngClass]="name.invalid && (name.dirty || name.touched) ? 'is-danger' : ''"
+                   class="input is-medium"
+                   type="text"
+                   placeholder="{{ 'EDIT_RECIPE.NAME' | translate }}"
+                   formControlName="name">
+            <p *ngIf="name.invalid && (name.dirty || name.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.CATEGORY' | translate }}</label>
+          <div class="select is-medium is-fullwidth">
+            <select formControlName="category">
+              <option *ngFor="let category of categories"
+                      [ngValue]="category.id">{{ category.name }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column is-2">
+        <div class="field">
+          <label class="label is-medium">{{ 'EDIT_RECIPE.PORTIONS' | translate }}</label>
+          <div class="select is-medium is-fullwidth">
+            <select formControlName="servings">
+              <option [ngValue]="1">1</option>
+              <option [ngValue]="2">2</option>
+              <option [ngValue]="3">3</option>
+              <option [ngValue]="4">4</option>
+              <option [ngValue]="5">5</option>
+              <option [ngValue]="6">6</option>
+              <option [ngValue]="7">7</option>
+              <option [ngValue]="8">8</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image Upload -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.IMAGE' | translate }}</label>
+
+        <div class="file is-medium has-name is-fullwidth is-primary">
+          <label class="file-label">
+            <input class="file-input"
+                   type="file"
+                   name="resume"
+                   accept=".jpg,.jpeg,.png"
+                   (change)="onFileChange($event)">
+            <span class="file-cta">
+              <span class="file-label">
+                {{ 'EDIT_RECIPE.IMAGE_SELECT' | translate }}
+              </span>
+            </span>
+            <span class="file-name">
+              {{ imageFile.value?.fileName }}
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Ingredients -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.INGREDIENTS' | translate }}</label>
+
+        <div class="field has-addons"
+             *ngFor="let formControl of ingredientFormArray.controls; let i=index">
+          <div class="control is-expanded">
+            <input class="input is-medium"
+                   maxlength="40"
+                   type="text"
+                   [value]="ingredientToString(formControl.value)"
+                   [formControl]="formControl"
+                   readonly>
+          </div>
+          <div class="control">
+            <a class="button is-error is-medium"
+               (click)="deleteIngredient(i)">
+              {{ 'GENERAL.DELETE' | translate }}
+            </a>
+          </div>
+        </div>
+
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input is-medium"
+                   [ngClass]="!currentIngredientValid && currentIngredient ? 'is-info' : ''"
+                   type="text"
+                   placeholder="{{ 'EDIT_RECIPE.INGREDIENT_PLACEHOLDER' | translate }}"
+                   (keydown.enter)="currentIngredientValid ? addIngredient() : null"
+                   [value]="currentIngredient"
+                   (input)="currentIngredient = $event.target.value">
+            <p *ngIf="!currentIngredientValid && currentIngredient"
+               class="help is-info">{{ 'EDIT_RECIPE.EXAMPLE' | translate }}</p>
+          </div>
+          <div class="control">
+            <a class="button is-primary is-medium"
+               (click)="currentIngredientValid ? addIngredient() : null"
+               [attr.disabled]="currentIngredientValid ? null : ''">
+              {{ 'GENERAL.ADD' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Instructions -->
+      <div class="column is-12">
+        <label class="label is-medium">{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}</label>
+        <div class="field">
+          <div class="control">
+            <textarea [ngClass]="description.invalid && (description.dirty || description.touched) ? 'is-danger' : ''"
+                      class="textarea is-medium"
+                      type="text"
+                      maxlength="1000"
+                      placeholder="{{ 'EDIT_RECIPE.INSTRUCTIONS' | translate }}"
+                      formControlName="description"
+                      rows="13"></textarea>
+            <p *ngIf="description.invalid && (description.dirty || description.touched)"
+               class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
+            <p *ngIf="!description.invalid && (description.dirty || description.touched)"
+               class="help is-info">{{ 'EDIT_RECIPE.EXAMPLE2' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-12">
+        <div class="field is-grouped is-grouped-centered">
+          <p class="control">
+            <a class="button is-light is-medium"
+               (click)="onAbortClicked()">
+              {{ 'GENERAL.ABORT' | translate }}
+            </a>
+          </p>
+          <p class="control">
+            <input type="button"
+                   class="button is-primary is-medium"
+                   (click)="onSubmit(recipeForm.value)"
+                   [value]="submitButtonText"
+                   [disabled]="!recipeForm.valid" />
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)"
+             size="medium"
+             color="#fff"
+             type="ball-spin-fade"></ngx-spinner>

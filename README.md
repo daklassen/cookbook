@@ -5,7 +5,7 @@ A simple cookbook application to learn stuff and have fun while doing it.
 
 Start **Keycloak** server:
 ```
-cd keycloak\keycloak-3.4.3.Final\bin
+cd keycloak\keycloak-4.4.0.Final\bin
 standalone.bat
 ```
 
@@ -15,7 +15,7 @@ cd backend\
 graldew bootrun
 ```
 
-Start **Angular 6** frontend:
+Start **Angular 7** frontend:
 ```
 cd frontend\
 ng serve

@@ -1,5 +1,8 @@
 package de.david.cookbook.persistence.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,9 +21,6 @@ public class Recipe {
     @JoinColumn(name = "USER_ID", nullable = false)
     private User author;
 
-    @Column(name = "IMAGE_URL")
-    private String imageURL;
-
     @Column(name = "SERVINGS", nullable = false)
     private int servings;
 
@@ -32,22 +32,27 @@ public class Recipe {
     private Category category;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @JoinColumn(name = "RECIPE_ID")
     private List<Ingredient> ingredients;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @JoinColumn(name = "RECIPE_ID")
+    private List<Image> images;
 
     public Recipe() {
     }
 
-    public Recipe(String name, User author, String imageURL,
-                  int servings, String description,
-                  Category category, List<Ingredient> ingredients) {
+    public Recipe(String name, User author, int servings, String description,
+                  Category category, List<Ingredient> ingredients, List<Image> images) {
         this.name = name;
         this.author = author;
-        this.imageURL = imageURL;
         this.servings = servings;
         this.description = description;
         this.category = category;
         this.ingredients = ingredients;
+        this.images = images;
     }
 
     public Long getId() {
@@ -72,14 +77,6 @@ public class Recipe {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
     }
 
     public int getServings() {
@@ -112,5 +109,13 @@ public class Recipe {
 
     public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
