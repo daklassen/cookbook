@@ -129,6 +129,8 @@
                       rows="13"></textarea>
             <p *ngIf="description.invalid && (description.dirty || description.touched)"
                class="help is-danger">{{ 'EDIT_RECIPE.HINT' | translate }}</p>
+            <p *ngIf="!description.invalid && (description.dirty || description.touched)"
+               class="help is-info">{{ 'EDIT_RECIPE.EXAMPLE2' | translate }}</p>
           </div>
         </div>
       </div>

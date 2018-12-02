@@ -25,7 +25,10 @@ export class HeaderComponent implements OnInit {
   public loadCurrentUser(): void {
     this.keycloakService.isLoggedIn().then(userIsLoggedIn => {
       if (userIsLoggedIn) {
-        this.currentUser = this.keycloakService.getUsername();
+        this.keycloakService.loadUserProfile().then(profile => {
+          console.log(profile);
+          this.currentUser = profile.firstName;
+        });
       } else {
         this.currentUser = null;
       }

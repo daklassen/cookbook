@@ -28,7 +28,8 @@
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Zutaten",
     "INSTRUCTIONS": "Anweisungen",
-    "EDIT": "Bearbeiten"
+    "EDIT": "Bearbeiten",
+    "STEP": "Schritt"
   },
   "EDIT_RECIPE": {
     "NAME": "Rezeptname",
@@ -41,6 +42,7 @@
     "INSTRUCTIONS": "Anweisungen",
     "HINT": "Darf nicht leer sein",
     "EXAMPLE": "Leerzeichen nicht vergessen (z.B. \"5 kg Möhren\" oder \"2 Möhren\")",
+    "EXAMPLE2": "Einen neuen Schritt mit ENTER beginnen",
     "SUCCESS": "Rezept wurde aktualisiert",
     "ERROR": "Fehler beim Aktualisieren"
   },

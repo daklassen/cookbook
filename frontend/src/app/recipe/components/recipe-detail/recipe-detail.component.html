@@ -7,7 +7,7 @@
 
 <section *ngIf="currentRecipe != null"
          class="section has-background-white">
-  <div class="container is-50-vh">
+  <div class="container">
     <div class="columns">
       <div class="column is-half">
         <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INGREDIENTS' | translate }}</h4>
@@ -24,9 +24,10 @@
       </div>
       <div class="column is-half">
         <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INSTRUCTIONS' | translate }}</h4>
-        <div *ngFor="let descriptionBlock of splittedDescription"
+        <div *ngFor="let descriptionBlock of splittedDescription, let i = index"
              class="box">
           <p>
+            <b>{{ i + 1 }}. {{'RECIPE_DETAILS_PAGE.STEP' | translate }} </b> <br>
             {{ descriptionBlock }}
           </p>
         </div>

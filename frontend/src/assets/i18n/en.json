@@ -28,7 +28,8 @@
   "RECIPE_DETAILS_PAGE": {
     "INGREDIENTS": "Ingredients",
     "INSTRUCTIONS": "Instructions",
-    "EDIT": "Edit"
+    "EDIT": "Edit",
+    "STEP": "Step"
   },
   "EDIT_RECIPE": {
     "NAME": "Recipe Name",
@@ -41,6 +42,7 @@
     "INSTRUCTIONS": "Instructions",
     "HINT": "Cannot be empty",
     "EXAMPLE": "Don't forget the spaces (e.g. \"5 kg Carrots\" or \"2 Carrots\")",
+    "EXAMPLE2": "Create a new step with ENTER",
     "SUCCESS": "Recipe was updated",
     "ERROR": "Error while updating"
   },
