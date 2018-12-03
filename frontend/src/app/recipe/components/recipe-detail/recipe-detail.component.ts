@@ -13,10 +13,10 @@ const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
   styleUrls: ['./recipe-detail.component.scss']
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
-  public currentRecipe: RecipeDTO;
-  public splittedDescription: Array<string>;
-  public viewAlive: boolean = true;
-  public breadcrumbs: Breadcrumb[];
+  currentRecipe: RecipeDTO;
+  splittedDescription: Array<string>;
+  viewAlive: boolean = true;
+  breadcrumbs: Breadcrumb[];
 
   constructor(
     private route: ActivatedRoute,
@@ -24,16 +24,16 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public loadRecipe(id: number): void {
+  loadRecipe(id: number): void {
     this.recipeService
       .getRecipeById(id)
       .pipe(takeWhile(() => this.viewAlive))
@@ -44,7 +44,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  public splitDescription(): void {
+  splitDescription(): void {
     if (this.currentRecipe) {
       this.splittedDescription = this.currentRecipe.description
         .split(REGEX_SPLITTING_DESCRIPTION)
@@ -52,7 +52,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     }
   }
 
-  public onEditRecipe(): void {
+  onEditRecipe(): void {
     this.router.navigateByUrl('recipes/recipe-edit/' + this.currentRecipe.id);
   }
 

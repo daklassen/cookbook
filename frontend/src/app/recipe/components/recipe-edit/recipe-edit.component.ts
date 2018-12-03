@@ -16,11 +16,11 @@ import { DialogService } from 'src/app/shared/services/ui/dialog.service';
   styleUrls: ['./recipe-edit.component.scss']
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
-  public recipe: RecipeDTO;
-  public submitButtonText$: Observable<string>;
-  public viewAlive: boolean = true;
-  public routerLink: string;
-  public breadcrumbs: Breadcrumb[];
+  recipe: RecipeDTO;
+  submitButtonText$: Observable<string>;
+  viewAlive: boolean = true;
+  routerLink: string;
+  breadcrumbs: Breadcrumb[];
 
   constructor(
     private recipeService: RecipeService,
@@ -32,18 +32,18 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
     private dialogService: DialogService
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.submitButtonText$ = this.translate.get('GENERAL.UPDATE');
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public onRecipeUpdate(recipe: RecipeDTO): void {
+  onRecipeUpdate(recipe: RecipeDTO): void {
     this.spinner.show();
     this.recipeService
       .updateRecipe(recipe, this.recipe.id)
@@ -63,7 +63,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onDeleteRecipeRequest(): void {
+  onDeleteRecipeRequest(): void {
     this.dialogService
       .openConfirmDialog('EDIT_RECIPE_PAGE.DELETE_CONFIRM')
       .pipe(take(1))
@@ -74,7 +74,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
       });
   }
 
-  public onAbortClicked(recipe: RecipeDTO): void {
+  onAbortClicked(recipe: RecipeDTO): void {
     this.navigateToDetailView();
   }
 

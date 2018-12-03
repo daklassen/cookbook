@@ -15,10 +15,10 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./recipe-create.component.scss']
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
-  public emptyRecipe: RecipeDTO;
-  public submitButtonText$: Observable<string>;
-  public viewAlive: boolean = true;
-  public breadcrumbs: Breadcrumb[];
+  emptyRecipe: RecipeDTO;
+  submitButtonText$: Observable<string>;
+  viewAlive: boolean = true;
+  breadcrumbs: Breadcrumb[];
 
   constructor(
     private recipeService: RecipeService,
@@ -28,17 +28,17 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
     private snackBar: SnackbarService
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.submitButtonText$ = this.translate.get('GENERAL.CREATE');
     this.emptyRecipe = this.recipeService.createEmptyRecipe();
     this.generateBreadcrumbs();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public onRecipeCreated(recipe: RecipeDTO): void {
+  onRecipeCreated(recipe: RecipeDTO): void {
     this.spinner.show();
     this.recipeService
       .createRecipe(recipe)
@@ -55,7 +55,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onAbortClicked(recipe: RecipeDTO): void {
+  onAbortClicked(recipe: RecipeDTO): void {
     this.router.navigateByUrl('/recipes');
   }
 

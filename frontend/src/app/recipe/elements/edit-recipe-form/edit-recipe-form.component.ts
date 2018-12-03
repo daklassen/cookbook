@@ -45,13 +45,13 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     return INGREDIENT_REGEX.test(this.currentIngredient);
   }
 
-  public recipeForm: FormGroup;
-  public items: FormArray;
-  public currentIngredient: string;
-  public currentImageFileName: string;
-  public categories: Array<CategoryDTO>;
-  public viewAlive: boolean = true;
-  public servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
+  recipeForm: FormGroup;
+  items: FormArray;
+  currentIngredient: string;
+  currentImageFileName: string;
+  categories: Array<CategoryDTO>;
+  viewAlive: boolean = true;
+  servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
 
   constructor(
     private fb: FormBuilder,
@@ -60,22 +60,22 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.currentIngredient = '';
     this.currentImageFileName = '';
     this.initForm();
     this.loadAllCategories();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public ingredientToString(ingredient: IngredientDTO): string {
+  ingredientToString(ingredient: IngredientDTO): string {
     return this.recipeService.formatIngredientToString(ingredient);
   }
 
-  public onSubmit(formValue): void {
+  onSubmit(formValue): void {
     const recipe: RecipeDTO = {
       categoryId: formValue.category,
       description: formValue.description,
@@ -87,11 +87,11 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     this.editedRecipe.emit(recipe);
   }
 
-  public onAbortClicked() {
+  onAbortClicked() {
     this.aborted.emit(this.recipe);
   }
 
-  public onFileChange(event): void {
+  onFileChange(event): void {
     if (event.target.files) {
       const [file] = event.target.files;
       this.spinner.show();
@@ -109,13 +109,13 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  public addIngredient(): void {
+  addIngredient(): void {
     const ingredient = this.recipeService.parseUserInputIntoIngredient(this.currentIngredient);
     this.addItem(ingredient);
     this.currentIngredient = '';
   }
 
-  public deleteIngredient(index: number): void {
+  deleteIngredient(index: number): void {
     this.items = this.recipeForm.get('ingredients') as FormArray;
     this.items.removeAt(index);
   }

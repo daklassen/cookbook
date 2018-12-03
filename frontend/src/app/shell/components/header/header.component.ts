@@ -10,40 +10,39 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public currentUser: string;
-  public mobileMenuVisible: boolean;
-  public loginBtnText$: Observable<string>;
+  currentUser: string;
+  mobileMenuVisible: boolean;
+  loginBtnText$: Observable<string>;
 
   constructor(private keycloakService: KeycloakService, private translate: TranslateService) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.loadCurrentUser();
     this.mobileMenuVisible = false;
     this.loginBtnText$ = this.translate.get('USER.LOGIN');
   }
 
-  public loadCurrentUser(): void {
+  loadCurrentUser(): void {
     this.keycloakService.isLoggedIn().then(userIsLoggedIn => {
       if (userIsLoggedIn) {
-        this.keycloakService.loadUserProfile().then(profile => {
-          console.log(profile);
-          this.currentUser = profile.firstName;
-        });
+        this.keycloakService
+          .loadUserProfile()
+          .then(profile => (this.currentUser = profile.firstName));
       } else {
         this.currentUser = null;
       }
     });
   }
 
-  public onLoginClicked(): void {
+  onLoginClicked(): void {
     this.keycloakService.login();
   }
 
-  public onLogoutClicked(): void {
+  onLogoutClicked(): void {
     this.keycloakService.logout(environment.applicationUrl);
   }
 
-  public onNavbarBurgerClick(): void {
+  onNavbarBurgerClick(): void {
     this.mobileMenuVisible = !this.mobileMenuVisible;
   }
 }

@@ -24,11 +24,11 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./recipes.component.scss']
 })
 export class RecipesComponent implements OnInit, OnDestroy {
-  public RECIPES_PER_ROW: number = 4;
-  public chunkedRecipes: any;
-  public viewAlive: boolean = true;
-  public breadcrumbs: Breadcrumb[];
-  public mainFilter: string;
+  RECIPES_PER_ROW: number = 4;
+  chunkedRecipes: any;
+  viewAlive: boolean = true;
+  breadcrumbs: Breadcrumb[];
+  mainFilter: string;
 
   @ViewChild('searchRef')
   searchRef: ElementRef;
@@ -39,17 +39,17 @@ export class RecipesComponent implements OnInit, OnDestroy {
     private spinner: NgxSpinnerService
   ) {}
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.loadUsersRecipes();
     this.generateBreadcrumbs();
     this.initSearch();
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.viewAlive = false;
   }
 
-  public loadUsersRecipes(filter: string = ''): void {
+  loadUsersRecipes(filter: string = ''): void {
     this.spinner.show();
     this.recipeService
       .getUsersRecipes(filter)
@@ -71,7 +71,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
       );
   }
 
-  public onCreateRecipe(): void {
+  onCreateRecipe(): void {
     this.router.navigateByUrl('recipes/recipe-create');
   }
 
