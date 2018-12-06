@@ -118,7 +118,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private generateBreadcrumbs(): void {
     const currentRecipe: Breadcrumb = {
       label: this.recipe.name,
-      routerlink: '/recipe-details/' + this.recipe.id
+      routerlink: '/recipes/recipe-details/' + this.recipe.id
     };
     const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
 
