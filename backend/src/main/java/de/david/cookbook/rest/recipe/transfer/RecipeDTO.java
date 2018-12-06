@@ -3,7 +3,10 @@ package de.david.cookbook.rest.recipe.transfer;
 import de.david.cookbook.rest.image.transfer.ImageDTO;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class RecipeDTO {
@@ -11,6 +14,7 @@ public class RecipeDTO {
     private Long id;
 
     @NotNull
+    @Size(max = 100)
     private String name;
 
     private UserDTO author;
@@ -18,9 +22,12 @@ public class RecipeDTO {
     private ImageDTO imageFile;
 
     @NotNull
+    @Min(1)
+    @Max(20)
     private int servings;
 
     @NotNull
+    @Size(max = 1000)
     private String description;
 
     @NotNull

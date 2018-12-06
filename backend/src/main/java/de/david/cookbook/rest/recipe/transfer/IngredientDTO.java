@@ -1,6 +1,7 @@
 package de.david.cookbook.rest.recipe.transfer;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class IngredientDTO {
 
@@ -11,6 +12,7 @@ public class IngredientDTO {
     private String unit;
 
     @NotNull
+    @Size(max = 100)
     private String name;
 
     public IngredientDTO() {
