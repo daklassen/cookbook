@@ -24,6 +24,7 @@
     "@angular/pwa": "^0.10.4",
     "@angular/router": "^7.1.1",
     "@angular/service-worker": "^7.1.1",
+    "@digitalascetic/ngx-pica": "^2.0.4",
     "@ngx-translate/core": "^11.0.0",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-font-awesome": "^3.1.2",

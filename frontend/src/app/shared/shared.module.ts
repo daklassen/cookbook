@@ -16,6 +16,7 @@ import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/conf
 import { DialogService } from './services/ui/dialog.service';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
+import { NgxPicaModule } from '@digitalascetic/ngx-pica';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     MatSnackBarModule,
     MatDialogModule,
     AngularFontAwesomeModule,
-    InlineSVGModule.forRoot({ baseUrl: '/' })
+    InlineSVGModule.forRoot({ baseUrl: '/' }),
+    NgxPicaModule
   ],
   exports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-di
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
-    InlineSVGModule
+    InlineSVGModule,
+    NgxPicaModule
   ],
   entryComponents: [ConfirmDialogComponent, ErrorDialogComponent]
 })
