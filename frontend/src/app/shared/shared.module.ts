@@ -15,9 +15,16 @@ import { MatSnackBarModule, MatDialogModule } from '@angular/material';
 import { ConfirmDialogComponent } from './components/dialogs/confirm-dialog/confirm-dialog.component';
 import { DialogService } from './services/ui/dialog.service';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 
 @NgModule({
-  declarations: [HoverClassDirective, SecurePipe, BreadcrumbComponent, ConfirmDialogComponent],
+  declarations: [
+    HoverClassDirective,
+    SecurePipe,
+    BreadcrumbComponent,
+    ConfirmDialogComponent,
+    ErrorDialogComponent
+  ],
   imports: [
     CommonModule,
     TranslateModule,
@@ -38,7 +45,7 @@ import { InlineSVGModule } from 'ng-inline-svg';
     ReactiveFormsModule,
     InlineSVGModule
   ],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent, ErrorDialogComponent]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

@@ -36,7 +36,7 @@
     "CATEGORY": "Kategorie",
     "PORTIONS": "Portionen",
     "IMAGE": "Bild",
-    "IMAGE_SELECT": "Lade Bild hoch",
+    "IMAGE_SELECT": "Rezeptbild hochladen",
     "INGREDIENTS": "Zutaten",
     "INGREDIENT_PLACEHOLDER": "Menge - Einheit (optional) - Beschreibung",
     "INSTRUCTIONS": "Anweisungen",
@@ -44,7 +44,9 @@
     "EXAMPLE": "Leerzeichen nicht vergessen (z.B. \"5 kg Möhren\" oder \"2 Möhren\")",
     "EXAMPLE2": "Einen neuen Schritt mit ENTER beginnen",
     "SUCCESS": "Rezept wurde aktualisiert",
-    "ERROR": "Fehler beim Aktualisieren"
+    "ERROR": "Fehler beim Aktualisieren",
+    "ERROR_IMAGE_UPLOAD": "Fehler beim Hochladen des Bildes",
+    "ERROR_IMAGE_TOO_BIG": "Das ausgewählte Bild überschreitet die Maximalgröße von 3MB"
   },
   "GENERAL": {
     "DELETE": "Löschen",
@@ -59,6 +61,8 @@
     "TRYAGAIN": "Falscher Suchbegriff?",
     "CONFIRM": "Bestätigung",
     "CANCEL": "Abbrechen",
-    "CONTINUE": "Weiter"
+    "CONTINUE": "Weiter",
+    "OK": "Ok",
+    "ERROR": "Fehler"
   }
 }

@@ -4,11 +4,16 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { CategoryDTO } from 'src/app/shared/services/recipe/transfer/CategoryDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { ImageService } from 'src/app/shared/services/image/image.service';
+import {
+  ImageService,
+  RECIPE_IMAGE_MAX_SIZE_IN_BYTES
+} from 'src/app/shared/services/image/image.service';
 import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
 import { ImageDTO } from 'src/app/shared/services/recipe/transfer/ImageDTO';
 import { finalize, takeWhile } from 'rxjs/operators';
 import { INGREDIENT_REGEX } from './edit-recipe-form.constants';
+import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
+import { DialogService } from 'src/app/shared/services/ui/dialog.service';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -57,7 +62,9 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private recipeService: RecipeService,
     private imageService: ImageService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private snackbarService: SnackbarService,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -94,6 +101,12 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   onFileChange(event): void {
     if (event.target.files) {
       const [file] = event.target.files;
+
+      if (file.size > RECIPE_IMAGE_MAX_SIZE_IN_BYTES) {
+        this.dialogService.openErrorDialog('EDIT_RECIPE.ERROR_IMAGE_TOO_BIG');
+        return;
+      }
+
       this.spinner.show();
       this.imageService
         .uploadImageFile(file)
@@ -101,11 +114,16 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
           finalize(() => this.spinner.hide()),
           takeWhile(() => this.viewAlive)
         )
-        .subscribe((image: ImageDTO) => {
-          this.recipeForm.patchValue({
-            imageFile: image
-          });
-        });
+        .subscribe(
+          (image: ImageDTO) => {
+            this.recipeForm.patchValue({
+              imageFile: image
+            });
+          },
+          error => {
+            this.snackbarService.openShortSnackbar('EDIT_RECIPE.ERROR_IMAGE_UPLOAD');
+          }
+        );
     }
   }
 

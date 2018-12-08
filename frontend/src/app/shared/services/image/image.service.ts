@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 
+export const RECIPE_IMAGE_MAX_SIZE_IN_BYTES = 3145728;
+
 @Injectable()
 export class ImageService {
   constructor(private http: HttpClient) {}
