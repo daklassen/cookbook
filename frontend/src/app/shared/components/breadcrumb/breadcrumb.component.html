@@ -2,14 +2,14 @@
          [@fadeInAndOut]>
   <div class="hero-body">
     <div class="container">
-      <div class="columns is-mobile">
+      <div class="columns is-mobile is-vcentered">
         <div class="column is-half-mobile">
-          <nav class="breadcrumb has-bullet-separator"
+          <nav class="breadcrumb has-bullet-separator is-hidden-mobile"
                aria-label="breadcrumbs">
             <ul>
               <li *ngFor="let breadcrump of breadcrumps; let last = last"
                   [ngClass]="last ? 'is-active' : ''">
-                <a routerLink="{{ breadcrump.routerlink }}">
+                <a class="is-5 is-size-6-mobile" routerLink="{{ breadcrump.routerlink }}">
                   {{ breadcrump.labelKey ?
                   (breadcrump.labelKey | translate)
                   : breadcrump.label }}</a>

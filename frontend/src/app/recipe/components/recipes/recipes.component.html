@@ -22,7 +22,7 @@
   <div class="container">
     <div class="columns is-multiline is-mobile">
       <div *ngFor="let recipe of allRecipes"
-           class="column is-one-fifth-widescreen is-one-quarter-tablet is-one-third-mobile">
+           class="column is-one-fifth-widescreen is-one-quarter-tablet is-half-mobile">
         <div class="tile box is-paddingless"
              [@fadeInAndOut]>
           <div class="card-link"
@@ -39,7 +39,7 @@
               </ng-template>
             </figure>
           </div>
-          <p class="title is-5 has-text-centered has-small-padding card-title">{{ recipe.name }}</p>
+          <p class="title is-5 is-size-6-mobile has-text-centered has-small-padding card-title">{{ recipe.name }}</p>
         </div>
       </div>
     </div>
