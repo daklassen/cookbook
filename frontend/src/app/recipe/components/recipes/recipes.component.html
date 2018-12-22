@@ -20,14 +20,13 @@
   </div>
 
   <div class="container">
-    <div *ngFor="let chunkedRecipe of chunkedRecipes"
-         class="tile is-ancestor">
-      <div *ngFor="let recipe of chunkedRecipe; let i = index"
-           class="tile is-{{ 12 / RECIPES_PER_ROW }} is-parent">
-        <div class="tile is-child box is-paddingless"
+    <div class="columns is-multiline is-mobile">
+      <div *ngFor="let recipe of allRecipes"
+           class="column is-one-fifth-widescreen is-one-quarter-tablet is-one-third-mobile">
+        <div class="tile box is-paddingless"
              [@fadeInAndOut]>
-          <a routerLink="./recipe-details/{{recipe.id}}"
-             class="card-link"></a>
+          <div class="card-link"
+             routerLink="./recipe-details/{{recipe.id}}"></div>
           <div class="card-image">
             <figure class="image is-4by3">
               <div *ngIf="recipe.imageFile != null; else: placeholder">
@@ -40,14 +39,14 @@
               </ng-template>
             </figure>
           </div>
-          <p class="title is-4 has-text-centered custom-title card-title">{{ recipe.name }}</p>
+          <p class="title is-5 has-text-centered has-small-padding card-title">{{ recipe.name }}</p>
         </div>
       </div>
     </div>
   </div>
 
   <section class="hero"
-           *ngIf="chunkedRecipes?.length == 0">
+           *ngIf="allRecipes?.length == 0">
     <div class="hero-body">
       <div class="container has-text-centered">
         <h1 class="title">{{ 'GENERAL.NOTFOUND' | translate }}</h1>

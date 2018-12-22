@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
-import { chunk } from 'lodash';
 import { Router } from '@angular/router';
 import {
   finalize,
@@ -24,8 +23,7 @@ import { fromEvent } from 'rxjs';
   styleUrls: ['./recipes.component.scss']
 })
 export class RecipesComponent implements OnInit, OnDestroy {
-  RECIPES_PER_ROW: number = 4;
-  chunkedRecipes: any;
+  allRecipes: RecipeDTO[];
   viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
   mainFilter: string;
@@ -62,8 +60,8 @@ export class RecipesComponent implements OnInit, OnDestroy {
         takeWhile(() => this.viewAlive)
       )
       .subscribe(
-        result => {
-          this.chunkedRecipes = chunk(result, this.RECIPES_PER_ROW);
+        (result: RecipeDTO[]) => {
+          this.allRecipes = result;
         },
         error => {
           console.error(error);
@@ -98,7 +96,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
         setTimeout(() => {
           this.spinner.hide();
         }, 300);
-        this.chunkedRecipes = chunk(recipes, this.RECIPES_PER_ROW);
+        this.allRecipes = recipes;
       });
   }
 }

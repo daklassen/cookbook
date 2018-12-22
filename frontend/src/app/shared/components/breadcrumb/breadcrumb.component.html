@@ -2,9 +2,9 @@
          [@fadeInAndOut]>
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-6">
-          <nav class="breadcrumb"
+      <div class="columns is-mobile">
+        <div class="column is-half-mobile">
+          <nav class="breadcrumb has-bullet-separator"
                aria-label="breadcrumbs">
             <ul>
               <li *ngFor="let breadcrump of breadcrumps; let last = last"
@@ -18,8 +18,8 @@
           </nav>
         </div>
 
-        <div *ngIf="buttonLabelKey"
-             class="column is-6">
+        <div class="column"
+             *ngIf="buttonLabelKey">
           <div class="buttons has-addons is-right">
             <span class="button is-white"
                   (click)="buttonClicked.emit('')">
@@ -27,11 +27,10 @@
             </span>
           </div>
         </div>
-        <div></div>
       </div>
 
-      <div *ngIf="title || titleKey"
-           class="container">
+      <div class="container"
+           *ngIf="title || titleKey">
         <h1 class="title">{{ titleKey ? (titleKey | translate) : title }}</h1>
         <h2 class="subtitle">{{ subtitleKey ? (subtitleKey | translate) : subtitle }}</h2>
       </div>
