@@ -25,14 +25,9 @@ public class UserService {
         return this.getOrCreateUserFromAccessToken(accessToken);
     }
 
-    public User getOrCreateUserFromAccessToken(AccessToken accessToken) {
+    private User getOrCreateUserFromAccessToken(AccessToken accessToken) {
         List<User> userList = userRepository.findByKeycloakUserId(accessToken.getSubject());
-
-        if (userList.isEmpty()) {
-            return createUserFromAccessToken(accessToken);
-        }
-
-        return userList.get(0);
+        return userList.isEmpty() ? createUserFromAccessToken(accessToken) : userList.get(0);
     }
 
     private User createUserFromAccessToken(AccessToken accessToken) {
@@ -42,7 +37,9 @@ public class UserService {
         String email = accessToken.getEmail();
         String keycloakUserId = accessToken.getSubject();
 
-        //TODO: Check if null and throw exception
+        if (firstName == null || lastName == null || email == null || keycloakUserId == null) {
+            throw new IllegalArgumentException();
+        }
 
         User user = new User(firstName, lastName, email, keycloakUserId);
         userRepository.save(user);

@@ -90,10 +90,13 @@ public class RecipeController {
         return recipeService.getAllCategories();
     }
 
+    /**
+     * ENTITY -> DTO
+     */
     private RecipeDTO convertToDto(Recipe recipe) {
         RecipeDTO recipeDTO = modelMapper.map(recipe, RecipeDTO.class);
 
-        if (recipe.getImages() != null && recipe.getImages().size() > 0) {
+        if (recipe.getImages() != null && !recipe.getImages().isEmpty()) {
             Image image = recipe.getImages().get(0);
             ImageDTO imageDTO = imageController.convertToDto(image);
             recipeDTO.setImageFile(imageDTO);
@@ -102,6 +105,9 @@ public class RecipeController {
         return recipeDTO;
     }
 
+    /**
+     * DTO -> ENTITY
+     */
     private Recipe convertToEntity(RecipeDTO recipeDTO) {
         Recipe recipe = modelMapper.map(recipeDTO, Recipe.class);
 

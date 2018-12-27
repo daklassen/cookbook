@@ -62,6 +62,7 @@ public class RecipeService {
 
         if (StringUtils.isNotEmpty(filterText)) {
             String filterTextLowered = filterText.toLowerCase();
+            // TODO: Consider creating method in repository, instead of loading all entries from user
             recipesOfUser = recipesOfUser.stream()
                     .filter(recipe ->
                             recipe.getCategory().getName().toLowerCase().contains(filterTextLowered) ||
@@ -75,9 +76,8 @@ public class RecipeService {
         return recipesOfUser;
     }
 
-    public Recipe getRecipeByIdAndUser(Long id, User user) throws NoPermissionException, RecipeNotFoundException {
-        Recipe recipe = recipeRepository.findOne(id);
-        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + id);
+    public Recipe getRecipeByIdAndUser(Long recipeId, User user) throws NoPermissionException, RecipeNotFoundException {
+        Recipe recipe = findRecipe(recipeId);
         this.checkReadPermission(user, recipe);
         return recipe;
     }
@@ -88,8 +88,7 @@ public class RecipeService {
 
     public Recipe updateRecipe(User user, Long recipeId, Recipe recipe)
             throws NoPermissionException, RecipeNotFoundException {
-        Recipe oldRecipe = recipeRepository.findOne(recipeId);
-        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
+        Recipe oldRecipe = findRecipe(recipeId);
         this.checkEditPermission(user, oldRecipe);
 
         // Ingredients
@@ -98,12 +97,17 @@ public class RecipeService {
         ingredientRepository.save(oldRecipe.getIngredients());
 
         // Image
+        if (recipeHasImage(oldRecipe)) {
+            imageRepository.delete(oldRecipe.getImages().get(0).getId());
+        }
         if (recipeHasImage(recipe)) {
             Image image = imageRepository.findOne(recipe.getImages().get(0).getId());
-            List<Image> imageList = new ArrayList<Image>();
+            List<Image> imageList = new ArrayList<>();
             imageList.add(image);
             oldRecipe.setImages(imageList);
             imageRepository.save(oldRecipe.getImages().get(0));
+        } else {
+            oldRecipe.setImages(new ArrayList<>());
         }
 
         // Rest
@@ -117,8 +121,7 @@ public class RecipeService {
     }
 
     public Recipe deleteRecipe(User user, Long recipeId) throws NoPermissionException, RecipeNotFoundException {
-        Recipe recipe = recipeRepository.findOne(recipeId);
-        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
+        Recipe recipe = findRecipe(recipeId);
         this.checkEditPermission(user, recipe);
 
         if (recipeHasImage(recipe)) {
@@ -126,6 +129,12 @@ public class RecipeService {
         }
         ingredientRepository.delete(recipe.getIngredients());
         recipeRepository.delete(recipe);
+        return recipe;
+    }
+
+    private Recipe findRecipe(Long recipeId) throws RecipeNotFoundException {
+        Recipe recipe = recipeRepository.findOne(recipeId);
+        if (recipe == null) throw new RecipeNotFoundException("Could not find recipe with id " + recipeId);
         return recipe;
     }
 
@@ -144,6 +153,6 @@ public class RecipeService {
     }
 
     private boolean recipeHasImage(Recipe recipe) {
-        return recipe.getImages() != null && recipe.getImages().size() > 0;
+        return recipe.getImages() != null && !recipe.getImages().isEmpty();
     }
 }
