@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
@@ -16,20 +14,17 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
   emptyRecipe: RecipeDTO;
-  submitButtonText$: Observable<string>;
   viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
 
   constructor(
     private recipeService: RecipeService,
-    private translate: TranslateService,
     private router: Router,
     private spinner: NgxSpinnerService,
     private snackBar: SnackbarService
   ) {}
 
   ngOnInit(): void {
-    this.submitButtonText$ = this.translate.get('GENERAL.CREATE');
     this.emptyRecipe = this.recipeService.createEmptyRecipe();
     this.generateBreadcrumbs();
   }
@@ -55,7 +50,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       );
   }
 
-  onAbortClicked(recipe: RecipeDTO): void {
+  onAbortClicked(): void {
     this.router.navigateByUrl('/recipes');
   }
 

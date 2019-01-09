@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
@@ -17,14 +15,12 @@ import { DialogService } from 'src/app/shared/services/ui/dialog.service';
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
   recipe: RecipeDTO;
-  submitButtonText$: Observable<string>;
   viewAlive: boolean = true;
   routerLink: string;
   breadcrumbs: Breadcrumb[];
 
   constructor(
     private recipeService: RecipeService,
-    private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
     private spinner: NgxSpinnerService,
@@ -33,7 +29,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.submitButtonText$ = this.translate.get('GENERAL.UPDATE');
     const id = +this.route.snapshot.paramMap.get('id');
     this.loadRecipe(id);
     this.routerLink = '/recipe-details/' + id;

@@ -3,9 +3,9 @@
 
 <section class="section has-background-white-bis">
   <app-edit-recipe-form [recipe]="emptyRecipe"
-                        [submitButtonText]="submitButtonText$ | async"
+                        [submitButtonText]="'GENERAL.CREATE' | translate"
                         (editedRecipe)="onRecipeCreated($event)"
-                        (aborted)="onAbortClicked($event)">
+                        (aborted)="onAbortClicked()">
   </app-edit-recipe-form>
 </section>
 

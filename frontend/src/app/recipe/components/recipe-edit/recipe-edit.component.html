@@ -7,9 +7,9 @@
 <section class="section has-background-white-bis"
          *ngIf="recipe">
   <app-edit-recipe-form [recipe]="recipe"
-                        [submitButtonText]="submitButtonText$ | async"
+                        [submitButtonText]="'GENERAL.UPDATE' | translate"
                         (editedRecipe)="onRecipeUpdate($event)"
-                        (aborted)="onAbortClicked($event)">
+                        (aborted)="onAbortClicked()">
   </app-edit-recipe-form>
 </section>
 
