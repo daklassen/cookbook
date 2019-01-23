@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppAuthGuard } from './app.auth-guard';
 import { HomeComponent } from './shell/components/home/home.component';
 
 const routes: Routes = [
@@ -12,8 +11,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   {
     path: 'recipes',
-    loadChildren: './recipe/recipe.module#RecipeModule',
-    canActivate: [AppAuthGuard]
+    loadChildren: './recipe/recipe.module#RecipeModule'
   },
   { path: '**', redirectTo: '/home' }
 ];
@@ -21,6 +19,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AppAuthGuard]
+  providers: []
 })
 export class AppRoutingModule {}
