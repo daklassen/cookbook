@@ -32,9 +32,7 @@ export class ImageService {
         flatMap((resizedImage: File) => {
           const formData = new FormData();
           formData.append('file', resizedImage);
-          return this.http
-            .post(environment.apiUrl + '/image', formData)
-            .pipe(map((response: ImageDTO) => response));
+          return this.http.post('/image', formData).pipe(map((response: ImageDTO) => response));
         })
       );
   }

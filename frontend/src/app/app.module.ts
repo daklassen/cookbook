@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -12,6 +14,8 @@ import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './shell/components/home/home.component';
 import { HeaderComponent } from './shell/components/header/header.component';
 import { FooterComponent } from './shell/components/footer/footer.component';
+import { AuthService } from './shell/iam/auth.service';
+import { AuthGuard } from './shell/iam/auth.guard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -23,6 +27,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     TranslateModule.forRoot({
@@ -35,7 +41,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     SharedModule.forRoot()
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

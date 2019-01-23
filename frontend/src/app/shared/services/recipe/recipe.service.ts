@@ -4,7 +4,6 @@ import { RecipeDTO } from './transfer/RecipeDTO';
 import { Observable } from 'rxjs';
 import { IngredientDTO } from './transfer/IngredientDTO';
 import { CategoryDTO } from './transfer/CategoryDTO';
-import { environment } from 'src/environments/environment';
 import { INGREDIENT_REGEX } from 'src/app/recipe/elements/edit-recipe-form/edit-recipe-form.constants';
 
 @Injectable()
@@ -12,28 +11,28 @@ export class RecipeService {
   constructor(private http: HttpClient) {}
 
   createRecipe(recipe: RecipeDTO): Observable<RecipeDTO> {
-    return this.http.post<RecipeDTO>(environment.apiUrl + '/recipes', recipe);
+    return this.http.post<RecipeDTO>('/recipes', recipe);
   }
 
   getUsersRecipes(filter: string): Observable<RecipeDTO[]> {
     const params = new HttpParams().set('filter', filter);
-    return this.http.get<RecipeDTO[]>(environment.apiUrl + '/recipes', { params: params });
+    return this.http.get<RecipeDTO[]>('/recipes', { params: params });
   }
 
   getRecipeById(id: number): Observable<RecipeDTO> {
-    return this.http.get<RecipeDTO>(environment.apiUrl + '/recipes/' + id);
+    return this.http.get<RecipeDTO>('/recipes/' + id);
   }
 
   getAllCategories(): Observable<Array<CategoryDTO>> {
-    return this.http.get<Array<CategoryDTO>>(environment.apiUrl + '/recipes/categories');
+    return this.http.get<Array<CategoryDTO>>('/recipes/categories');
   }
 
   updateRecipe(recipe: RecipeDTO, recipeId: number): Observable<RecipeDTO> {
-    return this.http.put<RecipeDTO>(environment.apiUrl + '/recipes/' + recipeId, recipe);
+    return this.http.put<RecipeDTO>('/recipes/' + recipeId, recipe);
   }
 
   deleteRecipe(recipeId: number): Observable<Response> {
-    return this.http.delete<Response>(environment.apiUrl + '/recipes/' + recipeId);
+    return this.http.delete<Response>('/recipes/' + recipeId);
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {

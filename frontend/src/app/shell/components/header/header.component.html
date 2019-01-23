@@ -33,10 +33,10 @@
 
       <div class="navbar-end">
         <!-- user is logged in -->
-        <div *ngIf="currentUser != null"
+        <div *ngIf="authService.getCurrentUser() | async as user; else showLoginButton"
              class="navbar-item has-dropdown"
              appHoverClass="is-active">
-          <a class="navbar-link"> {{ currentUser | titlecase }} </a>
+          <a class="navbar-link"> {{ user.displayName | titlecase }} </a>
 
           <div class="navbar-dropdown is-right is-boxed">
             <a class="navbar-item"> {{ 'USER.PROFILE' | translate }} </a>
@@ -47,13 +47,13 @@
         </div>
 
         <!-- user is not logged in -->
-        <div *ngIf="currentUser == null"
-             class="navbar-item login-button">
-          <span class="button is-primary"
-                (click)="onLoginClicked()">{{
-            loginBtnText$ | async
-            }}</span>
-        </div>
+        <ng-template #showLoginButton>
+          <div class="navbar-item login-button">
+            <span class="button is-primary"
+                  (click)="onLoginClicked()">
+                  {{ 'USER.LOGIN' | translate }}</span>
+          </div>
+        </ng-template>
       </div>
     </div>
   </div>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { AuthService } from '../../iam/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,26 +9,19 @@ import { Observable } from 'rxjs';
 export class HeaderComponent implements OnInit {
   currentUser: string;
   mobileMenuVisible: boolean;
-  loginBtnText$: Observable<string>;
 
-  constructor(private translate: TranslateService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
-    this.loadCurrentUser();
     this.mobileMenuVisible = false;
-    this.loginBtnText$ = this.translate.get('USER.LOGIN');
-  }
-
-  loadCurrentUser(): void {
-    // TODO:
   }
 
   onLoginClicked(): void {
-    // TODO:
+    this.authService.doGoogleLogin();
   }
 
   onLogoutClicked(): void {
-    // TODO:
+    this.authService.doLogout();
   }
 
   onNavbarBurgerClick(): void {

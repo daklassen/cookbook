@@ -1,6 +1,11 @@
 export const environment = {
   production: true,
-  applicationUrl: 'http://192.168.0.100',
-  apiUrl: 'http://192.168.0.100:9000',
-  authorizationServer: 'http://192.168.0.100:8080/auth'
+  firebase: {
+    apiKey: 'AIzaSyCLni7M_RANpgCFHjxgXCTWfhpCqg5KW0M',
+    authDomain: 'cookbook-20d6c.firebaseapp.com',
+    databaseURL: 'https://cookbook-20d6c.firebaseio.com',
+    projectId: 'cookbook-20d6c',
+    storageBucket: 'cookbook-20d6c.appspot.com',
+    messagingSenderId: '59785332966'
+  }
 };
