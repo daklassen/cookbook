@@ -1,38 +1,78 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { RecipeDTO } from './transfer/RecipeDTO';
-import { Observable } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { IngredientDTO } from './transfer/IngredientDTO';
 import { CategoryDTO } from './transfer/CategoryDTO';
 import { INGREDIENT_REGEX } from 'src/app/recipe/elements/edit-recipe-form/edit-recipe-form.constants';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { take, map } from 'rxjs/operators';
+import { UserDTO } from './transfer/UserDTO';
 
 @Injectable()
 export class RecipeService {
-  constructor(private http: HttpClient) {}
+  private currentUser: UserDTO;
 
-  createRecipe(recipe: RecipeDTO): Observable<RecipeDTO> {
-    return this.http.post<RecipeDTO>('/recipes', recipe);
+  constructor(private db: AngularFirestore, private afAuth: AngularFireAuth) {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.currentUser = {
+          id: user.uid,
+          name: user.displayName
+        };
+      }
+    });
+  }
+
+  createRecipe(recipe: RecipeDTO): Observable<DocumentReference> {
+    const recipeNew: RecipeDTO = { ...recipe, author: this.currentUser };
+    return from(this.db.collection<RecipeDTO>('recipes').add(recipeNew)).pipe(take(1));
   }
 
   getUsersRecipes(filter: string): Observable<RecipeDTO[]> {
-    const params = new HttpParams().set('filter', filter);
-    return this.http.get<RecipeDTO[]>('/recipes', { params: params });
+    if (!this.currentUser) return;
+    // TODO: implement filter
+    return this.db
+      .collection<RecipeDTO>('recipes', ref => ref.where('author.id', '==', this.currentUser.id))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data } as RecipeDTO;
+          })
+        )
+      );
   }
 
-  getRecipeById(id: number): Observable<RecipeDTO> {
-    return this.http.get<RecipeDTO>('/recipes/' + id);
+  getRecipeById(id: string): Observable<RecipeDTO> {
+    if (!this.currentUser) return;
+    return this.db.doc<RecipeDTO>(`recipes/${id}`).valueChanges();
   }
 
-  getAllCategories(): Observable<Array<CategoryDTO>> {
-    return this.http.get<Array<CategoryDTO>>('/recipes/categories');
+  getAllCategories(): Observable<CategoryDTO[]> {
+    return this.db
+      .collection<CategoryDTO>('categories')
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data } as CategoryDTO;
+          })
+        )
+      );
   }
 
-  updateRecipe(recipe: RecipeDTO, recipeId: number): Observable<RecipeDTO> {
-    return this.http.put<RecipeDTO>('/recipes/' + recipeId, recipe);
+  updateRecipe(recipe: RecipeDTO, recipeId: string): Promise<void> {
+    if (!this.currentUser) return;
+    return this.db.doc<RecipeDTO>(`recipes/${recipeId}`).update(recipe);
   }
 
-  deleteRecipe(recipeId: number): Observable<Response> {
-    return this.http.delete<Response>('/recipes/' + recipeId);
+  deleteRecipe(recipeId: string): Promise<void> {
+    return this.db.doc<RecipeDTO>(`recipes/${recipeId}`).delete();
   }
 
   parseUserInputIntoIngredient(input: string): IngredientDTO {
@@ -51,24 +91,5 @@ export class RecipeService {
 
   formatIngredientToString(ingredient: IngredientDTO): string {
     return (ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name).replace('  ', ' ');
-  }
-
-  createEmptyRecipe(): RecipeDTO {
-    // TODO:
-    const recipe = {
-      id: null,
-      name: '',
-      rating: null,
-      servings: null,
-      ingredients: [],
-      author: {
-        firstName: '',
-        lastName: ''
-      },
-      description: '',
-      categoryId: null,
-      imageFile: null
-    };
-    return recipe;
   }
 }

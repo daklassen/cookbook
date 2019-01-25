@@ -5,7 +5,7 @@ import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
-import { finalize, takeWhile, take } from 'rxjs/operators';
+import { takeWhile, take } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/services/ui/dialog.service';
 
 @Component({
@@ -15,6 +15,7 @@ import { DialogService } from 'src/app/shared/services/ui/dialog.service';
 })
 export class RecipeEditComponent implements OnInit, OnDestroy {
   recipe: RecipeDTO;
+  recipeId: string;
   viewAlive: boolean = true;
   routerLink: string;
   breadcrumbs: Breadcrumb[];
@@ -29,8 +30,9 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.loadRecipe(id);
+    const id = this.route.snapshot.paramMap.get('id');
+    this.recipeId = id;
+    this.loadRecipe();
     this.routerLink = '/recipe-details/' + id;
   }
 
@@ -41,21 +43,17 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   onRecipeUpdate(recipe: RecipeDTO): void {
     this.spinner.show();
     this.recipeService
-      .updateRecipe(recipe, this.recipe.id)
-      .pipe(
-        finalize(() => this.spinner.hide()),
-        takeWhile(() => this.viewAlive)
-      )
-      .subscribe(
-        success => {
-          this.snackBar.openShortSnackbar('EDIT_RECIPE.SUCCESS');
-          this.navigateToDetailView();
-        },
-        error => {
-          this.snackBar.openShortSnackbar('EDIT_RECIPE.ERROR');
-          console.error(error);
-        }
-      );
+      .updateRecipe(recipe, this.recipeId)
+      .then(() => {
+        this.spinner.hide();
+        this.snackBar.openShortSnackbar('EDIT_RECIPE.SUCCESS');
+        this.navigateToDetailView();
+      })
+      .catch(error => {
+        this.spinner.hide();
+        this.snackBar.openShortSnackbar('EDIT_RECIPE.ERROR');
+        console.error(error);
+      });
   }
 
   onDeleteRecipeRequest(): void {
@@ -74,12 +72,12 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   private navigateToDetailView(): void {
-    this.router.navigateByUrl('/recipes/recipe-details/' + this.recipe.id);
+    this.router.navigateByUrl('/recipes/recipe-details/' + this.recipeId);
   }
 
-  private loadRecipe(id: number): void {
+  private loadRecipe(): void {
     this.recipeService
-      .getRecipeById(id)
+      .getRecipeById(this.recipeId)
       .pipe(takeWhile(() => this.viewAlive))
       .subscribe(
         recipe => {
@@ -93,27 +91,23 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private deleteRecipe(): void {
     this.spinner.show();
     this.recipeService
-      .deleteRecipe(this.recipe.id)
-      .pipe(
-        finalize(() => this.spinner.hide()),
-        takeWhile(() => this.viewAlive)
-      )
-      .subscribe(
-        success => {
-          this.snackBar.openShortSnackbar('GENERAL.DELETE_SUCCESS');
-          this.router.navigateByUrl('/recipes');
-        },
-        error => {
-          this.snackBar.openShortSnackbar('GENERAL.DELETE_ERROR');
-          console.error(error);
-        }
-      );
+      .deleteRecipe(this.recipeId)
+      .then(() => {
+        this.spinner.hide();
+        this.snackBar.openShortSnackbar('GENERAL.DELETE_SUCCESS');
+        this.router.navigateByUrl('/recipes');
+      })
+      .catch(error => {
+        this.spinner.hide();
+        this.snackBar.openShortSnackbar('GENERAL.DELETE_ERROR');
+        console.error(error);
+      });
   }
 
   private generateBreadcrumbs(): void {
     const currentRecipe: Breadcrumb = {
       label: this.recipe.name,
-      routerlink: '/recipes/recipe-details/' + this.recipe.id
+      routerlink: '/recipes/recipe-details/' + this.recipeId
     };
     const editRecipe: Breadcrumb = { labelKey: 'NAVIG.EDIT_RECIPE' };
 

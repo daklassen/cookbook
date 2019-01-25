@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  finalize,
   takeWhile,
   map,
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  tap
+  tap,
+  take
 } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Animations } from 'src/app/shared/animations/animations';
@@ -40,7 +40,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadUsersRecipes();
     this.generateBreadcrumbs();
-    this.initSearch();
+    // this.initSearch();
   }
 
   ngOnDestroy(): void {
@@ -48,17 +48,9 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   loadUsersRecipes(filter: string = ''): void {
-    this.spinner.show();
     this.recipeService
       .getUsersRecipes(filter)
-      .pipe(
-        finalize(() => {
-          setTimeout(() => {
-            this.spinner.hide();
-          }, 300);
-        }),
-        takeWhile(() => this.viewAlive)
-      )
+      .pipe(take(1))
       .subscribe(
         (result: RecipeDTO[]) => {
           this.allRecipes = result;

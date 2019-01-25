@@ -14,6 +14,7 @@ const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
 })
 export class RecipeDetailComponent implements OnInit, OnDestroy {
   currentRecipe: RecipeDTO;
+  recipeId: string;
   splittedDescription: Array<string>;
   viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
@@ -25,7 +26,8 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
+    this.recipeId = id;
     this.loadRecipe(id);
   }
 
@@ -33,7 +35,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
     this.viewAlive = false;
   }
 
-  loadRecipe(id: number): void {
+  loadRecipe(id: string): void {
     this.recipeService
       .getRecipeById(id)
       .pipe(takeWhile(() => this.viewAlive))
@@ -53,7 +55,7 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   onEditRecipe(): void {
-    this.router.navigateByUrl('recipes/recipe-edit/' + this.currentRecipe.id);
+    this.router.navigateByUrl('recipes/recipe-edit/' + this.recipeId);
   }
 
   private generateBreadcrumbs(): void {

@@ -4,8 +4,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
+import { RecipeDTO, Recipe } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { takeWhile } from 'rxjs/operators';
+import { DocumentReference } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-recipe-create',
@@ -25,7 +26,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.emptyRecipe = this.recipeService.createEmptyRecipe();
+    this.emptyRecipe = new Recipe();
     this.generateBreadcrumbs();
   }
 
@@ -39,7 +40,7 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
       .createRecipe(recipe)
       .pipe(takeWhile(() => this.viewAlive))
       .subscribe(
-        success => {
+        (docRef: DocumentReference) => {
           this.snackBar.openShortSnackbar('CREATE_RECIPE_PAGE.SUCCESS');
           this.router.navigateByUrl('/recipes');
         },

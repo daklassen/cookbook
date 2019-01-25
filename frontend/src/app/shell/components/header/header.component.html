@@ -15,7 +15,8 @@
          aria-label="menu"
          aria-expanded="false"
          (click)="onNavbarBurgerClick()">
-        <span aria-hidden="true"></span> <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
@@ -33,10 +34,10 @@
 
       <div class="navbar-end">
         <!-- user is logged in -->
-        <div *ngIf="authService.getCurrentUser() | async as user; else showLoginButton"
+         <div *ngIf="currentUser; else showLoginButton"
              class="navbar-item has-dropdown"
              appHoverClass="is-active">
-          <a class="navbar-link"> {{ user.displayName | titlecase }} </a>
+          <a class="navbar-link"> {{ currentUser | titlecase }} </a>
 
           <div class="navbar-dropdown is-right is-boxed">
             <a class="navbar-item"> {{ 'USER.PROFILE' | translate }} </a>
@@ -49,9 +50,9 @@
         <!-- user is not logged in -->
         <ng-template #showLoginButton>
           <div class="navbar-item login-button">
-            <span class="button is-primary"
-                  (click)="onLoginClicked()">
-                  {{ 'USER.LOGIN' | translate }}</span>
+            <span class="button is-primary" (click)="onLoginClicked()">
+              {{ 'USER.LOGIN' | translate }}
+            </span>
           </div>
         </ng-template>
       </div>

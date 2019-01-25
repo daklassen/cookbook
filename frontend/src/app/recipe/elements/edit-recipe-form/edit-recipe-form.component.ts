@@ -52,7 +52,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   items: FormArray;
   currentIngredient: string;
   currentImageFileName: string;
-  categories: Array<CategoryDTO>;
+  categories: CategoryDTO[];
   viewAlive: boolean = true;
   servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
 

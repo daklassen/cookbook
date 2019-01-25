@@ -2,7 +2,7 @@
                 [buttonLabelKey]="'RECIPE_DETAILS_PAGE.EDIT'"
                 (buttonClicked)="onEditRecipe()"
                 [title]="currentRecipe?.name"
-                [subtitle]="currentRecipe?.author?.firstName + ' ' + currentRecipe?.author?.lastName">
+                [subtitle]="currentRecipe?.author?.name">
 </app-breadcrumb>
 
 <section *ngIf="currentRecipe != null"
