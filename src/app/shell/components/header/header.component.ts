@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../iam/auth.service';
 import { takeWhile } from 'rxjs/operators';
 import { User } from 'firebase';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: string;
   mobileMenuVisible: boolean;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.mobileMenuVisible = false;
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.viewAlive))
       .subscribe((user: User) => {
         if (user) this.currentUser = user.displayName;
+        else this.currentUser = null;
       });
   }
 
@@ -34,7 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onLogoutClicked(): void {
-    this.authService.doLogout();
+    this.authService.doLogout().then(() => this.router.navigateByUrl('/home'));
   }
 
   onNavbarBurgerClick(): void {

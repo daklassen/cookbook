@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { User, auth } from 'firebase';
+import { UserCredential } from 'firebase/auth';
 
 @Injectable()
 export class AuthService {
@@ -11,14 +12,14 @@ export class AuthService {
     return this.afAuth.user;
   }
 
-  doGoogleLogin() {
+  doGoogleLogin(): Promise<UserCredential> {
     const provider = new auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
-    this.afAuth.auth.signInWithPopup(provider);
+    return this.afAuth.auth.signInWithPopup(provider);
   }
 
-  doLogout() {
-    this.afAuth.auth.signOut();
+  doLogout(): Promise<void> {
+    return this.afAuth.auth.signOut();
   }
 }
