@@ -1,0 +1,12 @@
+@import './src/assets/sass/vars';
+
+.mat-dialog-title {
+  margin-bottom: 10px;
+  font-family: $family-sans-serif;
+  font-weight: 600;
+}
+
+.mat-dialog-content {
+  margin-bottom: 10px;
+  font-family: $family-sans-serif;
+}
