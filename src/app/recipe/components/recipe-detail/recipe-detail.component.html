@@ -1,0 +1,37 @@
+<app-breadcrumb [breadcrumps]="breadcrumbs"
+                [buttonLabelKey]="'RECIPE_DETAILS_PAGE.EDIT'"
+                (buttonClicked)="onEditRecipe()"
+                [title]="currentRecipe?.name"
+                [subtitle]="currentRecipe?.author?.name">
+</app-breadcrumb>
+
+<section *ngIf="currentRecipe != null"
+         class="section has-background-white">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half">
+        <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INGREDIENTS' | translate }}</h4>
+        <div class="box">
+          <table class="table is-fullwidth is-hoverable">
+            <tbody>
+              <tr *ngFor="let ingredient of currentRecipe.ingredients">
+                <td class="align-right">{{ ingredient.amount }} {{ ingredient.unit }}</td>
+                <td>{{ ingredient.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="column is-half">
+        <h4 class="title is-4">{{ 'RECIPE_DETAILS_PAGE.INSTRUCTIONS' | translate }}</h4>
+        <div *ngFor="let descriptionBlock of splittedDescription, let i = index"
+             class="box">
+          <p>
+            <b>{{ i + 1 }}. {{'RECIPE_DETAILS_PAGE.STEP' | translate }} </b> <br>
+            {{ descriptionBlock }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+<section class="hero is-small is-primary"
+         [@fadeInAndOut]>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-mobile is-vcentered">
+        <div class="column is-half-mobile">
+          <nav class="breadcrumb has-bullet-separator is-hidden-mobile"
+               aria-label="breadcrumbs">
+            <ul>
+              <li *ngFor="let breadcrump of breadcrumps; let last = last"
+                  [ngClass]="last ? 'is-active' : ''">
+                <a class="is-5 is-size-6-mobile" routerLink="{{ breadcrump.routerlink }}">
+                  {{ breadcrump.labelKey ?
+                  (breadcrump.labelKey | translate)
+                  : breadcrump.label }}</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="column"
+             *ngIf="buttonLabelKey">
+          <div class="buttons has-addons is-right">
+            <span class="button is-white"
+                  (click)="buttonClicked.emit('')">
+              {{ buttonLabelKey | translate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container"
+           *ngIf="title || titleKey">
+        <h1 class="title">{{ titleKey ? (titleKey | translate) : title }}</h1>
+        <h2 class="subtitle">{{ subtitleKey ? (subtitleKey | translate) : subtitle }}</h2>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+{
+  "HOME": {
+    "TITLE": "Cookbook",
+    "DESCRIPTION": "Your personal digital cookbook with all your favourite recipes",
+    "CALL2ACTION": "Your recipes"
+  },
+  "NAVIG": {
+    "HOME": "Home",
+    "RECIPES": "Recipes",
+    "CREATE_RECIPE": "Create",
+    "EDIT_RECIPE": "Edit"
+  },
+  "USER": {
+    "PROFILE": "Profile",
+    "LOGOUT": "Logout",
+    "LOGIN": "Login"
+  },
+  "CREATE_RECIPE_PAGE": {
+    "TITLE": "Create new recipe",
+    "SUCCESS": "Recipe created",
+    "ERROR": "Error while creating"
+  },
+  "EDIT_RECIPE_PAGE": {
+    "TITLE": "Edit recipe",
+    "DELETE": "Delete",
+    "DELETE_CONFIRM": "Are you sure, that you want to delete this recipe?"
+  },
+  "RECIPE_DETAILS_PAGE": {
+    "INGREDIENTS": "Ingredients",
+    "INSTRUCTIONS": "Instructions",
+    "EDIT": "Edit",
+    "STEP": "Step"
+  },
+  "EDIT_RECIPE": {
+    "NAME": "Recipe name",
+    "CATEGORY": "Category",
+    "PORTIONS": "Portions",
+    "IMAGE": "Image",
+    "IMAGE_SELECT": "Upload recipe image",
+    "INGREDIENTS": "Ingredients",
+    "EDIT_RECIPE.INGREDIENT_PLACEHOLDER": "Amount - Unit (optional) - Description",
+    "INSTRUCTIONS": "Instructions",
+    "HINT": "Cannot be empty",
+    "EXAMPLE": "Don't forget the spaces (e.g. \"5 kg Carrots\" or \"2 Carrots\")",
+    "EXAMPLE2": "Create a new step with ENTER",
+    "SUCCESS": "Recipe was updated",
+    "ERROR": "Error while updating",
+    "ERROR_IMAGE_UPLOAD": "Error while uploading image",
+    "ERROR_IMAGE_TOO_BIG": "The file size limit is 3MB per image"
+  },
+  "GENERAL": {
+    "DELETE": "Delete",
+    "DELETE_SUCCESS": "Deletion was successful",
+    "DELETE_ERROR": "Error while deleting",
+    "ADD": "Add",
+    "ABORT": "Abort",
+    "CREATE": "Create",
+    "UPDATE": "Save",
+    "SEARCH": "Search",
+    "NOTFOUND": "Nothing found",
+    "TRYAGAIN": "Wrong search string?",
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel",
+    "CONTINUE": "Continue",
+    "OK": "Ok",
+    "ERROR": "Error"
+  }
+}

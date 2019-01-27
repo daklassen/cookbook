@@ -1,0 +1,68 @@
+{
+  "HOME": {
+    "TITLE": "Cookbook",
+    "DESCRIPTION": "Dein persönliches digitales Kochbuch mit all deinen Lieblingsrezepten",
+    "CALL2ACTION": "Deine Rezepte"
+  },
+  "NAVIG": {
+    "HOME": "Startseite",
+    "RECIPES": "Rezepte",
+    "CREATE_RECIPE": "Erstellen",
+    "EDIT_RECIPE": "Bearbeiten"
+  },
+  "USER": {
+    "PROFILE": "Profil",
+    "LOGOUT": "Abmelden",
+    "LOGIN": "Anmelden"
+  },
+  "CREATE_RECIPE_PAGE": {
+    "TITLE": "Neues Rezept erstellen",
+    "SUCCESS": "Rezept wurde erstellt",
+    "ERROR": "Fehler bei Erstellung"
+  },
+  "EDIT_RECIPE_PAGE": {
+    "TITLE": "Rezept bearbeiten",
+    "DELETE": "Löschen",
+    "DELETE_CONFIRM": "Sind Sie sicher, dass Sie das Rezept löschen wollen?"
+  },
+  "RECIPE_DETAILS_PAGE": {
+    "INGREDIENTS": "Zutaten",
+    "INSTRUCTIONS": "Anweisungen",
+    "EDIT": "Bearbeiten",
+    "STEP": "Schritt"
+  },
+  "EDIT_RECIPE": {
+    "NAME": "Rezeptname",
+    "CATEGORY": "Kategorie",
+    "PORTIONS": "Portionen",
+    "IMAGE": "Bild",
+    "IMAGE_SELECT": "Rezeptbild hochladen",
+    "INGREDIENTS": "Zutaten",
+    "INGREDIENT_PLACEHOLDER": "Menge - Einheit (optional) - Beschreibung",
+    "INSTRUCTIONS": "Anweisungen",
+    "HINT": "Darf nicht leer sein",
+    "EXAMPLE": "Leerzeichen nicht vergessen (z.B. \"5 kg Möhren\" oder \"2 Möhren\")",
+    "EXAMPLE2": "Einen neuen Schritt mit ENTER beginnen",
+    "SUCCESS": "Rezept wurde aktualisiert",
+    "ERROR": "Fehler beim Aktualisieren",
+    "ERROR_IMAGE_UPLOAD": "Fehler beim Hochladen des Bildes",
+    "ERROR_IMAGE_TOO_BIG": "Das ausgewählte Bild überschreitet die Maximalgröße von 3MB"
+  },
+  "GENERAL": {
+    "DELETE": "Löschen",
+    "DELETE_SUCCESS": "Erfolgreich gelöscht",
+    "DELETE_ERROR": "Fehler beim Löschen",
+    "ADD": "Hinzufügen",
+    "ABORT": "Abbrechen",
+    "CREATE": "Erstellen",
+    "UPDATE": "Speichern",
+    "SEARCH": "Suche",
+    "NOTFOUND": "Nichts gefunden",
+    "TRYAGAIN": "Falscher Suchbegriff?",
+    "CONFIRM": "Bestätigung",
+    "CANCEL": "Abbrechen",
+    "CONTINUE": "Weiter",
+    "OK": "Ok",
+    "ERROR": "Fehler"
+  }
+}
