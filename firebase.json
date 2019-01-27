@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "dist/cookbook",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

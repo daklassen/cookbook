@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ 'GENERAL.CONFIRM' | translate }}</h2>
+
+<mat-dialog-content>
+  {{ data.translationKey | translate }}
+</mat-dialog-content>
+
+
+<div class="buttons is-right">
+  <button class="button is-light"
+          (click)="onCancel()">{{ 'GENERAL.CANCEL' | translate }}</button>
+  <button class="button is-primary"
+          (click)="onConfirm()">{{ 'GENERAL.CONTINUE' | translate }}</button>
+</div>
