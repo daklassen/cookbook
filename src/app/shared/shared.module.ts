@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RecipeService } from './services/recipe/recipe.service';
 import { ImageService } from './services/image/image.service';
 import { HoverClassDirective } from './directives/hover-class.directive';
-import { SecurePipe } from './pipes/secure.pipe';
 import { SnackbarService } from './services/ui/snackbar.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -23,7 +22,6 @@ import { FirebaseImagePipe } from './pipes/firebase-image.pipe';
 @NgModule({
   declarations: [
     HoverClassDirective,
-    SecurePipe,
     BreadcrumbComponent,
     ConfirmDialogComponent,
     ErrorDialogComponent,
@@ -45,7 +43,6 @@ import { FirebaseImagePipe } from './pipes/firebase-image.pipe';
     AngularFontAwesomeModule,
     HoverClassDirective,
     FileUploadComponent,
-    SecurePipe,
     FirebaseImagePipe,
     BreadcrumbComponent,
     NgxSpinnerModule,
