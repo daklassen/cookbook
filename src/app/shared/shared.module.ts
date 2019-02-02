@@ -17,6 +17,8 @@ import { DialogService } from './services/ui/dialog.service';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { NgxPicaModule } from '@digitalascetic/ngx-pica';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { FirebaseImagePipe } from './pipes/firebase-image.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     SecurePipe,
     BreadcrumbComponent,
     ConfirmDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    FileUploadComponent,
+    FirebaseImagePipe
   ],
   imports: [
     CommonModule,
@@ -40,7 +44,9 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     CommonModule,
     AngularFontAwesomeModule,
     HoverClassDirective,
+    FileUploadComponent,
     SecurePipe,
+    FirebaseImagePipe,
     BreadcrumbComponent,
     NgxSpinnerModule,
     FormsModule,

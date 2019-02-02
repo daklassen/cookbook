@@ -50,7 +50,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   loadUsersRecipes(filter: string = ''): void {
     this.recipeService
       .getUsersRecipes(filter)
-      .pipe(take(1))
+      .pipe(takeWhile(() => this.viewAlive))
       .subscribe(
         (result: RecipeDTO[]) => {
           this.allRecipes = result;

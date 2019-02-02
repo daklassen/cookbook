@@ -51,24 +51,8 @@
       <!-- Image Upload -->
       <div class="column is-12">
         <label class="label is-medium">{{ 'EDIT_RECIPE.IMAGE' | translate }}</label>
-
-        <div class="file is-medium has-name is-fullwidth is-primary">
-          <label class="file-label">
-            <input class="file-input"
-                   type="file"
-                   name="resume"
-                   accept=".jpg,.jpeg,.png"
-                   (change)="onFileChange($event)">
-            <span class="file-cta">
-              <span class="file-label">
-                {{ 'EDIT_RECIPE.IMAGE_SELECT' | translate }}
-              </span>
-            </span>
-            <span class="file-name">
-              {{ imageFile.value?.fileName }}
-            </span>
-          </label>
-        </div>
+        <file-upload (uploadedFile)="onFileChange($event)"
+                     [fileName]="imageFile.value"></file-upload>
       </div>
 
       <!-- Ingredients -->
