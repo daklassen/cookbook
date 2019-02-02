@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RecipeService } from './services/recipe/recipe.service';
 import { ImageService } from './services/image/image.service';
 import { HoverClassDirective } from './directives/hover-class.directive';
-import { SecurePipe } from './pipes/secure.pipe';
 import { SnackbarService } from './services/ui/snackbar.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
@@ -17,14 +16,17 @@ import { DialogService } from './services/ui/dialog.service';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { ErrorDialogComponent } from './components/dialogs/error-dialog/error-dialog.component';
 import { NgxPicaModule } from '@digitalascetic/ngx-pica';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
+import { FirebaseImagePipe } from './pipes/firebase-image.pipe';
 
 @NgModule({
   declarations: [
     HoverClassDirective,
-    SecurePipe,
     BreadcrumbComponent,
     ConfirmDialogComponent,
-    ErrorDialogComponent
+    ErrorDialogComponent,
+    FileUploadComponent,
+    FirebaseImagePipe
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { NgxPicaModule } from '@digitalascetic/ngx-pica';
     CommonModule,
     AngularFontAwesomeModule,
     HoverClassDirective,
-    SecurePipe,
+    FileUploadComponent,
+    FirebaseImagePipe,
     BreadcrumbComponent,
     NgxSpinnerModule,
     FormsModule,

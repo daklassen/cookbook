@@ -31,7 +31,7 @@
             <figure class="image is-4by3">
               <div *ngIf="recipe.imageFile != null; else: placeholder">
                 <img class="border-top"
-                     [src]="(recipe.imageFile.fileDownloadUri | secure | async) || ''" />
+                     [src]="(recipe.imageFile | firebaseImage | async) || ''" />
               </div>
               <ng-template #placeholder>
                 <img class="border-top"

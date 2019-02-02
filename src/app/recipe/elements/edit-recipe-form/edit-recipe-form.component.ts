@@ -4,14 +4,17 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { CategoryDTO } from 'src/app/shared/services/recipe/transfer/CategoryDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { ImageService, FILE_TOO_LARGE_MSG } from 'src/app/shared/services/image/image.service';
 import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
-import { ImageDTO } from 'src/app/shared/services/recipe/transfer/ImageDTO';
 import { takeWhile } from 'rxjs/operators';
 import { INGREDIENT_REGEX } from './edit-recipe-form.constants';
-import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
 import { DialogService } from 'src/app/shared/services/ui/dialog.service';
-import { NgxPicaService } from '@digitalascetic/ngx-pica';
+import { Observable } from 'rxjs';
+import { ImageService } from 'src/app/shared/services/image/image.service';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+
+export const RECIPE_IMAGE_MAX_SIZE_IN_BYTES = 3145728;
+export const RECIPE_IMAGE_MAX_HEIGHT_OR_WIDTH_IN_PIXEL = 1000;
+export const FILE_TOO_LARGE_MSG = 'File too large';
 
 @Component({
   selector: 'app-edit-recipe-form',
@@ -55,15 +58,14 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   categories: CategoryDTO[];
   viewAlive: boolean = true;
   servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
+  percentageUpload: Observable<number>;
 
   constructor(
     private fb: FormBuilder,
     private recipeService: RecipeService,
-    private imageService: ImageService,
     private spinner: NgxSpinnerService,
-    private snackbarService: SnackbarService,
     private dialogService: DialogService,
-    private ngxPicaService: NgxPicaService
+    private imageService: ImageService
   ) {}
 
   ngOnInit(): void {
@@ -97,31 +99,21 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     this.aborted.emit(this.recipe);
   }
 
-  onFileChange(event): void {
-    if (event.target.files) {
-      const [imageFile] = event.target.files;
-
-      this.spinner.show();
-      this.imageService
-        .uploadImageFile(imageFile)
-        .pipe(takeWhile(() => this.viewAlive))
-        .subscribe(
-          (uploadedImage: ImageDTO) => {
-            this.spinner.hide();
-            this.recipeForm.patchValue({
-              imageFile: uploadedImage
-            });
-          },
-          error => {
-            this.spinner.hide();
-            if (error.message === FILE_TOO_LARGE_MSG) {
-              this.dialogService.openErrorDialog('EDIT_RECIPE.ERROR_IMAGE_TOO_BIG');
-            } else {
-              this.snackbarService.openShortSnackbar('EDIT_RECIPE.ERROR_IMAGE_UPLOAD');
-            }
-          }
-        );
+  onFileChange(imageFile: File): void {
+    if (imageFile.size > RECIPE_IMAGE_MAX_SIZE_IN_BYTES) {
+      this.dialogService.openErrorDialog('EDIT_RECIPE.ERROR_IMAGE_TOO_BIG');
+      return;
     }
+    this.imageService
+      .uploadImageFile(imageFile, this.spinner)
+      .subscribe((taskSnapshot: UploadTaskSnapshot) => {
+        const metadata = taskSnapshot.metadata;
+        if (metadata) {
+          this.recipeForm.patchValue({
+            imageFile: metadata.fullPath
+          });
+        }
+      });
   }
 
   addIngredient(): void {
