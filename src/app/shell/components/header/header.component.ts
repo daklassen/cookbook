@@ -11,7 +11,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   viewAlive: boolean = true;
-  currentUser: string;
+  currentUserName: string;
+  userPictureUrl: string;
   mobileMenuVisible: boolean;
 
   constructor(public authService: AuthService, private router: Router) {}
@@ -22,8 +23,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .getCurrentUser()
       .pipe(takeWhile(() => this.viewAlive))
       .subscribe((user: User) => {
-        if (user) this.currentUser = user.displayName;
-        else this.currentUser = null;
+        if (user) {
+          this.userPictureUrl = user.photoURL;
+          this.currentUserName = user.displayName;
+        } else this.currentUserName = null;
       });
   }
 

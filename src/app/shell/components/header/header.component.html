@@ -26,7 +26,7 @@
          [class.is-active]="mobileMenuVisible">
       <div class="navbar-start is-centered">
         <a class="navbar-item is-top-border"
-           *ngIf="currentUser != null"
+           *ngIf="currentUserName"
            routerLinkActive="is-active"
            routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
         </a>
@@ -34,11 +34,10 @@
 
       <div class="navbar-end">
         <!-- user is logged in -->
-         <div *ngIf="currentUser; else showLoginButton"
+        <div *ngIf="currentUserName; else showLoginButton"
              class="navbar-item has-dropdown"
              appHoverClass="is-active">
-          <a class="navbar-link"> {{ currentUser | titlecase }} </a>
-
+          <a class="navbar-link"> {{ currentUserName }} </a>
           <div class="navbar-dropdown is-right is-boxed">
             <a class="navbar-item"> {{ 'USER.PROFILE' | translate }} </a>
             <hr class="navbar-divider" />
@@ -47,15 +46,25 @@
           </div>
         </div>
 
-        <!-- user is not logged in -->
-        <ng-template #showLoginButton>
-          <div class="navbar-item login-button">
-            <span class="button is-primary" (click)="onLoginClicked()">
-              {{ 'USER.LOGIN' | translate }}
-            </span>
-          </div>
-        </ng-template>
+        <div *ngIf="currentUserName"
+             class="columns is-vcentered"
+             style="margin-right: 13px">
+          <figure class="image is-48x48">
+            <img class="is-rounded"
+                 [src]="userPictureUrl" />
+          </figure>
+        </div>
       </div>
+
+      <!-- user is not logged in -->
+      <ng-template #showLoginButton>
+        <div class="navbar-item login-button">
+          <span class="button is-primary"
+                (click)="onLoginClicked()">
+            {{ 'USER.LOGIN' | translate }}
+          </span>
+        </div>
+      </ng-template>
     </div>
   </div>
 </nav>
