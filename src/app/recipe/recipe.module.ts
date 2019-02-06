@@ -7,6 +7,7 @@ import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.compon
 import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RecipeRoutingModule } from './recipe-routing.module';
+import { RecipeTileComponent } from './elements/recipe-tile/recipe-tile.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { RecipeRoutingModule } from './recipe-routing.module';
     RecipeDetailComponent,
     RecipeCreateComponent,
     EditRecipeFormComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    RecipeTileComponent
   ],
   imports: [SharedModule, RecipeRoutingModule, TranslateModule]
 })

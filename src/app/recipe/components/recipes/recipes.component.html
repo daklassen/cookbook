@@ -23,24 +23,8 @@
     <div class="columns is-multiline is-mobile">
       <div *ngFor="let recipe of allRecipes"
            class="column is-one-fifth-widescreen is-one-quarter-tablet is-half-mobile">
-        <div class="tile box is-paddingless"
-             [@fadeInAndOut]>
-          <div class="card-link"
-             routerLink="./recipe-details/{{recipe.id}}"></div>
-          <div class="card-image">
-            <figure class="image is-4by3">
-              <div *ngIf="recipe.imageFile != null; else: placeholder">
-                <img class="border-top"
-                     [src]="(recipe.imageFile | firebaseImage | async) || ''" />
-              </div>
-              <ng-template #placeholder>
-                <img class="border-top"
-                     src="assets/img/placeholder/placeholder_gallery.jpg" />
-              </ng-template>
-            </figure>
-          </div>
-          <p class="title is-5 is-size-6-mobile has-text-centered has-small-padding card-title">{{ recipe.name }}</p>
-        </div>
+        <app-recipe-tile [recipe]="recipe">
+        </app-recipe-tile>
       </div>
     </div>
   </div>
