@@ -1,0 +1,43 @@
+.tile {
+  position: relative;
+  display: block;
+  cursor: pointer;
+
+  .card-link {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .card-image,
+  .card-title {
+    width: 100%;
+    pointer-events: none;
+    position: relative;
+    z-index: 10;
+  }
+  .card-title {
+    padding: 1rem;
+  }
+
+  img {
+    object-fit: cover;
+  }
+
+  .has-small-padding {
+    padding: 1.5rem;
+  }
+
+  .border-top {
+    border-radius: 6px 6px 0 0;
+  }
+}
+
+.box {
+  box-shadow: -1px 3px 10px 0 rgba(0, 0, 0, 0.11);
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 0 4px 50px 0px rgba(0, 0, 0, 0.2);
+  }
+}

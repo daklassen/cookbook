@@ -46,7 +46,11 @@
     "SUCCESS": "Rezept wurde aktualisiert",
     "ERROR": "Fehler beim Aktualisieren",
     "ERROR_IMAGE_UPLOAD": "Fehler beim Hochladen des Bildes",
-    "ERROR_IMAGE_TOO_BIG": "Das ausgewählte Bild überschreitet die Maximalgröße von 3MB"
+    "ERROR_IMAGE_TOO_BIG": "Das ausgewählte Bild überschreitet die Maximalgröße von 3MB",
+    "CATEGORIES": {
+      "MAIN_COURSE": "Hauptgericht",
+      "DESSERT": "Nachspeise"
+    }
   },
   "GENERAL": {
     "DELETE": "Löschen",
