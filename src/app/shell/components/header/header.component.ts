@@ -26,7 +26,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if (user) {
           this.userPictureUrl = user.photoURL;
           this.currentUserName = user.displayName;
-        } else this.currentUserName = null;
+        } else {
+          this.userPictureUrl = null;
+          this.currentUserName = null;
+        }
       });
   }
 
