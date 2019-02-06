@@ -6,7 +6,7 @@ import { CategoryDTO } from './transfer/CategoryDTO';
 import { INGREDIENT_REGEX } from 'src/app/recipe/elements/edit-recipe-form/edit-recipe-form.constants';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
-import { take, map } from 'rxjs/operators';
+import { take, map, filter } from 'rxjs/operators';
 import { UserDTO } from './transfer/UserDTO';
 
 @Injectable()
@@ -29,9 +29,8 @@ export class RecipeService {
     return from(this.db.collection<RecipeDTO>('recipes').add(recipeNew)).pipe(take(1));
   }
 
-  getUsersRecipes(filter: string): Observable<RecipeDTO[]> {
+  getUsersRecipes(filterText: string): Observable<RecipeDTO[]> {
     if (!this.currentUser) return;
-    // TODO: implement filter
     return this.db
       .collection<RecipeDTO>('recipes', ref => ref.where('author.id', '==', this.currentUser.id))
       .snapshotChanges()
@@ -42,7 +41,14 @@ export class RecipeService {
             const id = a.payload.doc.id;
             return { id, ...data } as RecipeDTO;
           })
-        )
+        ),
+        map((recipes: RecipeDTO[]) => {
+          const filteredRecipes = recipes.filter(recipe => {
+            if (!filterText) return true;
+            return this.recipePassesFilter(recipe, filterText);
+          });
+          return filteredRecipes;
+        })
       );
   }
 
@@ -91,5 +97,14 @@ export class RecipeService {
 
   formatIngredientToString(ingredient: IngredientDTO): string {
     return (ingredient.amount + ' ' + ingredient.unit + ' ' + ingredient.name).replace('  ', ' ');
+  }
+
+  private recipePassesFilter(recipe: RecipeDTO, filterText: string): boolean {
+    return (
+      recipe.name.includes(filterText) ||
+      recipe.author.name.includes(filterText) ||
+      recipe.ingredients.reduce((sum, ingr) => sum || ingr.name.includes(filterText), false) ||
+      recipe.id.toString().includes(filterText)
+    );
   }
 }

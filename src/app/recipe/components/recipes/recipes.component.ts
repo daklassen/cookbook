@@ -40,7 +40,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadUsersRecipes();
     this.generateBreadcrumbs();
-    // this.initSearch();
+    this.initSearch();
   }
 
   ngOnDestroy(): void {
