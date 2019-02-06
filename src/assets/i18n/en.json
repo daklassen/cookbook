@@ -46,7 +46,11 @@
     "SUCCESS": "Recipe was updated",
     "ERROR": "Error while updating",
     "ERROR_IMAGE_UPLOAD": "Error while uploading image",
-    "ERROR_IMAGE_TOO_BIG": "The file size limit is 3MB per image"
+    "ERROR_IMAGE_TOO_BIG": "The file size limit is 3MB per image",
+    "CATEGORIES": {
+      "MAIN_COURSE": "Main course",
+      "DESSERT": "Dessert"
+    }
   },
   "GENERAL": {
     "DELETE": "Delete",

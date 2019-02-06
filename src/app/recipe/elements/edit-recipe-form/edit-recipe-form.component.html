@@ -25,7 +25,7 @@
           <div class="select is-medium is-fullwidth">
             <select formControlName="category">
               <option *ngFor="let category of categories"
-                      [ngValue]="category.id">{{ category.name }}</option>
+                      [ngValue]="category.id">{{ 'EDIT_RECIPE.CATEGORIES.' + category.name | translate }}</option>
             </select>
           </div>
         </div>
