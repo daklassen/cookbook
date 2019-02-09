@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { User, auth } from 'firebase';
-import { UserCredential } from 'firebase/auth';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +11,7 @@ export class AuthService {
     return this.afAuth.user;
   }
 
-  doGoogleLogin(): Promise<UserCredential> {
+  doGoogleLogin(): Promise<any> {
     const provider = new auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
