@@ -9,6 +9,11 @@
   }
 }
 
+.navbar-link,
+.navbar-item {
+  color: $light-black;
+}
+
 .navbar-item.disable-hover:hover {
   background: $navbar-background-color !important;
 }
@@ -32,7 +37,6 @@
   .navbar-item.is-active.is-top-border:hover {
     border-color: $link;
     background-color: #f1f1f1;
-    color: $link;
   }
 
   .navbar-item.is-top-border:hover {
@@ -48,7 +52,7 @@
   }
 
   a {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .navbar-dropdown.is-right {

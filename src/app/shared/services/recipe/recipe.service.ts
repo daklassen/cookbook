@@ -101,9 +101,9 @@ export class RecipeService {
 
   private recipePassesFilter(recipe: RecipeDTO, filterText: string): boolean {
     return (
-      recipe.name.includes(filterText) ||
-      recipe.author.name.includes(filterText) ||
-      recipe.ingredients.reduce((sum, ingr) => sum || ingr.name.includes(filterText), false) ||
+      recipe.name.toLowerCase().includes(filterText.toLowerCase()) ||
+      recipe.author.name.toLowerCase().includes(filterText.toLowerCase()) ||
+      recipe.ingredients.reduce((sum, ingr) => sum || ingr.name.toLowerCase().includes(filterText.toLowerCase()), false) ||
       recipe.id.toString().includes(filterText)
     );
   }
