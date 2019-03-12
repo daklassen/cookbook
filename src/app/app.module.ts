@@ -14,10 +14,10 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './shell/components/home/home.component';
-import { HeaderComponent } from './shell/components/header/header.component';
 import { FooterComponent } from './shell/components/footer/footer.component';
 import { AuthService } from './shell/iam/auth.service';
 import { AuthGuard } from './shell/iam/auth.guard';
+import { NavbarComponent } from './shell/components/navbar/navbar.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -25,7 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FooterComponent, HeaderComponent],
+  declarations: [AppComponent, HomeComponent, FooterComponent, NavbarComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
