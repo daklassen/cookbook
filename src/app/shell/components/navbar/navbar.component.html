@@ -1,0 +1,37 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="logo"
+         routerLink="/home"
+         [inlineSVG]="'assets/img/logo.svg'"
+         [forceEvalStyles]="true"></div>
+
+    <a *ngIf="currentUserName"
+       class="link"
+       routerLinkActive="is-active"
+       routerLink="/recipes">{{ 'NAVIG.RECIPES' | translate }}
+    </a>
+
+    <div class="container-right">
+      <span *ngIf="currentUserName; else showLoginButton"
+            class="button is-primary"
+            (click)="onLogoutClicked()">
+        {{ 'USER.LOGOUT' | translate }}
+      </span>
+
+      <ng-template #showLoginButton>
+        <span class="button is-primary"
+              (click)="onLoginClicked()">
+          {{ 'USER.LOGIN' | translate }}
+        </span>
+      </ng-template>
+
+      <div *ngIf="currentUserName"
+           class="profile-pic">
+        <figure class="image is-48x48">
+          <img class="is-rounded"
+               [src]="userPictureUrl" />
+        </figure>
+      </div>
+    </div>
+  </div>
+</nav>
