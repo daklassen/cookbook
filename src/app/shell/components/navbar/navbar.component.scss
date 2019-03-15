@@ -36,6 +36,13 @@
     .button {
       margin-right: 1.5rem;
     }
+    .has-border {
+      border: 6px solid $navbar-background-color;
+
+      &:hover {
+        border: 6px solid rgba(234, 234, 234, 0.6);
+      }
+    }
   }
 }
 
