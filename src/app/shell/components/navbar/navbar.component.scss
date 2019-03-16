@@ -18,23 +18,31 @@
     font-weight: 400;
     font-size: 1.2rem;
     border-bottom: 3px $navbar-background-color solid;
-  }
-
-  a {
     color: black;
-  }
 
-  .is-active {
-    color: black;
-    border-bottom: 3px $primary solid;
+    &.is-active {
+      color: black;
+      border-bottom: 3px $primary solid;
+    }
   }
 
   .container-right {
     display: flex;
     align-items: center;
 
+    .profile-pic {
+      cursor: pointer;
+    }
+
     .button {
       margin-right: 1.5rem;
+    }
+
+    .has-border {
+      border: 6px solid $navbar-background-color;
+      &:hover {
+        border: 6px solid rgba(234, 234, 234, 0.6);
+      }
     }
   }
 }

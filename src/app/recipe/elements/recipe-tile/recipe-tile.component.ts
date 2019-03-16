@@ -13,7 +13,13 @@ export class RecipeTileComponent implements OnInit {
   @Input()
   recipe: RecipeDTO;
 
+  imageLoaded: boolean = false;
+
   constructor() {}
 
   ngOnInit() {}
+
+  setImageLoaded(): void {
+    this.imageLoaded = true;
+  }
 }

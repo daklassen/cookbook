@@ -12,26 +12,23 @@
     </a>
 
     <div class="container-right">
-      <span *ngIf="currentUserName; else showLoginButton"
-            class="button is-primary"
-            (click)="onLogoutClicked()">
-        {{ 'USER.LOGOUT' | translate }}
-      </span>
 
-      <ng-template #showLoginButton>
-        <span class="button is-primary"
-              (click)="onLoginClicked()">
-          {{ 'USER.LOGIN' | translate }}
-        </span>
-      </ng-template>
+      <span *ngIf="!currentUserName"
+            class="button is-primary"
+            (click)="onLoginClicked()">
+        {{ 'USER.LOGIN' | translate }}
+      </span>
 
       <div *ngIf="currentUserName"
            class="profile-pic">
-        <figure class="image is-48x48">
-          <img class="is-rounded"
-               [src]="userPictureUrl" />
+        <figure class="image is-64x64">
+          <img class="is-rounded has-border"
+               [src]="userPictureUrl"
+               (click)="onLogoutClicked()"
+               title="{{ 'USER.LOGOUT' | translate }}"/>
         </figure>
       </div>
+
     </div>
   </div>
 </nav>
