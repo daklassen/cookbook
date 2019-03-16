@@ -6,8 +6,10 @@
   <div class="card-image">
     <figure class="image is-4by3">
       <div *ngIf="recipe.imageFile != null; else: placeholder">
-        <img class="border-top"
-             [src]="(recipe.imageFile | firebaseImage | async) || ''" />
+        <img class="border-top is-not-visible"
+             [src]="(recipe.imageFile | firebaseImage | async) || ''"
+             (load)="setImageLoaded()"
+             [ngClass]="{'is-visible': imageLoaded}" />
       </div>
       <ng-template #placeholder>
         <img class="border-top"

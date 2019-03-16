@@ -32,6 +32,14 @@
   .border-top {
     border-radius: 6px 6px 0 0;
   }
+
+  .is-not-visible {
+    opacity: 0;
+  }
+
+  .is-visible {
+    opacity: 1;
+  }
 }
 
 .box {
