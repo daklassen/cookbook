@@ -1,20 +1,19 @@
 import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  takeWhile,
   map,
   debounceTime,
   distinctUntilChanged,
   switchMap,
   tap,
-  take
+  takeUntil
 } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Animations } from 'src/app/shared/animations/animations';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-recipes',
@@ -24,12 +23,13 @@ import { fromEvent } from 'rxjs';
 })
 export class RecipesComponent implements OnInit, OnDestroy {
   allRecipes: RecipeDTO[];
-  viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
   mainFilter: string;
 
   @ViewChild('searchRef')
   searchRef: ElementRef;
+
+  private unsubscribe = new Subject<void>();
 
   constructor(
     private recipeService: RecipeService,
@@ -44,13 +44,14 @@ export class RecipesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   loadUsersRecipes(filter: string = ''): void {
     this.recipeService
       .getUsersRecipes(filter)
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (result: RecipeDTO[]) => {
           this.allRecipes = result;
@@ -82,7 +83,7 @@ export class RecipesComponent implements OnInit, OnDestroy {
         distinctUntilChanged(),
         tap(() => this.spinner.show()),
         switchMap((filterText: string) => this.recipeService.getUsersRecipes(filterText)),
-        takeWhile(() => this.viewAlive)
+        takeUntil(this.unsubscribe)
       )
       .subscribe((recipes: RecipeDTO[]) => {
         setTimeout(() => {

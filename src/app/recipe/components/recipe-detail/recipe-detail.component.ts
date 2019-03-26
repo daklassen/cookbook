@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 const REGEX_SPLITTING_DESCRIPTION: any = /\r?\n/g;
 
@@ -16,8 +17,9 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   currentRecipe: RecipeDTO;
   recipeId: string;
   splittedDescription: Array<string>;
-  viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
+
+  private unsubscribe = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -32,13 +34,14 @@ export class RecipeDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   loadRecipe(id: string): void {
     this.recipeService
       .getRecipeById(id)
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(recipe => {
         this.currentRecipe = recipe;
         this.splitDescription();

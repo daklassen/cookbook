@@ -5,8 +5,9 @@ import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
-import { takeWhile, take } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { DialogService } from 'src/app/shared/services/ui/dialog.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -16,9 +17,10 @@ import { DialogService } from 'src/app/shared/services/ui/dialog.service';
 export class RecipeEditComponent implements OnInit, OnDestroy {
   recipe: RecipeDTO;
   recipeId: string;
-  viewAlive: boolean = true;
   routerLink: string;
   breadcrumbs: Breadcrumb[];
+
+  private unsubscribe = new Subject<void>();
 
   constructor(
     private recipeService: RecipeService,
@@ -37,7 +39,8 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onRecipeUpdate(recipe: RecipeDTO): void {
@@ -78,7 +81,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private loadRecipe(): void {
     this.recipeService
       .getRecipeById(this.recipeId)
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         recipe => {
           this.recipe = recipe;

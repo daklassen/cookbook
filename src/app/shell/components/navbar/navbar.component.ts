@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../iam/auth.service';
 import { Router } from '@angular/router';
-import { takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { User } from 'firebase';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit {
-  viewAlive: boolean = true;
+export class NavbarComponent implements OnInit, OnDestroy {
   currentUserName: string;
   userPictureUrl: string;
   mobileMenuVisible: boolean;
+
+  private unsubscribe = new Subject<void>();
 
   constructor(public authService: AuthService, private router: Router) {}
 
@@ -21,7 +23,7 @@ export class NavbarComponent implements OnInit {
     this.mobileMenuVisible = false;
     this.authService
       .getCurrentUser()
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((user: User) => {
         if (user) {
           this.userPictureUrl = user.photoURL;
@@ -34,7 +36,8 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onLoginClicked(): void {

@@ -5,8 +5,9 @@ import { Breadcrumb } from 'src/app/shared/models/Breadcrumb';
 import { SnackbarService } from 'src/app/shared/services/ui/snackbar.service';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { RecipeDTO, Recipe } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
-import { takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { DocumentReference } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-recipe-create',
@@ -15,9 +16,10 @@ import { DocumentReference } from '@angular/fire/firestore';
 })
 export class RecipeCreateComponent implements OnInit, OnDestroy {
   emptyRecipe: RecipeDTO;
-  viewAlive: boolean = true;
   breadcrumbs: Breadcrumb[];
-
+  
+  private unsubscribe = new Subject<void>();
+  
   constructor(
     private recipeService: RecipeService,
     private router: Router,
@@ -31,14 +33,15 @@ export class RecipeCreateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   onRecipeCreated(recipe: RecipeDTO): void {
     this.spinner.show();
     this.recipeService
       .createRecipe(recipe)
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(
         (docRef: DocumentReference) => {
           this.snackBar.openShortSnackbar('CREATE_RECIPE_PAGE.SUCCESS');

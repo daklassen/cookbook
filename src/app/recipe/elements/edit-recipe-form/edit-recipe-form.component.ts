@@ -5,10 +5,10 @@ import { RecipeDTO } from 'src/app/shared/services/recipe/transfer/RecipeDTO';
 import { CategoryDTO } from 'src/app/shared/services/recipe/transfer/CategoryDTO';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { IngredientDTO } from 'src/app/shared/services/recipe/transfer/IngredientDTO';
-import { takeWhile } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { INGREDIENT_REGEX } from './edit-recipe-form.constants';
 import { DialogService } from 'src/app/shared/services/ui/dialog.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ImageService } from 'src/app/shared/services/image/image.service';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
@@ -56,9 +56,10 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   currentIngredient: string;
   currentImageFileName: string;
   categories: CategoryDTO[];
-  viewAlive: boolean = true;
   servingOptions: any = [1, 2, 3, 4, 5, 6, 7, 8];
   percentageUpload: Observable<number>;
+
+  private unsubscribe = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -76,7 +77,8 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.viewAlive = false;
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   ingredientToString(ingredient: IngredientDTO): string {
@@ -106,6 +108,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
     }
     this.imageService
       .uploadImageFile(imageFile, this.spinner)
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((taskSnapshot: UploadTaskSnapshot) => {
         const metadata = taskSnapshot.metadata;
         if (metadata) {
@@ -130,7 +133,7 @@ export class EditRecipeFormComponent implements OnInit, OnDestroy {
   private loadAllCategories(): void {
     this.recipeService
       .getAllCategories()
-      .pipe(takeWhile(() => this.viewAlive))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(categories => {
         this.categories = categories;
         this.fillForm();
